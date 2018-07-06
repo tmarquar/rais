@@ -16,7 +16,13 @@ export class ChemSelectPage {
   initializeCheckboxes() {
     for (let item of this.items) {
       this.checkboxes[item] = false;
+
     }
+  }
+
+  toggleCheckboxes(item) {
+    this.checkboxes[item] = !this.checkboxes[item];
+    console.log(this.checkboxes[item]);
   }
 
   initializeItems() {
@@ -25,6 +31,7 @@ export class ChemSelectPage {
       'Bogota',
       'Buenos Aires',
       'Cairo',
+      /*
       'Dhaka',
       'Edinburgh',
       'Geneva',
@@ -56,6 +63,7 @@ export class ChemSelectPage {
       'Taipeh',
       'Tel Aviv',
       'Tokio',
+      */
       'Uelzen',
       'Washington'
     ];
