@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ScenarioPage } from '../scenario/scenario';
 
 @Component({
   selector: 'page-chemSelect',
@@ -8,6 +9,7 @@ import { NavController } from 'ionic-angular';
 export class ChemSelectPage {
   items;
   checkboxes = [];
+
   constructor(public navCtrl: NavController) {
     this.initializeItems();
     this.initializeCheckboxes();
@@ -16,13 +18,41 @@ export class ChemSelectPage {
   initializeCheckboxes() {
     for (let item of this.items) {
       this.checkboxes[item] = false;
-
     }
   }
 
   toggleCheckboxes(item) {
     this.checkboxes[item] = !this.checkboxes[item];
+    /*Debugging
     console.log(this.checkboxes[item]);
+    */
+  }
+
+  goToOtherPage() {
+    var oneChecked: boolean = false;
+
+    /*Debugging
+    for(let item of this.items) {
+        console.log(item);
+        console.log("=");
+        console.log(this.checkboxes[item]);
+    } */
+
+    //Check if at least one box is checked before moving on
+    for (let item of this.items) {
+      if(this.checkboxes[item] == true) {
+        oneChecked = true;
+      }
+    }
+
+    //If everything's good, move on to the next page
+    if(oneChecked == true) {
+     this.navCtrl.push(ScenarioPage, {
+       data: this.checkboxes
+     });
+   } else {
+      alert("At least one chemical must be checked.");
+   }
   }
 
   initializeItems() {

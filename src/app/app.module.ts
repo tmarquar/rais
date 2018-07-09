@@ -8,6 +8,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChemSelectPage } from '../pages/chemSelect/chemSelect';
+import { ScenarioPage } from '../pages/scenario/scenario';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,7 +21,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ContactPage,
     HomePage,
     TabsPage,
-    ChemSelectPage
+    ChemSelectPage,
+    ScenarioPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ContactPage,
     HomePage,
     TabsPage ,
-    ChemSelectPage
+    ChemSelectPage,
+    ScenarioPage
   ],
   providers: [
     StatusBar,
