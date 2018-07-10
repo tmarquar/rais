@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ScenarioPage } from '../scenario/scenario';
+import {ChemicalContainer} from '../Chemical_Container.ts';
+import {ChemicalData} from '../Chemical_Data.ts';
+
 
 @Component({
   selector: 'page-chemSelect',
@@ -9,10 +12,14 @@ import { ScenarioPage } from '../scenario/scenario';
 export class ChemSelectPage {
   items;
   checkboxes = [];
+  chemTest: ChemicalData;
+  chemTest2 : ChemicalContainer;
 
   constructor(public navCtrl: NavController) {
     this.initializeItems();
     this.initializeCheckboxes();
+    this.chemTest2 = new ChemicalContainer;
+    this.chemTest2.readRMLcsv();
   }
 
   initializeCheckboxes() {
