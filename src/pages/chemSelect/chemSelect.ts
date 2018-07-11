@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Http } from '@angular/http';
 import { ScenarioPage } from '../scenario/scenario';
-import {ChemicalContainer} from '../Chemical_Container.ts';
-import {ChemicalData} from '../Chemical_Data.ts';
+import {ChemicalContainer} from '../Chemical_Container';
+import {ChemicalData} from '../Chemical_Data';
 
 
 @Component({
@@ -15,11 +16,11 @@ export class ChemSelectPage {
   chemTest: ChemicalData;
   chemTest2 : ChemicalContainer;
 
-  constructor(public navCtrl: NavController) {
-    this.initializeItems();
+  constructor(public navCtrl: NavController, private http:Http) {
+
+    this.chemTest2 = new ChemicalContainer(this.http);
+    this.items = this.chemTest2.getChemicalNames();
     this.initializeCheckboxes();
-    this.chemTest2 = new ChemicalContainer;
-    this.chemTest2.readRMLcsv();
   }
 
   initializeCheckboxes() {
@@ -62,49 +63,6 @@ export class ChemSelectPage {
    }
   }
 
-  initializeItems() {
-    this.items = [
-      'Amsterdam',
-      'Bogota',
-      'Buenos Aires',
-      'Cairo',
-      /*
-      'Dhaka',
-      'Edinburgh',
-      'Geneva',
-      'Genoa',
-      'Glasglow',
-      'Hanoi',
-      'Hong Kong',
-      'Islamabad',
-      'Istanbul',
-      'Jakarta',
-      'Kiel',
-      'Kyoto',
-      'Le Havre',
-      'Lebanon',
-      'Lhasa',
-      'Lima',
-      'London',
-      'Los Angeles',
-      'Madrid',
-      'Manila',
-      'New York',
-      'Olympia',
-      'Oslo',
-      'Panama City',
-      'Peking',
-      'Philadelphia',
-      'San Francisco',
-      'Seoul',
-      'Taipeh',
-      'Tel Aviv',
-      'Tokio',
-      */
-      'Uelzen',
-      'Washington'
-    ];
-  }
 
   getItems(ev) {
     // Reset items back to all of the items
