@@ -41,7 +41,7 @@ export class ChemicalData {
   setIndustrialTapwater (screeningLevel:number , key:string) : void {
     this._industrialTapwater = [screeningLevel, key];
   }
-  getIndustrialSoil() : [number,string] {
+  getIndustrialTapwater() : [number,string] {
     return this._industrialTapwater;
   }
 
@@ -55,7 +55,7 @@ export class ChemicalData {
   setResidentTapwater (screeningLevel:number , key:string) : void {
     this._residentTapwater = [screeningLevel, key];
   }
-  getResidentSoil() : [number,string] {
+  getResidentTapwater() : [number,string] {
     return this._residentTapwater;
   }
 

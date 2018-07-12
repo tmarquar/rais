@@ -13,49 +13,15 @@ export class ChemicalContainer {
 
   constructor (private http:Http) {
     this.readCsvData();
-    this.initializeChemicalNames();
+
   }
 
   initializeChemicalNames() {
-    this._chemicalNames = [
-      'Amsterdam',
-      'Bogota',
-      'Buenos Aires',
-      'Cairo',
-      'Dhaka',
-      'Edinburgh',
-      'Geneva',
-      'Genoa',
-      'Glasglow',
-      'Hanoi',
-      'Hong Kong',
-      'Islamabad',
-      'Istanbul',
-      'Jakarta',
-      'Kiel',
-      'Kyoto',
-      'Le Havre',
-      'Lebanon',
-      'Lhasa',
-      'Lima',
-      'London',
-      'Los Angeles',
-      'Madrid',
-      'Manila',
-      'New York',
-      'Olympia',
-      'Oslo',
-      'Panama City',
-      'Peking',
-      'Philadelphia',
-      'San Francisco',
-      'Seoul',
-      'Taipeh',
-      'Tel Aviv',
-      'Tokio',
-      'Uelzen',
-      'Washington'
-    ];
+    for (let chemical of this.csvData) {
+
+      this._chemicalNames.push(chemical[0]);
+    }
+
   }
 
   getChemicalNames() : string[] {
@@ -78,6 +44,8 @@ private extractData(res) {
   this.headerRow = parsedData[0];
   parsedData.splice(0,1);
   this.csvData = parsedData;
+  
+  this.initializeChemicalNames();
 }
 
 

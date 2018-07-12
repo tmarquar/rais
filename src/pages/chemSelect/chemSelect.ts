@@ -66,7 +66,7 @@ export class ChemSelectPage {
 
   getItems(ev) {
     // Reset items back to all of the items
-    this.initializeItems();
+    this.items = this.chemTest2.getChemicalNames();
 
     // set val to the value of the ev target
     var val = ev.target.value;
