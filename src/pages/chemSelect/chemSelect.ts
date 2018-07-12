@@ -13,11 +13,11 @@ import {ChemicalData} from '../Chemical_Data';
 export class ChemSelectPage {
   items;
   checkboxes = [];
+  selectedChemicals = [];
   chemTest: ChemicalData;
   chemTest2 : ChemicalContainer;
-  selectedChemicals = [];
 
-  constructor(public navCtrl: NavController, private http:Http) {
+  constructor(public navCtrl: NavController, private http: Http) {
 
     this.chemTest2 = new ChemicalContainer(this.http);
     this.items = this.chemTest2.getChemicalNames();
@@ -32,20 +32,10 @@ export class ChemSelectPage {
 
   toggleCheckboxes(item) {
     this.checkboxes[item] = !this.checkboxes[item];
-    /*Debugging
-    console.log(this.checkboxes[item]);
-    */
   }
 
   goToOtherPage() {
     var oneChecked: boolean = false;
-
-    /*Debugging
-    for(let item of this.items) {
-        console.log(item);
-        console.log("=");
-        console.log(this.checkboxes[item]);
-    } */
 
     //Check if at least one box is checked before moving on
     for (let item of this.items) {
@@ -58,7 +48,7 @@ export class ChemSelectPage {
     //If everything's good, move on to the next page
     if(oneChecked == true) {
      this.navCtrl.push(ScenarioPage, {
-       "data": this.selectedChemicals
+       'data': this.selectedChemicals
      });
    } else {
       alert("At least one chemical must be checked.");

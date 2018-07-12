@@ -10,7 +10,9 @@ export class ScenarioPage {
   scenarios;
   radioButtons = [];
   selectedChemicals = [];
+  //Is at least one scenario picked?
   scenarioSelected = false;
+  finalScenario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.initializeItems();
@@ -24,28 +26,17 @@ export class ScenarioPage {
       if(selectedScenario == scenario) {
         this.radioButtons[selectedScenario] = true;
         this.scenarioSelected = true;
+        this.finalScenario = selectedScenario;
       } else {
         this.radioButtons[scenario] = false;
       }
     }
-
-    /*Debugging
-    for (let scenario of this.scenarios) {
-      console.log(scenario);
-      console.log("=");
-      console.log(this.radioButtons[scenario]);
-    }
-    */
   }
 
   goToOtherPage() {
-    /*Debugging
-    for (let i in this.selectedChemicals) {
-      console.log(this.selectedChemicals[i]);
-    }*/
     if(this.scenarioSelected == true) {
       this.navCtrl.push(CardsPage, {
-        'data1': this.radioButtons,
+        'data1': this.finalScenario,
         'data2': this.selectedChemicals
       });
     } else {
