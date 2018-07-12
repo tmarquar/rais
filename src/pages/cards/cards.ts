@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
+import {ChemicalData} from '../Chemical_Data';
 //import { NextPage } from '../pages/next/next';
 
 @Component({
@@ -12,26 +13,30 @@ export class CardsPage {
   selectedChemicals = [];
   //just a duplicate to refresh the original when searching
   selectedChemicals2 = [];
-  chemTest2 : ChemicalContainer;
+  chemicalData : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.finalScenario = navParams.get('data1');
-    this.selectedChemicals = navParams.get('data2');
+    this.finalScenario = navParams.get('finalScenario');
+    this.selectedChemicals = navParams.get('selectedChemicals');
     this.selectedChemicals2 = this.selectedChemicals;
-    this.chemTest2 = navParams.get('data3');
+    this.chemicalData = navParams.get('chemicalData');
+    //this.chemicalData[0].getCasnum();
   }
 
   openChemCard(chemical) {
 
   }
 
-  displayChemicalInfo(chemical) {
+  displayChemicalInfo(chemical:string):string {
     /*It breaks here
-    this.chemTest2[chemical].getChemicalName();
-    this.chemTest2[chemical].getCasnum();
-    this.chemTest2[chemical].getResidentSoil();
-    this.chemTest2[chemical].getIndustrialSoil();
+    this.chemicalData[chemical].getChemicalName();
+    this.chemicalData[chemical].getCasnum();
+    this.chemicalData[chemical].getResidentSoil();
+    this.chemicalData[chemical].getIndustrialSoil();
     */
+    
+    return  this.chemicalData.getCasnum(chemical);
+    //return chemical;
   }
 
   //For the search bar

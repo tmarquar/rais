@@ -24,6 +24,10 @@ export class ChemicalContainer {
       return this._chemicalNames;
   }
 
+  getCasnum(chemicalName:string): string {
+    return _chemicalsMasterList[chemicalName].getCasnum();
+  }
+
   initializeChemicals() {
     for (let row of this.csvData) {
       this._chemicalsMasterList[row[0]] = new ChemicalData();
@@ -31,6 +35,7 @@ export class ChemicalContainer {
       this._chemicalsMasterList[row[0]].setCasnum(row[1]);
       this._chemicalsMasterList[row[0]].setResidentSoil(row[2], row[3]);
       this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
+      this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
   //    this._chemicalsMasterList[row[0]].set
   //Which is Industrial and residenital???
     }
