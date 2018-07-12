@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChemSelectPage } from '../pages/chemSelect/chemSelect';
 import { ScenarioPage } from '../pages/scenario/scenario';
+import { CardsPage } from '../pages/cards/cards';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,7 +25,8 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage,
     ChemSelectPage,
-    ScenarioPage
+    ScenarioPage,
+    CardsPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage ,
     ChemSelectPage,
-    ScenarioPage
+    ScenarioPage,
+    CardsPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Chemical Info</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to the results page!</h2>
+  <p>
+    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+  </p>
+
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-card *ngFor="let chemical of selectedChemicals">
+    <button ion-item>
+      <ion-card-header ng-model="chemical.selected">
+        <ion-label>{{chemical}}</ion-label>
+      </ion-card-header>
+      <ion-card-content>
+    <!--  {{displayChemicalInfo(chemical)}} -->
+        <p>
+          {{chemical}}
+          ヽ(´▽｀)ノ
+          (─‿‿─)
+        </p>
+      </ion-card-content>
+    </button>
+  </ion-card>
+</ion-content>
+
+<!--
+<ion-card-content>
+    <button ion-item>
+      <ion-icon name="description" item-start></ion-icon>
+       This chemical can make you a super nerd.
+    </button>
+    </ion-card-content>
+  -->

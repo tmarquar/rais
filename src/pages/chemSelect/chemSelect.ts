@@ -15,6 +15,7 @@ export class ChemSelectPage {
   checkboxes = [];
   chemTest: ChemicalData;
   chemTest2 : ChemicalContainer;
+  selectedChemicals = [];
 
   constructor(public navCtrl: NavController, private http:Http) {
 
@@ -50,13 +51,14 @@ export class ChemSelectPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         oneChecked = true;
+        this.selectedChemicals.push(item);
       }
     }
 
     //If everything's good, move on to the next page
     if(oneChecked == true) {
      this.navCtrl.push(ScenarioPage, {
-       data: this.checkboxes
+       "data": this.selectedChemicals
      });
    } else {
       alert("At least one chemical must be checked.");
