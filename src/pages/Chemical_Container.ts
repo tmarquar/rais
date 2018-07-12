@@ -44,7 +44,7 @@ private extractData(res) {
   this.headerRow = parsedData[0];
   parsedData.splice(0,1);
   this.csvData = parsedData;
-  
+
   this.initializeChemicalNames();
 }
 
