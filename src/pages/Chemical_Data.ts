@@ -15,7 +15,7 @@ export class ChemicalData {
     this.setResidentSoil(-1,'empty');
     this.setIndustrialTapwater(-1,'empty');
     this.setResidentTapwater(-1,'empty');
-
+//hello
   }
 
   /**************************************************************
