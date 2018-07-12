@@ -49,6 +49,7 @@ export class ChemicalContainer {
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
 
+
     this.headerRow = parsedData[0];
     parsedData.splice(0,1);
     this.csvData = parsedData;
