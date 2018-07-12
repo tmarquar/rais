@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 //import { NextPage } from '../pages/next/next';
+
 @Component({
   selector: 'page-CardsPage',
   templateUrl: 'cards.html'
 })
 export class CardsPage {
-  radioButtons = [];
+  finalScenario;
   selectedChemicals = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.radioButtons = navParams.get('data1');
+    this.finalScenario = navParams.get('data1');
     this.selectedChemicals = navParams.get('data2');
+  }
+
+  openChemCard(chemical) {
+        
   }
 
   displayChemicalInfo(chemical) {

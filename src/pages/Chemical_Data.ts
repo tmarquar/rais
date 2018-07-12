@@ -1,5 +1,6 @@
 
 export class ChemicalData {
+  _chemicalName:string;
   _casnum : string;
   _industrialSoil : [number,string];
   _industrialTapwater : [number,string];
@@ -10,6 +11,7 @@ export class ChemicalData {
 
   // initialize all data
   constructor () {
+    this.setChemicalName("empty");
     this.setCasnum("empty");
     this.setIndustrialSoil(-1,'empty');
     this.setResidentSoil(-1,'empty');
@@ -23,6 +25,18 @@ export class ChemicalData {
   *
   *
   ***************************************************************/
+  /*initializeChemicalNames() {
+    for (let chemical of this.csvData) {
+      this._chemicalNames.push(chemical[0]);
+    }
+  }*/
+  setChemicalName(chemicalName : string) : void {
+    this._chemicalName = chemicalName;
+  }
+
+  getChemicalName() : string {
+    return this._chemicalName;
+  }
 
   setCasnum(casnum:string) : void {
     this._casnum = casnum;
@@ -58,6 +72,4 @@ export class ChemicalData {
   getResidentTapwater() : [number,string] {
     return this._residentTapwater;
   }
-
-
 }
