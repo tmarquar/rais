@@ -13,14 +13,13 @@
 <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
   <ion-card *ngFor="let chemical of selectedChemicals">
-    <button ion-item>
+    <button ion-item (click)="openChemCard(chemical)">
       <ion-card-header ng-model="chemical.selected">
-        <ion-label>{{chemical}}</ion-label>
+        <ion-card-title> {{chemical}} </ion-card-title>
       </ion-card-header>
       <ion-card-content>
     <!--  {{displayChemicalInfo(chemical)}} -->
         <p>
-          {{chemical}}
           ヽ(´▽｀)ノ
           (─‿‿─)
         </p>
