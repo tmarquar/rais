@@ -14,7 +14,7 @@ export class ChemSelectPage {
   items;
   checkboxes = [];
   selectedChemicals = [];
-  chemTest: ChemicalData;
+  chemTest: ChemicalData; //what's this?
   chemTest2 : ChemicalContainer;
 
   constructor(public navCtrl: NavController, private http: Http) {
@@ -48,13 +48,13 @@ export class ChemSelectPage {
     //If everything's good, move on to the next page
     if(oneChecked == true) {
      this.navCtrl.push(ScenarioPage, {
-       'data': this.selectedChemicals
+       'data1': this.selectedChemicals,
+       'data2': this.chemTest2
      });
    } else {
       alert("At least one chemical must be checked.");
    }
   }
-
 
   getItems(ev) {
     // Reset items back to all of the items

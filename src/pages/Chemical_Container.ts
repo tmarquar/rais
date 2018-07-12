@@ -28,11 +28,11 @@ export class ChemicalContainer {
     for (let row of this.csvData) {
       this._chemicalsMasterList[row[0]] = new ChemicalData();
       this._chemicalsMasterList[row[0]].setChemicalName(row[0]);
-
-      //console.log(this._chemicalsMasterList[row[0]]);
-    //  console.log(chemical[0]);
-    //  console.log(chemical[1]);
-    //  this._chemicalData.push(chemical[1]);
+      this._chemicalsMasterList[row[0]].setCasnum(row[1]);
+      this._chemicalsMasterList[row[0]].setResidentSoil(row[2], row[3]);
+      this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
+  //    this._chemicalsMasterList[row[0]].set
+  //Which is Industrial and residenital???
     }
   }
 
@@ -48,7 +48,6 @@ export class ChemicalContainer {
   private extractData(res) {
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
-
 
     this.headerRow = parsedData[0];
     parsedData.splice(0,1);
