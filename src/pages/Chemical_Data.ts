@@ -3,7 +3,6 @@ export class ChemicalData {
   _chemicalName:string;
   _casnum : string;
   _industrialSoil : [number,string];
-  _industrialTapwater : [number,string];
   _residentSoil : [number,string];
   _residentTapwater : [number,string];
   //_resident = [];
@@ -15,7 +14,6 @@ export class ChemicalData {
     this.setCasnum("empty");
     this.setIndustrialSoil(-1,'empty');
     this.setResidentSoil(-1,'empty');
-    this.setIndustrialTapwater(-1,'empty');
     this.setResidentTapwater(-1,'empty');
 
   }
@@ -50,13 +48,6 @@ export class ChemicalData {
   }
   getIndustrialSoil() : [number,string] {
     return this._industrialSoil;
-  }
-
-  setIndustrialTapwater (screeningLevel:number , key:string) : void {
-    this._industrialTapwater = [screeningLevel, key];
-  }
-  getIndustrialTapwater() : [number,string] {
-    return this._industrialTapwater;
   }
 
   setResidentSoil (screeningLevel:number , key:string) : void {

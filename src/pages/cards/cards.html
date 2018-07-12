@@ -13,12 +13,17 @@
 <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
   <ion-card *ngFor="let chemical of selectedChemicals">
-    <button ion-item (click)="openChemCard(chemical)">
       <ion-card-header ng-model="chemical.selected">
-        <ion-card-title> {{chemical}} </ion-card-title>
+        <ion-card-title> {{chemical}}
+        <button ion-button clear color='energized' icon-start>
+          <ion-icon name='md-star-outline'></ion-icon>
+          Favorite
+        </button>
+        </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-    <!--  {{displayChemicalInfo(chemical)}} -->
+      <button ion-item (click)="openChemCard(chemical)">
+        <ion-card-content>
+          {{displayChemicalInfo(chemical)}}
         <p>
           ヽ(´▽｀)ノ
           (─‿‿─)
