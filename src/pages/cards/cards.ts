@@ -24,7 +24,7 @@ export class CardsPage {
 
   openChemCard(chemical) {
     this.navCtrl.push(ChemDetailsPage, {
-      'chemical': this.chemical,
+      'chemical': chemical,
       'RML_10Data': this.RML_10Data
     });
   }

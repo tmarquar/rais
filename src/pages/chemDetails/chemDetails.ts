@@ -30,9 +30,6 @@ export class ChemDetailsPage {
   dummy(chemical:string):string {
     var casNo, residentSoil, industrialSoil, residentTapwater, MCL : string ;
 
-    for(let chemical of this.RML_10Data) {
-      casNo = "CAS No.: " + this.RML_10Data.getCasnum(chemical);
-    }
-    return casNo;
+    return "hello";
   }
 }
