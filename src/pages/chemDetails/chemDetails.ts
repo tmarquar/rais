@@ -7,7 +7,7 @@ import { ChemicalContainer } from '../Chemical_Container';
   templateUrl: 'chemDetails.html'
 })
 export class ChemDetailsPage {
-  chemical;
+  chemical : string;
   RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
