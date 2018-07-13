@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ScenarioPage } from '../scenario/scenario';
-import {ChemicalContainer} from '../Chemical_Container';
-import {ChemicalData} from '../Chemical_Data';
-
+import { LevelSelectPage } from '../levelSelect/levelSelect';
+import { ChemicalContainer} from '../Chemical_Container';
+import { ChemicalData} from '../Chemical_Data';
 
 @Component({
   selector: 'page-chemSelect',
@@ -17,7 +16,6 @@ export class ChemSelectPage {
   RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, private http: Http) {
-
     this.RML_10Data = new ChemicalContainer(this.http, '../assets/csv/RML_1_0.csv');
     this.items = this.RML_10Data.getChemicalNames();
     this.initializeCheckboxes();
@@ -35,6 +33,7 @@ export class ChemSelectPage {
 
   goToOtherPage() {
     var oneChecked: boolean = false;
+    this.selectedChemicals = [];
 
     //Check if at least one box is checked before moving on
     for (let item of this.items) {
@@ -46,7 +45,7 @@ export class ChemSelectPage {
 
     //If everything's good, move on to the next page
     if(oneChecked == true) {
-     this.navCtrl.push(ScenarioPage, {
+     this.navCtrl.push(LevelSelectPage, {
        'selectedChemicals': this.selectedChemicals,
        'RML_10Data': this.RML_10Data
      });
