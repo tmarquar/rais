@@ -1,14 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Chemical Info</ion-title>
+    <ion-title>Chemical Details</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding *ngFor="let chemical of selectedChemicals" >
-  <h2>{{displayHeader(chemical)}}</h2>
+<ion-content padding >
+  <h2>{{displayHeader()}}</h2>
     <p>
     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 
-          {{dummy(chemical)}}
+          {{dummy()}}
         </p>
 </ion-content>

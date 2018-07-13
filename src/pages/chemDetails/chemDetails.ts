@@ -17,7 +17,7 @@ export class ChemDetailsPage {
     this.dummy(this.chemical);
   }
 
-  displayHeader(chemical) : string {
+  displayHeader() : string {
   /*  if(chemical == this.chemical) {
       return this.chemical;
     } else {
@@ -27,7 +27,7 @@ export class ChemDetailsPage {
 
   }
 
-  dummy(chemical:string):string {
+  dummy():string {
     var casNo, residentSoil, industrialSoil, residentTapwater, MCL : string ;
 
     for(let chemical of this.RML_10Data) {
