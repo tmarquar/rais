@@ -15,6 +15,8 @@ export class ScenarioPage {
   //Is at least one scenario picked?
   scenarioSelected = false;
   finalScenario;
+  finalFile;
+  finalLevel;
   RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -23,6 +25,8 @@ export class ScenarioPage {
 
     this.selectedChemicals = navParams.get('selectedChemicals');
     this.RML_10Data = navParams.get('RML_10Data');
+    this.finalLevel = navParams.get('finalLevel');
+    this.finalFile = navParams.get('finalFile');
   }
 
   selectRadio(selectedScenario) {
@@ -41,6 +45,8 @@ export class ScenarioPage {
     if(this.scenarioSelected == true) {
       this.navCtrl.push(CardsPage, {
         'finalScenario': this.finalScenario,
+        'finalLevel': this.finalLevel,
+        'finalFile': this.finalFile,
         'selectedChemicals': this.selectedChemicals,
         'RML_10Data': this.RML_10Data
       });
@@ -51,7 +57,7 @@ export class ScenarioPage {
 
   initializeRadio() {
     for (let scenario of this.scenarios) {
-      this.radioButtons[scenario] = true;
+      this.radioButtons[scenario] = false;
     }
   }
 

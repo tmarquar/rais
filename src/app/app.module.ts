@@ -8,6 +8,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChemSelectPage } from '../pages/chemSelect/chemSelect';
+import { LevelSelectPage } from '../pages/levelSelect/levelSelect';
+import { FileSelectPage } from '../pages/fileSelect/fileSelect';
 import { ScenarioPage } from '../pages/scenario/scenario';
 import { CardsPage } from '../pages/cards/cards';
 import { ChemDetailsPage } from '../pages/chemDetails/chemDetails';
@@ -25,6 +27,8 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage,
     ChemSelectPage,
+    LevelSelectPage,
+    FileSelectPage,
     ScenarioPage,
     CardsPage,
     ChemDetailsPage
@@ -43,6 +47,8 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage ,
     ChemSelectPage,
+    LevelSelectPage,
+    FileSelectPage,
     ScenarioPage,
     CardsPage,
     ChemDetailsPage

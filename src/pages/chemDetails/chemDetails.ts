@@ -8,31 +8,44 @@ import { ChemicalContainer } from '../Chemical_Container';
 })
 export class ChemDetailsPage {
   chemical : string;
-  RML_10Data : ChemicalContainer;
+  finalFile;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.chemical = navParams.get('chemical');
-    this.RML_10Data = navParams.get('RML_10Data');
-
-    this.dummy(this.chemical);
+    this.finalFile = navParams.get('finalFile');
+  //  finalFile : ChemicalContainer;
+    console.log(finalFile);
+  //  this.RML_10Data = navParams.get('RML_10Data');
   }
-
+  getFinalFileName(finalFile) {
+    return this.finalFile;
+  }
   displayHeader() : string {
-  /*  if(chemical == this.chemical) {
-      return this.chemical;
-    } else {
-      return "empty";
-    } */
-    return "Hello";
-
+    return this.chemical;
   }
 
-  dummy():string {
-    var casNo, residentSoil, industrialSoil, residentTapwater, MCL : string ;
-
-    for(let chemical of this.RML_10Data) {
-      casNo = "CAS No.: " + this.RML_10Data.getCasnum(chemical);
-    }
-    return casNo;
+  displayCasNum(chemical):string {
+    return this.RML_10Data.getCasnum(this.chemical);
+  }
+  displayResSoil(chemical):string {
+    var result : string;
+    result = String(this.RML_10Data.getResidentSoil(this.chemical)[0]);
+    return result;
+  }
+  displayResSoilKey(chemical):string {
+    return this.RML_10Data.getResidentSoil(this.chemical)[1];
+  }
+  displayIndSoil(chemical):string {
+    var result : string;
+    result = String(this.RML_10Data.getIndustrialSoil(this.chemical)[0]);
+    return result;
+  }
+  displayIndSoilKey(chemical):string {
+    return this.RML_10Data.getIndustrialSoil(this.chemical)[1];
+  }
+  displayMCL(chemical):string {
+    var result : string;
+    result = String(this.RML_10Data.getMCL(this.chemical));
+    return result;
   }
 }

@@ -5,10 +5,19 @@
 </ion-header>
 
 <ion-content padding >
-  <h2>{{displayHeader()}}</h2>
-    <p>
-    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
-
-          {{dummy()}}
-        </p>
+    <h2>{{displayHeader()}}</h2>
+    <p> (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧    </p>
+    <h3>CAS No.:
+       <p>{{displayCasNum()}}</p>
+    Resident Soil (mg/kg):
+        <p>{{displayResSoil()}}</p>
+    Key:
+      <p>{{displayResSoil()}}</p>
+    Industrial Soil (mg/kg):
+      <p>{{displayIndSoil()}}</p>
+      Key:
+      <p>{{displayIndSoilKey()}}</p>
+      MCL:
+      <p>{{displayMCL()}}</p>
+    </h3>
 </ion-content>
