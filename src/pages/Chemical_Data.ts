@@ -68,7 +68,7 @@ export class ChemicalData {
   setMCL(mcl:number) : void {
     this._mcl = mcl;
   }
-  getMCL() : string {
+  getMCL() : number {
     return this._mcl;
   }
 }
