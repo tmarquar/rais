@@ -52,6 +52,7 @@ export class CardsPage {
       'chemical': chemical,
       'finalFile': this.finalFile,
       finalFile: this.finalFile
+
     });
   }
 

@@ -13,6 +13,7 @@ import { FileSelectPage } from '../pages/fileSelect/fileSelect';
 import { ScenarioPage } from '../pages/scenario/scenario';
 import { CardsPage } from '../pages/cards/cards';
 import { ChemDetailsPage } from '../pages/chemDetails/chemDetails';
+import { StaffPage } from '../pages/contact/staff/staff';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +32,8 @@ import { HttpModule } from '@angular/http';
     FileSelectPage,
     ScenarioPage,
     CardsPage,
-    ChemDetailsPage
+    ChemDetailsPage,
+    StaffPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { HttpModule } from '@angular/http';
     FileSelectPage,
     ScenarioPage,
     CardsPage,
-    ChemDetailsPage
+    ChemDetailsPage,
+    StaffPage
   ],
   providers: [
     StatusBar,

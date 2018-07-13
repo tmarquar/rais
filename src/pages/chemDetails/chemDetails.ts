@@ -47,5 +47,6 @@ export class ChemDetailsPage {
     var result : string;
     result = String(this.RML_10Data.getMCL(this.chemical));
     return result;
+
   }
 }

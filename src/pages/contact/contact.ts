@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { StaffPage } from './staff/staff';
 
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
 })
 export class ContactPage {
-  items = [
+  staff = [
     'Fred Dolislager',
     'Leslie Galloway',
     'Debra Stewart',
@@ -18,7 +19,11 @@ export class ContactPage {
 
   }
 
-  itemSelected(item: string) {
-    console.log("Selected Item", item);
+  staffSelected(staffMember: string) {
+    //console.log("Selected Item", staffMember);
+    this.navCtrl.push(StaffPage, {
+      'staffMember': staffMember,
+      'staff' : this.staff
+    });
   }
 }
