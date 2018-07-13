@@ -8,44 +8,39 @@ import { ChemicalContainer } from '../Chemical_Container';
 })
 export class ChemDetailsPage {
   chemical : string;
-  finalFile;
+  data: ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.chemical = navParams.get('chemical');
-    this.finalFile = navParams.get('finalFile');
-  //  finalFile : ChemicalContainer;
-    console.log(finalFile);
-  //  this.RML_10Data = navParams.get('RML_10Data');
+    this.data = navParams.get('data');
   }
-  getFinalFileName(finalFile) {
-    return this.finalFile;
-  }
+
   displayHeader() : string {
     return this.chemical;
   }
 
   displayCasNum(chemical):string {
-    return this.RML_10Data.getCasnum(this.chemical);
+    return this.data.getCasnum(this.chemical);
   }
-  displayResSoil(chemical):string {
+  displayResidentSoil(chemical):string {
     var result : string;
-    result = String(this.RML_10Data.getResidentSoil(this.chemical)[0]);
+    result = String(this.data.getResidentSoil(this.chemical)[0]);
     return result;
   }
-  displayResSoilKey(chemical):string {
-    return this.RML_10Data.getResidentSoil(this.chemical)[1];
+  displayResidentSoilKey(chemical):string {
+    return this.data.getResidentSoil(this.chemical)[1];
   }
-  displayIndSoil(chemical):string {
+  displayIndustrialSoil(chemical):string {
     var result : string;
-    result = String(this.RML_10Data.getIndustrialSoil(this.chemical)[0]);
+    result = String(this.data.getIndustrialSoil(this.chemical)[0]);
     return result;
   }
-  displayIndSoilKey(chemical):string {
-    return this.RML_10Data.getIndustrialSoil(this.chemical)[1];
+  displayIndustrialSoilKey(chemical):string {
+    return this.data.getIndustrialSoil(this.chemical)[1];
   }
   displayMCL(chemical):string {
     var result : string;
-    result = String(this.RML_10Data.getMCL(this.chemical));
+    result = String(this.data.getMCL(this.chemical));
     return result;
 
   }
