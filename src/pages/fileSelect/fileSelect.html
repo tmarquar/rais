@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>I don't know what the title should be? ┐(‘～`；)┌</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1> Select file Quotient and Target Risk</h1>
+  <ion-list radio-group>
+    <ion-item *ngFor="let file of files">
+        <ion-radio ng-model="file.selected" (ionSelect)="selectRadio(file)">
+        </ion-radio>
+        <ion-label>{{file}}</ion-label>
+    </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-footer>
+  <div class="btn-wrapper">
+    <button ion-button (click)= "goToOtherPage()">Next</button>
+  </div>
+</ion-footer>

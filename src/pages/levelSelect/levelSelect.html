@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>I don't know what the title should be either? ┐(‘～`；)┌</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <h1> Select Level?</h1>
+  <ion-list radio-group>
+    <ion-item *ngFor="let level of levels">
+      <ion-radio ng-model="level.checked" (ionSelect)="selectRadio(level)">
+      </ion-radio>
+      <ion-label>{{level}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <div class="btn-wrapper">
+    <button ion-button (click)= "goToOtherPage()">Next</button>
+  </div>
+</ion-footer>

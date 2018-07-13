@@ -15,7 +15,7 @@
   <ion-card *ngFor="let chemical of selectedChemicals">
       <ion-card-header ng-model="chemical.selected">
         <ion-card-title> {{chemical}}
-        <button ion-button clear color='energized' icon-start>
+        <button ion-button clear icon-start>
           <ion-icon name='md-star-outline'></ion-icon>
           Favorite
         </button>
@@ -23,11 +23,19 @@
       </ion-card-header>
       <button ion-item (click)="openChemCard(chemical)">
         <ion-card-content>
-          {{displayChemicalCasnum(chemical)}}
-        <p>
-          ヽ(´▽｀)ノ
-          (─‿‿─)
-        </p>
+          <h3>CAS No.:
+             <p>{{displayCasNum(chemical)}}</p>
+             {{displayResSoilLabel(chemical)}}
+              <p>{{displayResSoil(chemical)}}</p>
+          Key:
+            <p>{{displayResSoil(chemical)}}</p>
+          Industrial Soil (mg/kg):
+            <p>{{displayIndSoil(chemical)}}</p>
+            Key:
+            <p>{{displayIndSoilKey(chemical)}}</p>
+            MCL:
+            <p>{{displayMCL(chemical)}}</p>
+          </h3>
       </ion-card-content>
     </button>
   </ion-card>

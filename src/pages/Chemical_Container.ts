@@ -92,7 +92,7 @@ export class ChemicalContainer {
     return this._chemicalsMasterList[chemicalName].getResidentTapwater();
   }
 
-  getMCL(chemicalName:string) : string {
+  getMCL(chemicalName:string) : number {
     return this._chemicalsMasterList[chemicalName].getMCL();
   }
 }
