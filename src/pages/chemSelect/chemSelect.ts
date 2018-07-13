@@ -14,13 +14,12 @@ export class ChemSelectPage {
   items;
   checkboxes = [];
   selectedChemicals = [];
-  chemTest: ChemicalData;
-  chemTest2 : ChemicalContainer;
+  RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, private http: Http) {
 
-    this.chemTest2 = new ChemicalContainer(this.http);
-    this.items = this.chemTest2.getChemicalNames();
+    this.RML_10Data = new ChemicalContainer(this.http, '../assets/csv/RML_1_0.csv');
+    this.items = this.RML_10Data.getChemicalNames();
     this.initializeCheckboxes();
   }
 
@@ -48,17 +47,17 @@ export class ChemSelectPage {
     //If everything's good, move on to the next page
     if(oneChecked == true) {
      this.navCtrl.push(ScenarioPage, {
-       'data': this.selectedChemicals
+       'selectedChemicals': this.selectedChemicals,
+       'RML_10Data': this.RML_10Data
      });
    } else {
       alert("At least one chemical must be checked.");
    }
   }
 
-
   getItems(ev) {
     // Reset items back to all of the items
-    this.items = this.chemTest2.getChemicalNames();
+    this.items = this.RML_10Data.getChemicalNames();
 
     // set val to the value of the ev target
     var val = ev.target.value;
