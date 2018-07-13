@@ -12,7 +12,28 @@
 </ion-header>
 
 <ion-content>
-
-  
-
+  <h2 padding>{{staffMember}}</h2>
+  <p>
+    Email:
+    <a href = "mailto:{{getEmail(staffMember)}}">{{getEmail(staffMember)}}</a>
+  </p>
+  <p>
+    Phone:
+    <a href = "tel:+{{getEmail(staffMember)}}">{{getPhone(staffMember)}}</a>
+  </p>
+  <p>
+    The Institute For Environmental Modeling <br>
+    University of Tennessee, Knoxville
+  </p>
+  <p>
+    Mailing Address: <br>
+    Building 2040 <br>
+    Oak Ridge National Laboratory <br>
+    P.O. Box 2008 <br>
+    Mail Stop 6309 <br>
+    Oak Ridge, TN 37831
+  </p>
+  <p>
+    {{getDescription(staffMember)}}
+  </p>
 </ion-content>
