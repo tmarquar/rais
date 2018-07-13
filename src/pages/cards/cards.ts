@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
-import {ChemicalData} from '../Chemical_Data';
-//import { NextPage } from '../pages/next/next';
+import { ChemDetailsPage } from '../chemDetails/chemDetails';
 
 @Component({
   selector: 'page-CardsPage',
@@ -24,12 +23,15 @@ export class CardsPage {
   }
 
   openChemCard(chemical) {
-
+    this.navCtrl.push(ChemDetailsPage, {
+      'chemical': this.chemical,
+      'RML_10Data': this.RML_10Data
+    });
   }
 
   displayChemicalCasnum(chemical:string):string {
     var output : string ;
-    output = "Casnum: " + this.RML_10Data.getCasnum(chemical);
+    output = "CAS No.: " + this.RML_10Data.getCasnum(chemical);
 
     return output;
   }
@@ -43,14 +45,9 @@ export class CardsPage {
     return "test";
   }
 
-  //For the search bar
-  refreshSelectedChemicals() {
-      this.selectedChemicals = this.selectedChemicals2;
-  }
-
   getItems(ev) {
     // Reset items back to all of the items
-    this.refreshSelectedChemicals();
+    this.selectedChemicals = this.selectedChemicals2;
 
     // set val to the value of the ev target
     var val = ev.target.value;

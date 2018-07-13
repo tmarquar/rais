@@ -5,6 +5,7 @@ export class ChemicalData {
   _industrialSoil : [number,string];
   _residentSoil : [number,string];
   _residentTapwater : [number,string];
+  _mcl : number;
   //_resident = [];
   //_industrial = [];
 
@@ -15,7 +16,7 @@ export class ChemicalData {
     this.setIndustrialSoil(-1,'empty');
     this.setResidentSoil(-1,'empty');
     this.setResidentTapwater(-1,'empty');
-
+    this.setMCL(-1);
   }
 
   /**************************************************************
@@ -62,5 +63,12 @@ export class ChemicalData {
   }
   getResidentTapwater() : [number,string] {
     return this._residentTapwater;
+  }
+
+  setMCL(mcl:number) : void {
+    this._mcl = mcl;
+  }
+  getMCL() : string {
+    return this._mcl;
   }
 }
