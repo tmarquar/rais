@@ -13,30 +13,34 @@ export class CardsPage {
   selectedChemicals = [];
   //just a duplicate to refresh the original when searching
   selectedChemicals2 = [];
-  chemicalData : ChemicalContainer;
+  RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.finalScenario = navParams.get('finalScenario');
     this.selectedChemicals = navParams.get('selectedChemicals');
     this.selectedChemicals2 = this.selectedChemicals;
-    this.chemicalData = navParams.get('chemicalData');
-    //this.chemicalData[0].getCasnum();
+    this.RML_10Data = navParams.get('RML_10Data');
+    //this.RML_10Data[0].getCasnum();
   }
 
   openChemCard(chemical) {
 
   }
 
-  displayChemicalInfo(chemical:string):string {
-    /*It breaks here
-    this.chemicalData[chemical].getChemicalName();
-    this.chemicalData[chemical].getCasnum();
-    this.chemicalData[chemical].getResidentSoil();
-    this.chemicalData[chemical].getIndustrialSoil();
-    */
-    
-    return  this.chemicalData.getCasnum(chemical);
-    //return chemical;
+  displayChemicalCasnum(chemical:string):string {
+    var output : string ;
+    output = "Casnum: " + this.RML_10Data.getCasnum(chemical);
+
+    return output;
+  }
+
+  displayChemicalSoil(chemical:string):string {
+    var information : [number,string];
+    var output : string ;
+    information = this.RML_10Data.getResidentSoil(chemical);
+    information = this.RML_10Data.getIndustrialSoil(chemical);
+    information = this.RML_10Data.getResidentTapwater(chemical);
+    return "test";
   }
 
   //For the search bar

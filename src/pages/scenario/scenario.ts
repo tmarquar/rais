@@ -15,14 +15,14 @@ export class ScenarioPage {
   //Is at least one scenario picked?
   scenarioSelected = false;
   finalScenario;
-  chemicalData : ChemicalContainer;
+  RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.initializeItems();
     this.initializeRadio();
 
     this.selectedChemicals = navParams.get('selectedChemicals');
-    this.chemicalData = navParams.get('chemicalData');
+    this.RML_10Data = navParams.get('RML_10Data');
   }
 
   selectRadio(selectedScenario) {
@@ -42,7 +42,7 @@ export class ScenarioPage {
       this.navCtrl.push(CardsPage, {
         'finalScenario': this.finalScenario,
         'selectedChemicals': this.selectedChemicals,
-        'chemicalData': this.chemicalData
+        'RML_10Data': this.RML_10Data
       });
     } else {
         alert("Please select a scenario.");
