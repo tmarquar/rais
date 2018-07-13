@@ -1,17 +1,21 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      <h1>
+        RAIS
+      </h1>
+      <h2>
+        The Risk Assessment<br>Information System
+      </h2>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
+  <h2 padding>Staff Listing</h2>
+  <ion-list no-lines>
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+      {{ item }}
+    </button>
   </ion-list>
 </ion-content>
