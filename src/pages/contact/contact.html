@@ -14,7 +14,7 @@
 <ion-content>
   <h2 padding>Staff Listing</h2>
   <ion-list no-lines>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+    <button ion-item *ngFor="let item of staff" (click)="staffSelected(item)">
       {{ item }}
     </button>
   </ion-list>
