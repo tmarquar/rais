@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { CardsPage } from '../cards/cards';
+import {ChemicalData} from '../Chemical_Data';
 
 @Component({
   selector: 'page-ScenarioPage',
@@ -14,14 +15,14 @@ export class ScenarioPage {
   //Is at least one scenario picked?
   scenarioSelected = false;
   finalScenario;
-  chemTest2 : ChemicalContainer;
+  RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.initializeItems();
     this.initializeRadio();
 
-    this.selectedChemicals = navParams.get('data1');
-    this.chemTest2 = navParams.get('data2');
+    this.selectedChemicals = navParams.get('selectedChemicals');
+    this.RML_10Data = navParams.get('RML_10Data');
   }
 
   selectRadio(selectedScenario) {
@@ -39,9 +40,9 @@ export class ScenarioPage {
   goToOtherPage() {
     if(this.scenarioSelected == true) {
       this.navCtrl.push(CardsPage, {
-        'data1': this.finalScenario,
-        'data2': this.selectedChemicals,
-        'data3': this.chemTest2
+        'finalScenario': this.finalScenario,
+        'selectedChemicals': this.selectedChemicals,
+        'RML_10Data': this.RML_10Data
       });
     } else {
         alert("Please select a scenario.");
