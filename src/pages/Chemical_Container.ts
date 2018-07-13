@@ -30,8 +30,7 @@ export class ChemicalContainer {
       this._chemicalsMasterList[row[0]].setResidentSoil(row[2], row[3]);
       this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
       this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
-  //    this._chemicalsMasterList[row[0]].set
-  //Which is Industrial and residenital???
+      this._chemicalsMasterList[row[0]].setMCL(row[8]);
     }
   }
 
@@ -93,5 +92,7 @@ export class ChemicalContainer {
     return this._chemicalsMasterList[chemicalName].getResidentTapwater();
   }
 
-
+  getMCL(chemicalName:string) : string {
+    return this._chemicalsMasterList[chemicalName].getMCL();
+  }
 }
