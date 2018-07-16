@@ -37,7 +37,7 @@ export class TargetRiskHazardPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data._targetRiskHazard.push(item);
+        this.data.addTargetRiskHazard(item);
       }
     }
 

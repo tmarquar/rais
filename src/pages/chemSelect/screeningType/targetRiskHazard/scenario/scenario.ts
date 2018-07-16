@@ -36,7 +36,7 @@ export class ScenarioPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data._scenario.push(item);
+        this.data.addScenario(item);
       }
     }
 

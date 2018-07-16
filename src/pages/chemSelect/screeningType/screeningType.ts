@@ -37,7 +37,7 @@ export class ScreeningTypePage {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
         // update
-        this.data._screeningType.push(item);
+        this.data.addScreeningType(item);
       }
     }
 
