@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ChemicalContainer } from '../../Chemical_Container';
-import { ChemDetailsPage } from '../chemDetails/chemDetails';
+import { ChemicalContainer } from '../../../../../Chemical_Container';
+import { ChemDetailsPage } from './chemDetails/chemDetails';
 
 @Component({
   selector: 'page-CardsPage',

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { LevelSelectPage } from './levelSelect/levelSelect';
+import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
-import { ChemicalData} from '../Chemical_Data';
 
 @Component({
   selector: 'page-chemSelect',
@@ -45,7 +44,7 @@ export class ChemSelectPage {
 
     //If everything's good, move on to the next page
     if(oneChecked == true) {
-     this.navCtrl.push(LevelSelectPage, {
+     this.navCtrl.push(ScreeningTypePage, {
        'selectedChemicals': this.selectedChemicals,
        'RML_10Data': this.RML_10Data
      });

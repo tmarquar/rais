@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChemicalContainer } from '../../Chemical_Container';
-import { ScenarioPage } from '../scenario/scenario';
-import { ChemicalData} from '../../Chemical_Data';
+import { ChemicalContainer } from '../../../Chemical_Container';
+import { ScenarioPage } from './scenario/scenario';
+
 
 @Component({
-  selector: 'page-FilePage',
-  templateUrl: 'fileSelect.html'
+  selector: 'page-TargetRiskHazardPage',
+  templateUrl: 'targetRiskHazard.html'
 })
-export class FileSelectPage {
+export class TargetRiskHazardPage {
   files;
   radioButtons = [];
   selectedChemicals = [];

@@ -11,11 +11,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StaffPage } from '../pages/contact/staff/staff';
 
 import { ChemSelectPage } from '../pages/chemSelect/chemSelect';
-import { LevelSelectPage } from '../pages/chemSelect/levelSelect/levelSelect';
-import { FileSelectPage } from '../pages/chemSelect/fileSelect/fileSelect';
-import { ScenarioPage } from '../pages/chemSelect/scenario/scenario';
-import { CardsPage } from '../pages/chemSelect/cards/cards';
-import { ChemDetailsPage } from '../pages/chemSelect/chemDetails/chemDetails';
+import { TargetRiskHazardPage } from '../pages/chemSelect/screeningType/targetRiskHazard/targetRiskHazard';
+import { ScreeningTypePage } from '../pages/chemSelect/screeningType/screeningType';
+import { ScenarioPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/scenario';
+import { CardsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/cards/cards';
+import { ChemDetailsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/cards/chemDetails/chemDetails';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,8 +30,8 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage,
     ChemSelectPage,
-    LevelSelectPage,
-    FileSelectPage,
+    TargetRiskHazardPage,
+    ScreeningTypePage,
     ScenarioPage,
     CardsPage,
     ChemDetailsPage,
@@ -51,8 +51,8 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage ,
     ChemSelectPage,
-    LevelSelectPage,
-    FileSelectPage,
+    ScreeningTypePage,
+    TargetRiskHazardPage,
     ScenarioPage,
     CardsPage,
     ChemDetailsPage,

@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChemicalContainer } from '../Chemical_Container';
-import { FileSelectPage } from '../fileSelect/fileSelect';
-import {ChemicalData} from '../../Chemical_Data';
+import { ChemicalContainer } from '../../Chemical_Container';
+import { TargetRiskHazardPage } from './targetRiskHazard/targetRiskHazard';
 
 @Component({
-  selector: 'page-LevelSelectPage',
-  templateUrl: 'levelSelect.html'
+  selector: 'page-ScreeningTypePage',
+  templateUrl: 'screeningType.html'
 })
-export class LevelSelectPage {
+export class ScreeningTypePage {
   levels;
   radioButtons = [];
   selectedChemicals = [];
@@ -39,7 +38,7 @@ export class LevelSelectPage {
 
   goToOtherPage() {
     if(this.levelSelected == true) {
-      this.navCtrl.push(FileSelectPage, {
+      this.navCtrl.push(TargetRiskHazardPage, {
         'finalLevel': this.finalLevel,
         'selectedChemicals': this.selectedChemicals,
         'RML_10Data': this.RML_10Data
