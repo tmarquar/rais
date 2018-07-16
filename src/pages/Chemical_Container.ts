@@ -46,11 +46,12 @@ export class ChemicalContainer {
       'Tap MCL',
       'Tap MCL SSL'
     ];
+
     this._scenarioOptions = [
       'Resident',
       'Industrial'
     ];
-
+    
   }
 
   initializeChemicalNames() : void{
@@ -260,29 +261,29 @@ export class ChemicalContainer {
   * Display data from each chemical element in the proper data set.
   *
   ***********************************************************/
-  displayCasNum(chemical):string {
+  displayCasNum(chemical:string):string {
     return this.getCasnum(chemical);
   }
-  displayResidentSoilLabel(chemical):string {
+  displayResidentSoilLabel(chemical:string):string {
     return "Resident Soil (mg/kg): ";
   }
-  displayResidentSoil(chemical):string {
+  displayResidentSoil(chemical:string):string {
     var result : string;
     result = String(this.getResidentSoil(chemical)[0]);
     return result;
   }
-  displayResidentSoilKey(chemical):string {
+  displayResidentSoilKey(chemical:string):string {
     return this.getResidentSoil(chemical)[1];
   }
-  displayIndustrialSoil(chemical):string {
+  displayIndustrialSoil(chemical:string):string {
     var result : string;
     result = String(this.getIndustrialSoil(chemical)[0]);
     return result;
   }
-  displayIndustrialSoilKey(chemical):string {
+  displayIndustrialSoilKey(chemical:string):string {
     return this.getIndustrialSoil(chemical)[1];
   }
-  displayMCL(chemical):string {
+  displayMCL(chemical:string):string {
     var result : string;
     result = String(this.getMCL(chemical));
     return result;
