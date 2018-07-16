@@ -9,24 +9,57 @@ export class ChemicalContainer {
   headerRow:any[] = [];
   _chemicalNames:string[] = [];
   _chemicalsMasterList: ChemicalData[] = [];
-  _selectedChemicals = [];
-  _scenario;
-  _regionalLevel;
-  _screeningTyoe;
-  _targetRiskHazard;
-  _exposureRoute;
+
+  _selectedChemicals:string[] = [];
+  _scenario:string[] = [];
+  _screeningType:string[] = [];
+  _targetRiskHazard:string[] = [];
+  _exposureRoutes:string[] = [];
+  _screeningTypeOptions:string[] = [];
+  _targetRiskHazardOptions:string[] = [];
+  _exposureRouteOptions:string[] = [];
+  _scenarioOptions:string[] = [];
 
   constructor (private http: Http, fileName:string) {
     this.readCsvData(fileName);
+    this.initializeOptions();
   }
 
-  initializeChemicalNames() {
+  initializeOptions() :void  {
+    this._screeningTypeOptions = [
+      'RSL (Regional Screening Levels)',
+      'RML (Regional Removal Management Levels)'
+    ];
+
+    this._targetRiskHazardOptions = [
+      'Target Risk: 1E-6 and Hazard Quotient: 1.0',
+      'Target Risk: 1E-6 and Hazard Quotient: 0.1',
+      'Target Risk: 1E-4 and Hazard Quotient: 1.0',
+      'Target Risk: 1E-4 and Hazard Quotient: 3.0'
+    ];
+
+    this._exposureRouteOptions = [
+      'Soil',
+      'Tapwater',
+      'Air',
+      'Tap SSL',
+      'Tap MCL',
+      'Tap MCL SSL'
+    ];
+    this._scenarioOptions = [
+      'Resident',
+      'Industrial'
+    ];
+
+  }
+
+  initializeChemicalNames() : void{
      for (let chemical of this.csvData) {
        this._chemicalNames.push(chemical[0]);
      }
   }
 
-  initializeChemicals() {
+  initializeChemicals() : void {
     for (let row of this.csvData) {
       this._chemicalsMasterList[row[0]] = new ChemicalData();
       this._chemicalsMasterList[row[0]].setChemicalName(row[0]);
@@ -35,6 +68,7 @@ export class ChemicalContainer {
       this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
       this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
       this._chemicalsMasterList[row[0]].setMCL(row[8]);
+
     }
   }
 
@@ -47,7 +81,7 @@ export class ChemicalContainer {
   );
 }
 
-  private extractData(res) {
+  private extractData(res) : void {
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
 
@@ -63,46 +97,134 @@ export class ChemicalContainer {
     console.log('something went wrong: ', err);
   }
 
-  addChemical(chemical) {
-    this._selectedChemicals.push(chemical);
-  }
-  getSelectedChemicals() {
-    return _selectedChemicals;
+/***************************************************************
+* functions so that we get the options that we want
+*
+*
+*****************************************************************/
+
+  public getScreeningTypeOptions() :string[]{
+    return this._screeningTypeOptions;
   }
 
+  // get the options for target risk after selecting screeningType
+  public getTargetRiskHazardOptions() :string[]{
+    let choices:string[] = [];
+    for (let type of this._screeningType) {
+      if (type === this._screeningTypeOptions[0]){
+        choices.push(this._targetRiskHazardOptions[0]);
+        choices.push(this._targetRiskHazardOptions[1]);
+      }
+      if (type === this._screeningTypeOptions[1]){
+        choices.push(this._targetRiskHazardOptions[2]);
+        choices.push(this._targetRiskHazardOptions[3]);
+      }
+    }
+    return choices;
+  }
+
+  // get the scenario options after selecting target risk
+  public getExposureRouteOptions(): string[]{
+  let choices:string[] = [];
+  for (let route of this._exposureRouteOptions) {
+    if (route === this._targetRiskHazard[0]){
+      choices = this._exposureRouteOptions;
+    }
+    if (route === this._targetRiskHazard[1]){
+      choices.push(this._exposureRouteOptions[0]);
+      choices.push(this._exposureRouteOptions[2]);
+    }
+    if (route === this._targetRiskHazard[2]){
+      choices.push(this._exposureRouteOptions[0]);
+      choices.push(this._exposureRouteOptions[1]);
+    }
+    if (route === this._targetRiskHazard[3]){
+      choices.push(this._exposureRouteOptions[0]);
+    }
+  }
+  let unique = Array.from(new Set(choices));
+  console.log("hello");
+  return unique;
+  }
+
+  public getScenarioOptions() : string[] {
+    return this._scenarioOptions;
+  }
+
+  /*******************************************************************
+  * Handle scenario information. Each is an array so that all information
+  * can be selected.
+  *
+  *
+  *********************************************************************/
+  addChemical(chemical:string) : void {
+    this._selectedChemicals.push(chemical);
+  }
+  getSelectedChemicals() :string[]{
+    return this._selectedChemicals;
+  }
+  resetSelectedChemicals() : void {
+    this._selectedChemicals = [];
+  }
+  setSelectedChemicals(selectedChemicals:string[]) : void {
+    this._selectedChemicals = selectedChemicals;
+  }
   // List of all chemicals from Masterlist
   getChemicalNames() : string[] {
-      return this._chemicalNames;
+    return this._chemicalNames;
   }
-  setScenario(scenario) {
+
+  addScenario(scenario:string):void{
+    this._scenario.push(scenario);
+  }
+  setScenario(scenario:string[]):void {
     this._scenario = scenario;
   }
-  getScenario() {
+  clearScenario():void {
+    this._scenario = [];
+  }
+  getScenario() :string[] {
     return this._scenario;
   }
-  setRegionalLevel(regionalLevel) {
-    this._regionalLevel = regionalLevel;
+
+  addScreeningType(screeningType:string) :void {
+    this._screeningType.push(screeningType);
   }
-  getRegionalLevel() {
-    return this._regionalLevel;
-  }
-  setScreeningType(screeningType) {
+  setScreeningType(screeningType:string[]):void {
     this._screeningType = screeningType;
   }
-  getScreeningLevel() {
+  clearScreeningType():void {
+    this._screeningType = [];
+  }
+  getScreeningType():string[] {
     return this._screeningType;
   }
-  setTargetRiskHazard(targetRiskHazard) {
+
+  addTargetRiskHazard(targetRiskHazard:string) :void {
+    this._targetRiskHazard.push(targetRiskHazard);
+  }
+  setTargetRiskHazard(targetRiskHazard:string[]) :void{
     this._targetRiskHazard = targetRiskHazard;
   }
-  getTargetRiskHazard() {
+  clearTargetRiskHazard() :void{
+    this._targetRiskHazard = [];
+  }
+  getTargetRiskHazard() :string[]{
     return this._targetRiskHazard;
   }
-  setExposureRoute(exposureRoute) {
-      this._exposureRoute = exposureRoute;
+
+  addExposureRoute(media:string) :void {
+      this._exposureRoutes.push(media);
   }
-  getExposureRoute() {
-    return this._exposureRoute;
+  setExposureRoutes(exposureRoutes:string[]):void {
+      this._exposureRoutes = exposureRoutes;
+  }
+  clearExposureRoutes():void {
+      this._exposureRoutes = [];
+  }
+  getExposureRoutes() : string[]{
+    return this._exposureRoutes;
+
   }
   /**********************************************************
   * Access data from each chemical element in the Masterlist.
@@ -139,30 +261,30 @@ export class ChemicalContainer {
   *
   ***********************************************************/
   displayCasNum(chemical):string {
-    return this.data.getCasnum(chemical);
+    return this.getCasnum(chemical);
   }
   displayResidentSoilLabel(chemical):string {
     return "Resident Soil (mg/kg): ";
   }
   displayResidentSoil(chemical):string {
     var result : string;
-    result = String(this.data.getResidentSoil(chemical)[0]);
+    result = String(this.getResidentSoil(chemical)[0]);
     return result;
   }
   displayResidentSoilKey(chemical):string {
-    return this.data.getResidentSoil(chemical)[1];
+    return this.getResidentSoil(chemical)[1];
   }
   displayIndustrialSoil(chemical):string {
     var result : string;
-    result = String(this.data.getIndustrialSoil(chemical)[0]);
+    result = String(this.getIndustrialSoil(chemical)[0]);
     return result;
   }
   displayIndustrialSoilKey(chemical):string {
-    return this.data.getIndustrialSoil(chemical)[1];
+    return this.getIndustrialSoil(chemical)[1];
   }
   displayMCL(chemical):string {
     var result : string;
-    result = String(this.data.getMCL(chemical));
+    result = String(this.getMCL(chemical));
     return result;
   }
 }

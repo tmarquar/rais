@@ -5,12 +5,12 @@
 </ion-header>
 
 <ion-content>
-    <h1> Select Level?</h1>
-  <ion-list radio-group>
-    <ion-item *ngFor="let level of levels">
-      <ion-radio ng-model="level.checked" (ionSelect)="selectRadio(level)">
-      </ion-radio>
-      <ion-label>{{level}}</ion-label>
+    <h1> Select Screening Type</h1>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      <ion-checkbox ng-model="item.checked" (ionChange)="toggleCheckboxes(item)">
+      </ion-checkbox>
+      <ion-label>{{item}}</ion-label>
     </ion-item>
   </ion-list>
 

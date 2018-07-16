@@ -1,69 +1,55 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../Chemical_Container';
-import { CardsPage } from './cards/cards';
+import { ExposureRoutesPage } from './exposureRoutes/exposureRoutes';
 
 @Component({
   selector: 'page-ScenarioPage',
   templateUrl: 'scenario.html'
 })
 export class ScenarioPage {
-  scenarios;
-  radioButtons = [];
-  selectedChemicals = [];
+  items;
+  checkboxes = [];
   //Is at least one scenario picked?
-  scenarioSelected = false;
-  finalScenario;
-  finalFile;
-  finalLevel;
-  RML_10Data : ChemicalContainer;
+  oneChecked = false;
+  data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = navParams.get('data');
     this.initializeItems();
-    this.initializeRadio();
-
-    this.selectedChemicals = navParams.get('selectedChemicals');
-    this.RML_10Data = navParams.get('RML_10Data');
-    this.finalLevel = navParams.get('finalLevel');
-    this.finalFile = navParams.get('finalFile');
+    this.initializeCheckboxes();
   }
 
-  selectRadio(selectedScenario) {
-    for (let scenario of this.scenarios) {
-      if(selectedScenario == scenario) {
-        this.radioButtons[selectedScenario] = true;
-        this.scenarioSelected = true;
-        this.finalScenario = selectedScenario;
-      } else {
-        this.radioButtons[scenario] = false;
-      }
+  initializeCheckboxes() {
+    for (let item of this.items) {
+      this.checkboxes[item] = false;
     }
+  }
+
+  toggleCheckboxes(item) {
+    this.checkboxes[item] = !this.checkboxes[item];
   }
 
   goToOtherPage() {
-    if(this.scenarioSelected == true) {
-      this.navCtrl.push(CardsPage, {
-        'finalScenario': this.finalScenario,
-        'finalLevel': this.finalLevel,
-        'finalFile': this.finalFile,
-        'selectedChemicals': this.selectedChemicals,
-        'RML_10Data': this.RML_10Data
-      });
-    } else {
-        alert("Please select a scenario.");
+    //Check if at least one box is checked before moving on
+    this.data.clearScenario();
+    for (let item of this.items) {
+      if(this.checkboxes[item] == true) {
+        this.oneChecked = true;
+        this.data.addScenario(item);
       }
     }
 
-  initializeRadio() {
-    for (let scenario of this.scenarios) {
-      this.radioButtons[scenario] = false;
-    }
+    if(this.oneChecked == true) {
+      this.navCtrl.push(ExposureRoutesPage, {
+        'data': this.data
+      });
+    } else {
+        alert("Please select at least one option.");
+      }
   }
 
-  initializeItems() {
-    this.scenarios = [
-      'Resident',
-      'Industrial'
-    ];
+  initializeItems() :void {
+    this.items = this.data.getScenarioOptions();
   }
 }

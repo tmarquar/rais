@@ -9,61 +9,48 @@ import { ScenarioPage } from './scenario/scenario';
   templateUrl: 'targetRiskHazard.html'
 })
 export class TargetRiskHazardPage {
-  files;
-  radioButtons = [];
-  selectedChemicals = [];
+  items;
+  checkboxes = [];
   //Is at least one radio button picked?
-  fileSelected = false;
-  finalFile;
-  finalLevel;
-  RML_10Data : ChemicalContainer;
+  oneChecked = false;
+  data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = navParams.get('data');
     this.initializeItems();
-    this.initializeRadio();
-
-    this.selectedChemicals = navParams.get('selectedChemicals');
-    this.RML_10Data = navParams.get('RML_10Data');
-    this.finalLevel = navParams.get('finalLevel');
+    this.initializeCheckboxes();
   }
 
-  selectRadio(selectedFile) {
-    for (let file of this.files) {
-      if(selectedFile == file) {
-        this.radioButtons[selectedFile] = true;
-        this.fileSelected = true;
-        this.finalFile = selectedFile;
-      } else {
-        this.radioButtons[file] = false;
-      }
+  initializeCheckboxes() {
+    for (let item of this.items) {
+      this.checkboxes[item] = false;
     }
+  }
+
+  toggleCheckboxes(item) {
+    this.checkboxes[item] = !this.checkboxes[item];
   }
 
   goToOtherPage() {
-    if(this.fileSelected == true) {
-      this.navCtrl.push(ScenarioPage, {
-        'finalFile': this.finalFile,
-        'finalLevel': this.finalLevel,
-        'selectedChemicals': this.selectedChemicals,
-        'RML_10Data': this.RML_10Data
-      });
-    } else {
-        alert("Please select an option.");
+    //Check if at least one box is checked before moving on
+    this.data.clearTargetRiskHazard();
+    for (let item of this.items) {
+      if(this.checkboxes[item] == true) {
+        this.oneChecked = true;
+        this.data.addTargetRiskHazard(item);
       }
     }
 
-  initializeRadio() {
-    for (let file of this.files) {
-      this.radioButtons[file] = false;
-    }
+    if(this.oneChecked == true) {
+      this.navCtrl.push(ScenarioPage, {
+        'data': this.data
+      });
+    } else {
+        alert("Please select at least one option.");
+      }
   }
 
   initializeItems() {
-    this.files = [
-      'Target Risk: 1E-6 and File Quotient: 1.0',
-      'Target Risk: 1E-6 and File Quotient: 0.1',
-      'Target Risk: 1E-4 and File Quotient: 1.0',
-      'Target Risk: 1E-4 and File Quotient: 3.0',
-    ];
+    this.items = this.data.getTargetRiskHazardOptions();
   }
 }
