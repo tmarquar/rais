@@ -9,15 +9,25 @@ export class ChemicalContainer {
   headerRow:any[] = [];
   _chemicalNames:string[] = [];
   _chemicalsMasterList: ChemicalData[] = [];
-  _selectedChemicals = [];
-  _scenario:string[];
-  _regionalLevel:string[];
-  _screeningType:string[];
-  _targetRiskHazard:string[];
-  _exposureRoute:string[];
+
+  _selectedChemicals:string[] = [];
+  _scenario:string[] = [];
+  _screeningType:string[] = [];
+  _targetRiskHazard:string[] = [];
+  _exposureRoutes:string[] = [];
+  _screeningTypeOptions:string[] = [];
+
 
   constructor (private http: Http, fileName:string) {
     this.readCsvData(fileName);
+    this.initializeOptions();
+  }
+
+  initializeOptions() {
+    this._screeningTypeOptions = [
+      'RSL (Regional Screening Levels)',
+      'RML (Regional Removal Management Levels)'
+    ];
   }
 
   initializeChemicalNames() : void{
@@ -35,6 +45,7 @@ export class ChemicalContainer {
       this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
       this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
       this._chemicalsMasterList[row[0]].setMCL(row[8]);
+
     }
   }
 
@@ -63,52 +74,78 @@ export class ChemicalContainer {
     console.log('something went wrong: ', err);
   }
 
-  addChemical(chemical) : void {
+  // get the options for target risk after selecting screeningType
+  /*
+  getTargetRiskHazardChoices() :string[]{
+    let choices:string[] = [];
+    for (let type of this._screeningType) {
+      if (type === this._screeningTypeOptions)
+    }
+  }
+
+  // get the scenario options after selecting target risk
+  getScenarioChoices(): string[]{
+
+  }
+*/
+  /*******************************************************************
+  * Handle scenario information. Each is an array so that all information
+  * can be selected.
+  *
+  *
+  *********************************************************************/
+  addChemical(chemical:string):void {
     this._selectedChemicals.push(chemical);
   }
-  setSelectedChemicals(selectedChemicals:string[]) : void {
-    this._selectedChemicals = selectedChemicals;
-  }
-  resetSelectedChemicals() : void {
-    this._selectedChemicals = [];
-  }
-  getSelectedChemicals() : string[] {
-    return this._selectedChemicals;
+  getSelectedChemicals() :string[]{
+    return _selectedChemicals;
   }
 
   // List of all chemicals from Masterlist
   getChemicalNames() : string[] {
     return this._chemicalNames;
   }
-  setScenario(scenario) : void {
+
+
+  addScenario(scenario:string):void{
+    this._scenario.push(scenario);
+  }
+  setScenario(scenario:string[]):void {
     this._scenario = scenario;
   }
-  getScenario() : string[] {
+  getScenario() :string[] {
     return this._scenario;
   }
-  setRegionalLevel(regionalLevel) : void  {
-    this._regionalLevel = regionalLevel;
+
+  addScreeningType(screeningType:string) :void {
+    this._screeningType.push(screeningType);
   }
-  getRegionalLevel() : string[] {
-    return this._regionalLevel;
-  }
-  setScreeningType(screeningType) : void {
+  setScreeningType(screeningType:string[]):void {
     this._screeningType = screeningType;
   }
-  getScreeningLevel() : string[] {
+  getScreeningType():string[] {
     return this._screeningType;
   }
-  setTargetRiskHazard(targetRiskHazard) : void {
+
+  addTargetRiskHazard(targetRiskHazard:string) :void {
+    this._targetRiskHazard.push(targetRiskHazard);
+  }
+  setTargetRiskHazard(targetRiskHazard:string[]) :void{
     this._targetRiskHazard = targetRiskHazard;
   }
-  getTargetRiskHazard() : string[] {
+  getTargetRiskHazard() :string[]{
     return this._targetRiskHazard;
   }
-  setExposureRoute(exposureRoute) : void {
-      this._exposureRoute = exposureRoute;
+
+  addExposureRoute(media:string) :void {
+      this._exposureRoutes.push(media);
   }
-  getExposureRoute() : string[] {
-    return this._exposureRoute;
+  setExposureRoutes(exposureRoutes:string[]):void {
+      this._exposureRoutes = exposureRoutes;
+  }
+  getExposureRoutes() : string[]{
+    return this._exposureRoutes;
+
   }
   /**********************************************************
   * Access data from each chemical element in the Masterlist.
