@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ChemicalContainer } from '../Chemical_Container';
-import { ChemDetailsPage } from '../chemDetails/chemDetails';
+import { ChemicalContainer } from '../../../../../Chemical_Container';
+import { ChemDetailsPage } from './chemDetails/chemDetails';
 
 @Component({
   selector: 'page-CardsPage',
@@ -15,10 +15,7 @@ export class CardsPage {
   selectedChemicals = [];
   //just a duplicate to refresh the original when searching
   selectedChemicals2 = [];
-  RML_10Data : ChemicalContainer;
-  RML_30Data : ChemicalContainer;
-  RSL_01Data : ChemicalContainer;
-  RSL_10Data : ChemicalContainer;
+  data: ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
     this.finalScenario = navParams.get('finalScenario');
@@ -26,61 +23,51 @@ export class CardsPage {
     this.finalFile = navParams.get('finalFile');
     this.selectedChemicals = navParams.get('selectedChemicals');
     this.selectedChemicals2 = this.selectedChemicals;
-    this.RML_10Data = navParams.get('RML_10Data');
 
-
-    if(this.finalFile == 'Target Risk: 1E-6 and File Quotient: 1.0') {
-      //already read the file in the beginning
-      this.finalFile = "RML_10Data";
-     }
     if(this.finalFile == 'Target Risk: 1E-4 and File Quotient: 1.0') {
-      this.RSL_10Data = new ChemicalContainer(this.http, '../assets/csv/RSL_1_0.csv');
-      this.finalFile = "RSL_10Data";
-     }
-    if(this.finalFile == 'Target Risk: 1E-6 and File Quotient: 0.1') {
-      this.RSL_01Data = new ChemicalContainer(this.http, '../assets/csv/RSL_0_1.csv');
-      this.finalFile = "RSL_01Data";
-     }
-    if(this.finalFile == 'Target Risk: 1E-4 and File Quotient: 3.0') {
-      this.RML_30Data = new ChemicalContainer(this.http, '../assets/csv/RML_3_0.csv');
-      this.finalFile = "RML_30Data";
+      this.data = new ChemicalContainer(this.http, '../../assets/csv/RSL_1_0.csv');
+    } else if(this.finalFile == 'Target Risk: 1E-6 and File Quotient: 0.1') {
+      this.data = new ChemicalContainer(this.http, '../../assets/csv/RSL_0_1.csv');
+    } else if(this.finalFile == 'Target Risk: 1E-4 and File Quotient: 3.0') {
+      this.data = new ChemicalContainer(this.http, '../../assets/csv/RML_3_0.csv');
     }
+    console.log(this.finalLevel);
+    console.log(this.finalScenario);
+    console.log(this.finalFile);
   }
 
   openChemCard(chemical) {
     this.navCtrl.push(ChemDetailsPage, {
       'chemical': chemical,
-      'finalFile': this.finalFile,
-      finalFile: this.finalFile
-
+      'data': this.data
     });
   }
 
   displayCasNum(chemical):string {
-    return this.RML_10Data.getCasnum(chemical);
+    return this.data.getCasnum(chemical);
   }
-  displayResSoilLabel(chemical):string {
+  displayResidentSoilLabel(chemical):string {
     return "Resident Soil (mg/kg): ";
   }
-  displayResSoil(chemical):string {
+  displayResidentSoil(chemical):string {
     var result : string;
-    result = String(this.RML_10Data.getResidentSoil(chemical)[0]);
+    result = String(this.data.getResidentSoil(chemical)[0]);
     return result;
   }
-  displayResSoilKey(chemical):string {
-    return this.RML_10Data.getResidentSoil(chemical)[1];
+  displayResidentSoilKey(chemical):string {
+    return this.data.getResidentSoil(chemical)[1];
   }
-  displayIndSoil(chemical):string {
+  displayIndustrialSoil(chemical):string {
     var result : string;
-    result = String(this.RML_10Data.getIndustrialSoil(chemical)[0]);
+    result = String(this.data.getIndustrialSoil(chemical)[0]);
     return result;
   }
-  displayIndSoilKey(chemical):string {
-    return this.RML_10Data.getIndustrialSoil(chemical)[1];
+  displayIndustrialSoilKey(chemical):string {
+    return this.data.getIndustrialSoil(chemical)[1];
   }
   displayMCL(chemical):string {
     var result : string;
-    result = String(this.RML_10Data.getMCL(chemical));
+    result = String(this.data.getMCL(chemical));
     return result;
   }
 
