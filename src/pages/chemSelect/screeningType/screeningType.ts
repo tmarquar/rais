@@ -8,10 +8,10 @@ import { TargetRiskHazardPage } from './targetRiskHazard/targetRiskHazard';
   templateUrl: 'screeningType.html'
 })
 export class ScreeningTypePage {
-  items;
-  checkboxes = [];
+  items:string[] = [];
+  checkboxes:boolean[] = [];
   //Is at least one scenario picked?
-  oneChecked = false;
+  oneChecked:boolean = false;
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -36,6 +36,7 @@ export class ScreeningTypePage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
+        // update
         this.data._screeningType.push(item);
       }
     }
@@ -50,9 +51,6 @@ export class ScreeningTypePage {
   }
 
   initializeItems() {
-    this.items = [
-      'RSL (Regional Screening Levels)',
-      'RML (Regional Removal Management Levels)'
-    ];
+    this.items = this.data.getScreeningTypeOptions();
   }
 }

@@ -30,12 +30,14 @@ export class ChemicalContainer {
       'RSL (Regional Screening Levels)',
       'RML (Regional Removal Management Levels)'
     ];
+
     this._targetRiskHazardOptions = [
       'Target Risk: 1E-6 and Hazard Quotient: 1.0',
       'Target Risk: 1E-6 and Hazard Quotient: 0.1',
       'Target Risk: 1E-4 and Hazard Quotient: 1.0',
       'Target Risk: 1E-4 and Hazard Quotient: 3.0'
     ];
+
     this._exposureRouteOptions = [
       'Soil',
       'Tapwater',
@@ -90,12 +92,12 @@ export class ChemicalContainer {
     console.log('something went wrong: ', err);
   }
 
-  getScreeningTypeChoices() :string[]{
+  public getScreeningTypeOptions() :string[]{
     return this._screeningTypeOptions;
   }
 
   // get the options for target risk after selecting screeningType
-  getTargetRiskHazardChoices() :string[]{
+  public getTargetRiskHazardOptions() :string[]{
     let choices:string[] = [];
     for (let type of this._screeningType) {
       if (type === this._screeningTypeOptions[0]){
@@ -111,7 +113,7 @@ export class ChemicalContainer {
   }
 
   // get the scenario options after selecting target risk
-  getExposureRouteOptions(): string[]{
+  public getExposureRouteOptions(): string[]{
   let choices:string[] = [];
   for (let route of this._exposureRouteOptions) {
     if (route === this._targetRiskHazard[0]){
