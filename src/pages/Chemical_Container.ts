@@ -18,7 +18,7 @@ export class ChemicalContainer {
   _screeningTypeOptions:string[] = [];
   _targetRiskHazardOptions:string[] = [];
   _exposureRouteOptions:string[] = [];
-  
+  _scenarioOptions:string[] = [];
 
   constructor (private http: Http, fileName:string) {
     this.readCsvData(fileName);
@@ -46,6 +46,11 @@ export class ChemicalContainer {
       'Tap MCL',
       'Tap MCL SSL'
     ];
+    this._scenarioOptions = [
+      'Resident',
+      'Industrial'
+    ];
+
   }
 
   initializeChemicalNames() : void{
@@ -138,8 +143,12 @@ export class ChemicalContainer {
     }
   }
   let unique = Array.from(new Set(choices));
-
+  console.log("hello");
   return unique;
+  }
+
+  public getScenarioOptions() : string[] {
+    return this._scenarioOptions;
   }
 
   /*******************************************************************
