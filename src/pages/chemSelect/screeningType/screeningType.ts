@@ -8,54 +8,50 @@ import { TargetRiskHazardPage } from './targetRiskHazard/targetRiskHazard';
   templateUrl: 'screeningType.html'
 })
 export class ScreeningTypePage {
-  levels;
-  radioButtons = [];
-  selectedChemicals = [];
+  items;
+  checkboxes = [];
   //Is at least one scenario picked?
-  levelSelected = false;
-  finalLevel;
-  RML_10Data : ChemicalContainer;
+  oneChecked = false;
+  data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.initializeItems();
-    this.initializeRadio();
+    this.initializeCheckboxes();
 
-    this.selectedChemicals = navParams.get('selectedChemicals');
-    this.RML_10Data = navParams.get('RML_10Data');
+    this.data = navParams.get('data');
   }
 
-  selectRadio(selectedLevel) {
-    for (let level of this.levels) {
-      if(selectedLevel == level) {
-        this.radioButtons[selectedLevel] = true;
-        this.levelSelected = true;
-        this.finalLevel = selectedLevel;
-      } else {
-        this.radioButtons[level] = false;
-      }
+  initializeCheckboxes() {
+    for (let item of this.items) {
+      this.checkboxes[item] = false;
     }
+  }
+
+  toggleCheckboxes(item) {
+    this.checkboxes[item] = !this.checkboxes[item];
   }
 
   goToOtherPage() {
-    if(this.levelSelected == true) {
-      this.navCtrl.push(TargetRiskHazardPage, {
-        'finalLevel': this.finalLevel,
-        'selectedChemicals': this.selectedChemicals,
-        'RML_10Data': this.RML_10Data
-      });
-    } else {
-        alert("Please select an option.");
+    //Check if at least one box is checked before moving on
+    for (let item of this.items) {
+      if(this.checkboxes[item] == true) {
+        this.oneChecked = true;
+        //fix after push
+    //    this.data.selectedChemicals.push(item);
       }
     }
 
-  initializeRadio() {
-    for (let level of this.levels) {
-      this.radioButtons[level] = true;
-    }
+    if(this.oneChecked == true) {
+      this.navCtrl.push(TargetRiskHazardPage, {
+        'data': this.data
+      });
+    } else {
+        alert("Please select at least one option.");
+      }
   }
 
   initializeItems() {
-    this.levels = [
+    this.items = [
       'RSL (Regional Screening Levels)',
       'RML (Regional Removal Management Levels)'
     ];
