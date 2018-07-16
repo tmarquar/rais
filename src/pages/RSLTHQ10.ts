@@ -12,34 +12,39 @@ export class RSLTHQ10 {
   _industrialAir : [number,string][] = [];
 
   _residentSoil : [number,string][] = [];
-  _residentTapwater : [number,string][] = [];
+  _residentAir : [number,string][] = [];
+  _residentTapwater:[number,string][] = [];
 
   _tapwaterMCL : number[] = [];
   _tapwaterMCLSSL : number[] = [];
   _tapwaterSSL : number[] = [];
   _sslKey : string[] = [];
 
+  _exposureRouteOptions:string[] = [];
+  _scenarioOptions:string[] = [];
+
   // initialize all data
-  constructor (private http: Http) {
+  constructor (private http: Http, routeOptions:string[], scenarioOptions:string[]) {
     this.readCsvData('../csv/RSL_1_0.csv');
+    this._exposureRouteOptions = scenarioOptions;
+    this._scenarioOptions = scenarioOptions;
 
-  }
-
-  private initializeChemicalNames() : void{
-     for (let chemical of this.csvData) {
-       this._chemicalNames.push(chemical[0]);
-     }
   }
 
   private initializeChemicals() : void {
     for (let row of this.csvData) {
       //this._chemicalsMasterList[row[0]] = new ChemicalData();
-      this._chemicalsMasterList[row[0]].setChemicalName(row[0]);
-      this._chemicalsMasterList[row[0]].setCasnum(row[1]);
-      this._chemicalsMasterList[row[0]].setResidentSoil(row[2], row[3]);
-      this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
-      this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
-      this._chemicalsMasterList[row[0]].setMCL(row[8]);
+      this._chemicalName[row[0]].push(row[0]);
+      this._casnum[row[0]].push(row[1]);
+      this._residentSoil[row[0]].push([row[2], row[3]]);
+      this._industrialSoil[row[0]].push([row[4], row[5]]);
+      this._residentAir[row[0]].push([row[6],row[7]]);
+      this._industrialAir[row[0]].push([row[8],row[9]]);
+      this._residentTapwater[row[0]].push([row[10],row[11]]);
+      this._tapwaterMCL[row[0]].push(row[12]);
+      this._tapwaterSSL[row[0]].push(row[13]);
+      this._sslKey[row[0]].push(row[14]);
+      this._tapwaterMCLSSL[row[0]].push(row[15]);
 
     }
   }
@@ -62,12 +67,17 @@ export class RSLTHQ10 {
     parsedData.splice(0,1);
     this.csvData = parsedData;
 
-    this.initializeChemicalNames();
     this.initializeChemicals();
   }
 
   private handleError(err) {
     console.log('something went wrong: ', err);
   }
+
+  // Do we want to pass the options arrays so that we don't make direct comparisons?
+  public getData (scenario:string[], route:string[], chemical:string) : string[] {
+
+  }
+
 
 }
