@@ -129,8 +129,8 @@ export class ChemicalContainer {
       choices.push(this._scenarioOptions[0]);
     }
   }
-  //let unique = Array.from(new Set(choices));
-  let unique = [...new Set(choices)];
+  let unique = Array.from(new Set(choices));
+  //let unique = [...new Set(choices)];
   return unique;
   }
 
