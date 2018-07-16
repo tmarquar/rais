@@ -16,6 +16,8 @@ export class ChemicalContainer {
   _targetRiskHazard:string[] = [];
   _exposureRoutes:string[] = [];
   _screeningTypeOptions:string[] = [];
+  _targetRiskHazardOptions:string[] = [];
+  _scenarioOptions:string[] = [];
 
 
   constructor (private http: Http, fileName:string) {
@@ -27,6 +29,20 @@ export class ChemicalContainer {
     this._screeningTypeOptions = [
       'RSL (Regional Screening Levels)',
       'RML (Regional Removal Management Levels)'
+    ];
+    this._targetRiskHazardOptions = [
+      'Target Risk: 1E-6 and Hazard Quotient: 1.0',
+      'Target Risk: 1E-6 and Hazard Quotient: 0.1',
+      'Target Risk: 1E-4 and Hazard Quotient: 1.0',
+      'Target Risk: 1E-4 and Hazard Quotient: 3.0'
+    ];
+    this._scenarioOptions = [
+      'Soil',
+      'Tapwater',
+      'Air',
+      'Tap SSL',
+      'Tap MCL',
+      'Tap MCL SSL'
     ];
   }
 
@@ -74,20 +90,50 @@ export class ChemicalContainer {
     console.log('something went wrong: ', err);
   }
 
+  getScreeningTypeChoices() :string[]{
+    return this._screeningTypeOptions;
+  }
+
   // get the options for target risk after selecting screeningType
-  /*
   getTargetRiskHazardChoices() :string[]{
     let choices:string[] = [];
     for (let type of this._screeningType) {
-      if (type === this._screeningTypeOptions)
+      if (type === this._screeningTypeOptions[0]){
+        choices.push(this._targetRiskHazardOptions[0]);
+        choices.push(this._targetRiskHazardOptions[1]);
+      }
+      if (type === this._screeningTypeOptions[1]){
+        choices.push(this._targetRiskHazardOptions[2]);
+        choices.push(this._targetRiskHazardOptions[3]);
+      }
     }
+    return choices;
   }
 
   // get the scenario options after selecting target risk
   getScenarioChoices(): string[]{
-
+  let choices:string[] = [];
+  for (let scenario of this._scenario) {
+    if (scenario === this._targetRiskHazard[0]){
+      choices = this._scenarioOptions;
+    }
+    if (scenario === this._targetRiskHazard[1]){
+      choices.push(this._scenarioOptions[0]);
+      choices.push(this._scenarioOptions[2]);
+    }
+    if (scenario === this._targetRiskHazard[2]){
+      choices.push(this._scenarioOptions[0]);
+      choices.push(this._scenarioOptions[1]);
+    }
+    if (scenario === this._targetRiskHazard[3]){
+      choices.push(this._scenarioOptions[0]);
+    }
   }
-*/
+  //let unique = Array.from(new Set(choices));
+  let unique = [...new Set(choices)];
+  return unique;
+  }
+
   /*******************************************************************
   * Handle scenario information. Each is an array so that all information
   * can be selected.
