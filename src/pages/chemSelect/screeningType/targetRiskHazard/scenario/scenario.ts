@@ -8,60 +8,50 @@ import { CardsPage } from './cards/cards';
   templateUrl: 'scenario.html'
 })
 export class ScenarioPage {
-  scenarios;
-  radioButtons = [];
-  selectedChemicals = [];
+  items;
+  checkboxes = [];
   //Is at least one scenario picked?
-  scenarioSelected = false;
-  finalScenario;
-  finalFile;
-  finalLevel;
-  RML_10Data : ChemicalContainer;
+  oneChecked = false;
+  data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.initializeItems();
-    this.initializeRadio();
+    this.initializeCheckboxes();
 
-    this.selectedChemicals = navParams.get('selectedChemicals');
-    this.RML_10Data = navParams.get('RML_10Data');
-    this.finalLevel = navParams.get('finalLevel');
-    this.finalFile = navParams.get('finalFile');
+    this.data = navParams.get('data');
   }
 
-  selectRadio(selectedScenario) {
-    for (let scenario of this.scenarios) {
-      if(selectedScenario == scenario) {
-        this.radioButtons[selectedScenario] = true;
-        this.scenarioSelected = true;
-        this.finalScenario = selectedScenario;
-      } else {
-        this.radioButtons[scenario] = false;
-      }
+  initializeCheckboxes() {
+    for (let item of this.items) {
+      this.checkboxes[item] = false;
     }
+  }
+
+  toggleCheckboxes(item) {
+    this.checkboxes[item] = !this.checkboxes[item];
   }
 
   goToOtherPage() {
-    if(this.scenarioSelected == true) {
-      this.navCtrl.push(CardsPage, {
-        'finalScenario': this.finalScenario,
-        'finalLevel': this.finalLevel,
-        'finalFile': this.finalFile,
-        'selectedChemicals': this.selectedChemicals,
-        'RML_10Data': this.RML_10Data
-      });
-    } else {
-        alert("Please select a scenario.");
+    //Check if at least one box is checked before moving on
+    for (let item of this.items) {
+      if(this.checkboxes[item] == true) {
+        this.oneChecked = true;
+        //fix after push
+    //    this.data.selectedChemicals.push(item);
       }
     }
 
-  initializeRadio() {
-    for (let scenario of this.scenarios) {
-      this.radioButtons[scenario] = false;
-    }
+    if(this.oneChecked == true) {
+      this.navCtrl.push(CardsPage, {
+        'data': this.data
+      });
+    } else {
+        alert("Please select at least one option.");
+      }
   }
 
-  initializeItems() {
-    this.scenarios = [
+  initializeItems() :void {
+    this.items = [
       'Resident',
       'Industrial'
     ];

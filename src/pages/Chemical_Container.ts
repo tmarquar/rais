@@ -10,23 +10,23 @@ export class ChemicalContainer {
   _chemicalNames:string[] = [];
   _chemicalsMasterList: ChemicalData[] = [];
   _selectedChemicals = [];
-  _scenario;
-  _regionalLevel;
-  _screeningTyoe;
-  _targetRiskHazard;
-  _exposureRoute;
+  _scenario:string[];
+  _regionalLevel:string[];
+  _screeningType:string[];
+  _targetRiskHazard:string[];
+  _exposureRoute:string[];
 
   constructor (private http: Http, fileName:string) {
     this.readCsvData(fileName);
   }
 
-  initializeChemicalNames() {
+  initializeChemicalNames() : void{
      for (let chemical of this.csvData) {
        this._chemicalNames.push(chemical[0]);
      }
   }
 
-  initializeChemicals() {
+  initializeChemicals() : void {
     for (let row of this.csvData) {
       this._chemicalsMasterList[row[0]] = new ChemicalData();
       this._chemicalsMasterList[row[0]].setChemicalName(row[0]);
@@ -47,7 +47,7 @@ export class ChemicalContainer {
   );
 }
 
-  private extractData(res) {
+  private extractData(res) : void {
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
 
@@ -63,45 +63,51 @@ export class ChemicalContainer {
     console.log('something went wrong: ', err);
   }
 
-  addChemical(chemical) {
+  addChemical(chemical) : void {
     this._selectedChemicals.push(chemical);
   }
-  getSelectedChemicals() {
-    return _selectedChemicals;
+  setSelectedChemicals(selectedChemicals:string[]) : void {
+    this._selectedChemicals = selectedChemicals;
+  }
+  resetSelectedChemicals() : void {
+    this._selectedChemicals = [];
+  }
+  getSelectedChemicals() : string[] {
+    return this._selectedChemicals;
   }
 
   // List of all chemicals from Masterlist
   getChemicalNames() : string[] {
-      return this._chemicalNames;
+    return this._chemicalNames;
   }
-  setScenario(scenario) {
+  setScenario(scenario) : void {
     this._scenario = scenario;
   }
-  getScenario() {
+  getScenario() : string[] {
     return this._scenario;
   }
-  setRegionalLevel(regionalLevel) {
+  setRegionalLevel(regionalLevel) : void  {
     this._regionalLevel = regionalLevel;
   }
-  getRegionalLevel() {
+  getRegionalLevel() : string[] {
     return this._regionalLevel;
   }
-  setScreeningType(screeningType) {
+  setScreeningType(screeningType) : void {
     this._screeningType = screeningType;
   }
-  getScreeningLevel() {
+  getScreeningLevel() : string[] {
     return this._screeningType;
   }
-  setTargetRiskHazard(targetRiskHazard) {
+  setTargetRiskHazard(targetRiskHazard) : void {
     this._targetRiskHazard = targetRiskHazard;
   }
-  getTargetRiskHazard() {
+  getTargetRiskHazard() : string[] {
     return this._targetRiskHazard;
   }
-  setExposureRoute(exposureRoute) {
+  setExposureRoute(exposureRoute) : void {
       this._exposureRoute = exposureRoute;
   }
-  getExposureRoute() {
+  getExposureRoute() : string[] {
     return this._exposureRoute;
   }
   /**********************************************************
@@ -139,30 +145,30 @@ export class ChemicalContainer {
   *
   ***********************************************************/
   displayCasNum(chemical):string {
-    return this.data.getCasnum(chemical);
+    return this.getCasnum(chemical);
   }
   displayResidentSoilLabel(chemical):string {
     return "Resident Soil (mg/kg): ";
   }
   displayResidentSoil(chemical):string {
     var result : string;
-    result = String(this.data.getResidentSoil(chemical)[0]);
+    result = String(this.getResidentSoil(chemical)[0]);
     return result;
   }
   displayResidentSoilKey(chemical):string {
-    return this.data.getResidentSoil(chemical)[1];
+    return this.getResidentSoil(chemical)[1];
   }
   displayIndustrialSoil(chemical):string {
     var result : string;
-    result = String(this.data.getIndustrialSoil(chemical)[0]);
+    result = String(this.getIndustrialSoil(chemical)[0]);
     return result;
   }
   displayIndustrialSoilKey(chemical):string {
-    return this.data.getIndustrialSoil(chemical)[1];
+    return this.getIndustrialSoil(chemical)[1];
   }
   displayMCL(chemical):string {
     var result : string;
-    result = String(this.data.getMCL(chemical));
+    result = String(this.getMCL(chemical));
     return result;
   }
 }
