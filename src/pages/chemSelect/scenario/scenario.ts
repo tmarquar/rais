@@ -14,9 +14,6 @@ export class ScenarioPage {
   selectedChemicals = [];
   //Is at least one scenario picked?
   scenarioSelected = false;
-  finalScenario;
-  finalFile;
-  finalLevel;
   RML_10Data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
