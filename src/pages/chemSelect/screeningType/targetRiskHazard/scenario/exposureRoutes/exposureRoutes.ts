@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChemicalContainer } from '../../../../Chemical_Container';
-import { ExposureRoutesPage } from './exposureRoutes/exposureRoutes';
+import { ChemicalContainer } from '../../../../../Chemical_Container';
+import { CardsPage } from './cards/cards';
 
 @Component({
-  selector: 'page-ScenarioPage',
-  templateUrl: 'scenario.html'
+  selector: 'page-ExposureRoutesPage',
+  templateUrl: 'exposureRoutes.html'
 })
-export class ScenarioPage {
+export class ExposureRoutesPage {
   items;
   checkboxes = [];
   //Is at least one scenario picked?
@@ -41,7 +41,7 @@ export class ScenarioPage {
     }
 
     if(this.oneChecked == true) {
-      this.navCtrl.push(ExposureRoutesPage, {
+      this.navCtrl.push(CardsPage, {
         'data': this.data
       });
     } else {
@@ -51,8 +51,12 @@ export class ScenarioPage {
 
   initializeItems() :void {
     this.items = [
-      'Resident',
-      'Industrial'
+      'Soil',
+      'Tapwater',
+      'Air',
+      'Tap SSL',
+      'Tap MCL',
+      'Tap MCL SSL'
     ];
   }
 }

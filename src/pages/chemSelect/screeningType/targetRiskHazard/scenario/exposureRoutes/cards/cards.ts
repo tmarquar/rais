@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ChemicalContainer } from '../../../../../Chemical_Container';
+import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
 
 @Component({
@@ -14,6 +14,7 @@ export class CardsPage {
   data: ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
+      this.data = navParams.get('data');
       this.selectedChemicalsCopy = this.data.getSelectedChemicals();
   }
 
