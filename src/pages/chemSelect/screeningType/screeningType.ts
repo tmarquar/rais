@@ -16,7 +16,6 @@ export class ScreeningTypePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.data = navParams.get('data');
-
     this.initializeItems();
     this.initializeCheckboxes();
   }
@@ -33,10 +32,10 @@ export class ScreeningTypePage {
 
   goToOtherPage() {
     //Check if at least one box is checked before moving on
+    this.data.clearScreeningType();
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        // update
         this.data.addScreeningType(item);
       }
     }
