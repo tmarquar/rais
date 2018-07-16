@@ -126,24 +126,33 @@ export class ChemicalContainer {
   // get the scenario options after selecting target risk
   public getExposureRouteOptions(): string[]{
   let choices:string[] = [];
-  for (let route of this._exposureRouteOptions) {
-    if (route === this._targetRiskHazard[0]){
-      choices = this._exposureRouteOptions;
+  for (let type of this._screeningType) {
+    if (type === this._screeningTypeOptions[0]){
+      for (let scenario of this._scenario){
+        if (scenario === this._scenarioOptions[0]){
+          choices = this._exposureRouteOptions;
+        }
+        if (scenario === this._scenarioOptions[1]) {
+          choices.push(this._exposureRouteOptions[0]);
+          choices.push(this._exposureRouteOptions[2]);
+        }
+      }
     }
-    if (route === this._targetRiskHazard[1]){
-      choices.push(this._exposureRouteOptions[0]);
-      choices.push(this._exposureRouteOptions[2]);
-    }
-    if (route === this._targetRiskHazard[2]){
-      choices.push(this._exposureRouteOptions[0]);
-      choices.push(this._exposureRouteOptions[1]);
-    }
-    if (route === this._targetRiskHazard[3]){
-      choices.push(this._exposureRouteOptions[0]);
+    if (type === this._screeningTypeOptions[1]){
+      for (let scenario of this._scenario){
+        if (scenario === this._scenarioOptions[0]){
+          choices.push(this._exposureRouteOptions[0]);
+          choices.push(this._exposureRouteOptions[1]);
+        }
+        if (scenario === this._scenarioOptions[1]) {
+          choices.push(this._exposureRouteOptions[0]);
+        }
+      }
+
     }
   }
   let unique = Array.from(new Set(choices));
-  console.log("hello");
+  //console.log("hello");
   return unique;
   }
 
