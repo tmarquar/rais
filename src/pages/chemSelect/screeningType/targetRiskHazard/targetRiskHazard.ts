@@ -37,8 +37,7 @@ export class TargetRiskHazardPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        //fix after push
-    //    this.data.selectedChemicals.push(item);
+        this.data._targetRiskHazard.push(item);
       }
     }
 
