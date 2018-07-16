@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FileSelectPage } from '../fileSelect/fileSelect';
-import {ChemicalData} from '../Chemical_Data';
+import {ChemicalData} from '../../Chemical_Data';
 
 @Component({
   selector: 'page-LevelSelectPage',
