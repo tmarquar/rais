@@ -9,6 +9,12 @@ export class ChemicalContainer {
   headerRow:any[] = [];
   _chemicalNames:string[] = [];
   _chemicalsMasterList: ChemicalData[] = [];
+  _selectedChemicals = [];
+  _scenario;
+  _regionalLevel;
+  _screeningTyoe;
+  _targetRiskHazard;
+  _exposureRoute;
 
   constructor (private http: Http, fileName:string) {
     this.readCsvData(fileName);
@@ -19,8 +25,6 @@ export class ChemicalContainer {
        this._chemicalNames.push(chemical[0]);
      }
   }
-
-
 
   initializeChemicals() {
     for (let row of this.csvData) {
@@ -55,17 +59,51 @@ export class ChemicalContainer {
     this.initializeChemicals();
   }
 
-
   private handleError(err) {
     console.log('something went wrong: ', err);
   }
 
+  addChemical(chemical) {
+    this._selectedChemicals.push(chemical);
+  }
+  getSelectedChemicals() {
+    return _selectedChemicals;
+  }
 
   // List of all chemicals from Masterlist
   getChemicalNames() : string[] {
       return this._chemicalNames;
   }
-
+  setScenario(scenario) {
+    this._scenario = scenario;
+  }
+  getScenario() {
+    return this._scenario;
+  }
+  setRegionalLevel(regionalLevel) {
+    this._regionalLevel = regionalLevel;
+  }
+  getRegionalLevel() {
+    return this._regionalLevel;
+  }
+  setScreeningType(screeningType) {
+    this._screeningType = screeningType;
+  }
+  getScreeningLevel() {
+    return this._screeningType;
+  }
+  setTargetRiskHazard(targetRiskHazard) {
+    this._targetRiskHazard = targetRiskHazard;
+  }
+  getTargetRiskHazard() {
+    return this._targetRiskHazard;
+  }
+  setExposureRoute(exposureRoute) {
+      this._exposureRoute = exposureRoute;
+  }
+  getExposureRoute() {
+    return this._exposureRoute;
+  }
   /**********************************************************
   * Access data from each chemical element in the Masterlist.
   *
@@ -94,5 +132,37 @@ export class ChemicalContainer {
 
   getMCL(chemicalName:string) : number {
     return this._chemicalsMasterList[chemicalName].getMCL();
+  }
+
+  /**********************************************************
+  * Display data from each chemical element in the proper data set.
+  *
+  ***********************************************************/
+  displayCasNum(chemical):string {
+    return this.data.getCasnum(chemical);
+  }
+  displayResidentSoilLabel(chemical):string {
+    return "Resident Soil (mg/kg): ";
+  }
+  displayResidentSoil(chemical):string {
+    var result : string;
+    result = String(this.data.getResidentSoil(chemical)[0]);
+    return result;
+  }
+  displayResidentSoilKey(chemical):string {
+    return this.data.getResidentSoil(chemical)[1];
+  }
+  displayIndustrialSoil(chemical):string {
+    var result : string;
+    result = String(this.data.getIndustrialSoil(chemical)[0]);
+    return result;
+  }
+  displayIndustrialSoilKey(chemical):string {
+    return this.data.getIndustrialSoil(chemical)[1];
+  }
+  displayMCL(chemical):string {
+    var result : string;
+    result = String(this.data.getMCL(chemical));
+    return result;
   }
 }
