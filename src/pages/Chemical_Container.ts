@@ -94,18 +94,22 @@ export class ChemicalContainer {
   *
   *
   *********************************************************************/
-  addChemical(chemical:string):void {
+  addChemical(chemical:string) : void {
     this._selectedChemicals.push(chemical);
   }
   getSelectedChemicals() :string[]{
-    return _selectedChemicals;
+    return this._selectedChemicals;
   }
-
+  resetSelectedChemicals() : void {
+    this._selectedChemicals = [];
+  }
+  setSelectedChemicals(selectedChemicals:string[]) : void {
+    this._selectedChemicals = selectedChemicals;
+  }
   // List of all chemicals from Masterlist
   getChemicalNames() : string[] {
     return this._chemicalNames;
   }
-
 
   addScenario(scenario:string):void{
     this._scenario.push(scenario);
