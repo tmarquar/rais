@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { LevelSelectPage } from '../levelSelect/levelSelect';
+import { LevelSelectPage } from './levelSelect/levelSelect';
 import { ChemicalContainer} from '../Chemical_Container';
 import { ChemicalData} from '../Chemical_Data';
 

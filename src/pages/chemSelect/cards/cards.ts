@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ChemicalContainer } from '../Chemical_Container';
+import { ChemicalContainer } from '../../Chemical_Container';
 import { ChemDetailsPage } from '../chemDetails/chemDetails';
 
 @Component({
@@ -25,11 +25,11 @@ export class CardsPage {
     this.selectedChemicals2 = this.selectedChemicals;
 
     if(this.finalFile == 'Target Risk: 1E-4 and File Quotient: 1.0') {
-      this.data = new ChemicalContainer(this.http, '../assets/csv/RSL_1_0.csv');
+      this.data = new ChemicalContainer(this.http, '../../assets/csv/RSL_1_0.csv');
     } else if(this.finalFile == 'Target Risk: 1E-6 and File Quotient: 0.1') {
-      this.data = new ChemicalContainer(this.http, '../assets/csv/RSL_0_1.csv');
+      this.data = new ChemicalContainer(this.http, '../../assets/csv/RSL_0_1.csv');
     } else if(this.finalFile == 'Target Risk: 1E-4 and File Quotient: 3.0') {
-      this.data = new ChemicalContainer(this.http, '../assets/csv/RML_3_0.csv');
+      this.data = new ChemicalContainer(this.http, '../../assets/csv/RML_3_0.csv');
     }
     console.log(this.finalLevel);
     console.log(this.finalScenario);

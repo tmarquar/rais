@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChemicalContainer } from '../Chemical_Container';
+import { ChemicalContainer } from '../../Chemical_Container';
 import { CardsPage } from '../cards/cards';
-import {ChemicalData} from '../Chemical_Data';
+import {ChemicalData} from '../../Chemical_Data';
 
 @Component({
   selector: 'page-ScenarioPage',
