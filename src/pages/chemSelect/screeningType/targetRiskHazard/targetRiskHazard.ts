@@ -51,11 +51,6 @@ export class TargetRiskHazardPage {
   }
 
   initializeItems() {
-    this.items = [
-      'Target Risk: 1E-6 and File Quotient: 1.0',
-      'Target Risk: 1E-6 and File Quotient: 0.1',
-      'Target Risk: 1E-4 and File Quotient: 1.0',
-      'Target Risk: 1E-4 and File Quotient: 3.0',
-    ];
+    this.items = this.data.getTargetRiskHazardOptions();
   }
 }

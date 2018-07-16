@@ -50,9 +50,6 @@ export class ScenarioPage {
   }
 
   initializeItems() :void {
-    this.items = [
-      'Resident',
-      'Industrial'
-    ];
+    this.items = this.data.getScenarioOptions();
   }
 }

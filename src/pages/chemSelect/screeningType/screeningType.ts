@@ -15,10 +15,10 @@ export class ScreeningTypePage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = navParams.get('data');
+
     this.initializeItems();
     this.initializeCheckboxes();
-
-    this.data = navParams.get('data');
   }
 
   initializeCheckboxes() {
