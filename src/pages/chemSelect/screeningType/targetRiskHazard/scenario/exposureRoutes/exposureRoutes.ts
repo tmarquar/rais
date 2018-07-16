@@ -15,10 +15,9 @@ export class ExposureRoutesPage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = navParams.get('data');
     this.initializeItems();
     this.initializeCheckboxes();
-
-    this.data = navParams.get('data');
   }
 
   initializeCheckboxes() {
@@ -33,10 +32,11 @@ export class ExposureRoutesPage {
 
   goToOtherPage() {
     //Check if at least one box is checked before moving on
+    this.data.clearExposureRoutes();
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data._scenario.push(item);
+        this.data.addExposureRoute(item);
       }
     }
 
@@ -50,13 +50,6 @@ export class ExposureRoutesPage {
   }
 
   initializeItems() :void {
-    this.items = [
-      'Soil',
-      'Tapwater',
-      'Air',
-      'Tap SSL',
-      'Tap MCL',
-      'Tap MCL SSL'
-    ];
+    this.items = this.data.getExposureRouteOptions();
   }
 }

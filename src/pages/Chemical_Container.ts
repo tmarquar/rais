@@ -18,14 +18,14 @@ export class ChemicalContainer {
   _screeningTypeOptions:string[] = [];
   _targetRiskHazardOptions:string[] = [];
   _exposureRouteOptions:string[] = [];
-
+  
 
   constructor (private http: Http, fileName:string) {
     this.readCsvData(fileName);
     this.initializeOptions();
   }
 
-  initializeOptions() {
+  initializeOptions() :void  {
     this._screeningTypeOptions = [
       'RSL (Regional Screening Levels)',
       'RML (Regional Removal Management Levels)'
@@ -92,6 +92,12 @@ export class ChemicalContainer {
     console.log('something went wrong: ', err);
   }
 
+/***************************************************************
+* functions so that we get the options that we want
+*
+*
+*****************************************************************/
+
   public getScreeningTypeOptions() :string[]{
     return this._screeningTypeOptions;
   }
@@ -132,7 +138,7 @@ export class ChemicalContainer {
     }
   }
   let unique = Array.from(new Set(choices));
-  //let unique = [...new Set(choices)];
+
   return unique;
   }
 
@@ -165,6 +171,9 @@ export class ChemicalContainer {
   setScenario(scenario:string[]):void {
     this._scenario = scenario;
   }
+  clearScenario():void {
+    this._scenario = [];
+  }
   getScenario() :string[] {
     return this._scenario;
   }
@@ -174,6 +183,9 @@ export class ChemicalContainer {
   }
   setScreeningType(screeningType:string[]):void {
     this._screeningType = screeningType;
+  }
+  clearScreeningType():void {
+    this._screeningType = [];
   }
   getScreeningType():string[] {
     return this._screeningType;
@@ -185,6 +197,9 @@ export class ChemicalContainer {
   setTargetRiskHazard(targetRiskHazard:string[]) :void{
     this._targetRiskHazard = targetRiskHazard;
   }
+  clearTargetRiskHazard() :void{
+    this._targetRiskHazard = [];
+  }
   getTargetRiskHazard() :string[]{
     return this._targetRiskHazard;
   }
@@ -194,6 +209,9 @@ export class ChemicalContainer {
   }
   setExposureRoutes(exposureRoutes:string[]):void {
       this._exposureRoutes = exposureRoutes;
+  }
+  clearExposureRoutes():void {
+      this._exposureRoutes = [];
   }
   getExposureRoutes() : string[]{
     return this._exposureRoutes;

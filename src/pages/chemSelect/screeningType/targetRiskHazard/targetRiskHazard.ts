@@ -16,10 +16,9 @@ export class TargetRiskHazardPage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = navParams.get('data');
     this.initializeItems();
     this.initializeCheckboxes();
-
-    this.data = navParams.get('data');
   }
 
   initializeCheckboxes() {
@@ -34,10 +33,11 @@ export class TargetRiskHazardPage {
 
   goToOtherPage() {
     //Check if at least one box is checked before moving on
+    this.data.clearTargetRiskHazard();
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data._targetRiskHazard.push(item);
+        this.data.addTargetRiskHazard(item);
       }
     }
 
@@ -51,11 +51,6 @@ export class TargetRiskHazardPage {
   }
 
   initializeItems() {
-    this.items = [
-      'Target Risk: 1E-6 and File Quotient: 1.0',
-      'Target Risk: 1E-6 and File Quotient: 0.1',
-      'Target Risk: 1E-4 and File Quotient: 1.0',
-      'Target Risk: 1E-4 and File Quotient: 3.0',
-    ];
+    this.items = this.data.getTargetRiskHazardOptions();
   }
 }
