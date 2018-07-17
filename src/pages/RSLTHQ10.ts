@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+/*import { Http } from '@angular/http';
 import * as papa from 'papaparse';
 
 export class RSLTHQ10 {
@@ -26,7 +26,7 @@ export class RSLTHQ10 {
   // initialize all data
   constructor (private http: Http, routeOptions:string[], scenarioOptions:string[]) {
     this.readCsvData('../csv/RSL_1_0.csv');
-    this._exposureRouteOptions = scenarioOptions;
+    this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
 
   }
@@ -48,6 +48,7 @@ export class RSLTHQ10 {
 
     }
   }
+
 
 
   private readCsvData(fileName:string) {
@@ -81,3 +82,4 @@ export class RSLTHQ10 {
 
 
 }
+*/

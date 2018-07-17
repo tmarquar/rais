@@ -13,8 +13,8 @@
 <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
   <ion-card *ngFor="let item of items">
-      <ion-card-header ng-model="chemical.selected">
-        <ion-card-title> {{items}}
+      <ion-card-header ng-model="item.selected">
+        <ion-card-title> {{item}}
         <button ion-button clear icon-start>
           <ion-icon name='md-star-outline'></ion-icon>
           Favorite
@@ -23,19 +23,15 @@
       </ion-card-header>
       <button ion-item (click)="goToNextPage(chemical)">
         <ion-card-content>
-          <h3>CAS No.:
-             <p>{{displayCasNum(chemical)}}</p>
-          <!--
-              <p>{{displayResidentSoil(chemical)}}</p>
-          Key:
-            <p>{{displayResidentSoil(chemical)}}</p>
-          Industrial Soil (mg/kg):
-            <p>{{displayIndustrialSoil(chemical)}}</p>
-            Key:
-            <p>{{displayIndustrialSoilKey(chemical)}}</p>
-            MCL:
-            <p>{{displayMCL(chemical)}}</p>
-        -->  </h3>
+          <h3> CAS No.: <span>093-234-2343</span>
+            <br />
+            Resident Soil: <span> 1E-5, n</span>
+            <br />
+            Industrial Soil: <span> 5E-2, n</span>
+            <br />
+            Resident Tapwater: <span> 2E-5, n</span>
+            <br />
+          </h3>
       </ion-card-content>
     </button>
   </ion-card>
