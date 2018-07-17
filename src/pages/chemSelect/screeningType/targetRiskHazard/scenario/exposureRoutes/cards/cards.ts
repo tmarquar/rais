@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Http } from '@angular/http';
 import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
 
@@ -13,16 +12,39 @@ export class CardsPage {
   //just a duplicate to refresh the original when searching
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.data = navParams.get('data');
       this.selectedChemicalsCopy = this.data.getSelectedChemicals();
   }
 
-  openChemCard(chemical:string) : void {
+  goToNextPage(chemical:string) : void {
     this.navCtrl.push(ChemDetailsPage, {
       'chemical': chemical,
       'data': this.data
     });
+  }
+
+  displayCasNum(chemical:string) : void {
+    this.data.displayCasNum(chemical);
+  }
+  displayResidentSoil(chemical:string) : void {
+    this.data.displayResidentSoil(chemical);
+  }
+  displayResidentSoilKey(chemical:string):string {
+    return this.data.getResidentSoil(chemical)[1];
+  }
+  displayIndustrialSoil(chemical:string):string {
+    var result : string;
+    result = String(this.getIndustrialSoil(chemical)[0]);
+    return result;
+  }
+  displayIndustrialSoilKey(chemical:string):string {
+    return this.getIndustrialSoil(chemical)[1];
+  }
+  displayMCL(chemical:string):string {
+    var result : string;
+    result = String(this.getMCL(chemical));
+    return result;
   }
 
   getItems(ev) : void {

@@ -51,7 +51,7 @@ export class ChemicalContainer {
       'Resident',
       'Industrial'
     ];
-    
+
   }
 
   initializeChemicalNames() : void{
@@ -263,9 +263,6 @@ export class ChemicalContainer {
   ***********************************************************/
   displayCasNum(chemical:string):string {
     return this.getCasnum(chemical);
-  }
-  displayResidentSoilLabel(chemical:string):string {
-    return "Resident Soil (mg/kg): ";
   }
   displayResidentSoil(chemical:string):string {
     var result : string;
