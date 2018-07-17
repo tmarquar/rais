@@ -6,9 +6,7 @@
 
 <ion-content padding>
   <h2>Welcome to the results page!</h2>
-  <p>
-    (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
-  </p>
+
 
 <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
@@ -22,16 +20,8 @@
         </ion-card-title>
       </ion-card-header>
       <button ion-item (click)="goToNextPage(chemical)">
-        <ion-card-content>
-          <h3> CAS No.: <span>093-234-2343</span>
-            <br />
-            Resident Soil: <span> 1E-5, n</span>
-            <br />
-            Industrial Soil: <span> 5E-2, n</span>
-            <br />
-            Resident Tapwater: <span> 2E-5, n</span>
-            <br />
-          </h3>
+        <ion-card-content *ngFor="let info of data.getFormattedData(item)">
+          <span>{{info}}</span>
       </ion-card-content>
     </button>
   </ion-card>

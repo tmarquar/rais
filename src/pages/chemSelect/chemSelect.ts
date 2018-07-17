@@ -14,7 +14,7 @@ export class ChemSelectPage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, private http: Http) {
-    this.data = new ChemicalContainer(this.http, '../assets/csv/RML_1_0.csv');
+    this.data = new ChemicalContainer(this.http);
     this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();
   }
