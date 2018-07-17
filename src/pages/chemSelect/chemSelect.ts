@@ -37,7 +37,7 @@ export class ChemSelectPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         oneChecked = true;
-        this.data._selectedChemicals.push(item);
+        this.data.addChemical(item);
       }
     }
 
