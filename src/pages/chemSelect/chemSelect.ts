@@ -26,14 +26,6 @@ export class ChemSelectPage {
     }
   }
 
-  checkAll() {
-    var allitems = [];
-    allitems.checked = true;
-    for (let item of this.items) {
-      this.items[item].checked = allitems.checked;
-    }
-  }
-
   toggleCheckboxes(item) {
     if(!this.checkboxes[item]) {
       this.checkboxes[item] = true;
