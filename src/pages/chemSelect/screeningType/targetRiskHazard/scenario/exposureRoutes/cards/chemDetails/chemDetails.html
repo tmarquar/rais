@@ -5,45 +5,8 @@
 </ion-header>
 
 <ion-content padding >
-    <h2>Benz[a]anthracene</h2>
-    <h3>Target Risk: 1E-6 and Hazard Quotient: 1.0</h3>
-    <h3> CAS No.: <span>093-234-2343</span>
-      <br />
-      Resident Soil: <span> 1E-5, n</span>
-      <br />
-      Industrial Soil: <span> 5E-2, n</span>
-      <br />
-      Resident Tapwater: <span> 2E-5, n</span>
-      <br />
-    </h3>
-    <h3>Target Risk: 1E-6 and Hazard Quotient: 0.1</h3>
-    <h3> CAS No.: <span>093-234-2343</span>
-      <br />
-      Resident Soil: <span> 1E-5, n</span>
-      <br />
-      Industrial Soil: <span> 5E-2, n</span>
-      <br />
-      Resident Tapwater: <span> 2E-5, n</span>
-      <br />
-    </h3>
-    <h3>Target Risk: 1E-4 and Hazard Quotient: 1.0</h3>
-    <h3> CAS No.: <span>093-234-2343</span>
-      <br />
-      Resident Soil: <span> 1E-5, n</span>
-      <br />
-      Industrial Soil: <span> 5E-2, n</span>
-      <br />
-      Resident Tapwater: <span> 2E-5, n</span>
-      <br />
-    </h3>
-    <h3>Target Risk: 1E-4 and Hazard Quotient: 3.0</h3> <!--needs to be changed to adjust dynamically? -->
-    <h3> CAS No.: <span>093-234-2343</span>
-      <br />
-      Resident Soil: <span> 1E-5, n</span>
-      <br />
-      Industrial Soil: <span> 5E-2, n</span>
-      <br />
-      Resident Tapwater: <span> 2E-5, n</span>
-      <br />
-    </h3>
+  <h2>{{chemical}}</h2>
+  <h3 *ngFor="let info of data.getAllFormattedData()">
+    {{info}}
+  </h3>
 </ion-content>

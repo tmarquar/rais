@@ -22,6 +22,7 @@ export class CardsPage {
   }
 
   goToNextPage(chemical:string) : void {
+    
     this.navCtrl.push(ChemDetailsPage, {
       'chemical': chemical,
       'data': this.data

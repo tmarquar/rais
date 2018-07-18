@@ -19,7 +19,7 @@
         </button>
         </ion-card-title>
       </ion-card-header>
-      <button ion-item (click)="goToNextPage(chemical)">
+      <button ion-item (click)="goToNextPage(item)">
         <ion-card-content *ngFor="let info of data.getFormattedData(item)">
           <span>{{info}}</span>
       </ion-card-content>
