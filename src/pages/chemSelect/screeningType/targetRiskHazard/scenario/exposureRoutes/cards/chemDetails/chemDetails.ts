@@ -19,6 +19,7 @@ export class ChemDetailsPage {
     return this.chemical;
   }
   getAllFormattedData () : string[] {
+    //console.log(this.chemical);
     return this.data.getAllFormattedData(this.chemical);
   }
 }

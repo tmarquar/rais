@@ -96,6 +96,8 @@ export class RSLTHQ10 {
   public getFormattedData (scenario:string[], routes:string[], chemicalName:string) : string[] {
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];
+    formattedData.push('RSL: Target Risk: 1E-6 and Hazard Quotient: 1.0');
+    formattedData.push('************************************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
     //console.log(chemicalName);
 
@@ -136,25 +138,26 @@ export class RSLTHQ10 {
         }
       }
     }
+    formattedData.push(' ');
     return formattedData;
   }
 
   public getAllFormattedData (chemicalName:string) : string[] {
+    //console.log(chemicalName);
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];//["test","test2"];
-    for (let scene of this._scenarioOptions) {
-      for (let route of this._exposureRouteOptions) {
-        formattedData.push('CAS No.: ' + this._casnum[chemical]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._residentAir[chemical][0] + ', ' + this._residentAir[chemical][1]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._tapwaterSSL[chemical] + ', ' + this._sslKey[chemical]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCL[chemical]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCLSSL[chemical] + ', ' + this._sslKey[chemical]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
-        //formattedData.push(scene + ' ' + route + ': ' + this._industrialAir[chemical][0] + ', ' + this._industrialAir[chemical][1]);
-      }
-    }
+    formattedData.push('RSL: Target Risk: 1E-6 and Hazard Quotient: 1.0');
+    formattedData.push('************************************************');
+    formattedData.push('CAS No.: ' + this._casnum[chemical]);
+    formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
+    formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
+    formattedData.push('Resident Air: ' + this._residentAir[chemical][0] + ', ' + this._residentAir[chemical][1]);
+    formattedData.push('Tapwater SSL: ' + this._tapwaterSSL[chemical] + ', ' + this._sslKey[chemical]);
+    formattedData.push('Tapwater MCL: ' + this._tapwaterMCL[chemical]);
+    formattedData.push('Tapwater MCL SSL: ' + this._tapwaterMCLSSL[chemical] + ', ' + this._sslKey[chemical]);
+    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
+    formattedData.push('Industrial Air: ' + this._industrialAir[chemical][0] + ', ' + this._industrialAir[chemical][1]);
+    formattedData.push(' ');
     return formattedData;
   }
 
