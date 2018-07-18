@@ -18,11 +18,9 @@ export class CardsPage {
       this.data = navParams.get('data');
       this.selectedChemicalsCopy = this.data.getSelectedChemicals();
       this.initializeItems();
-
   }
 
   goToNextPage(chemical:string) : void {
-    
     this.navCtrl.push(ChemDetailsPage, {
       'chemical': chemical,
       'data': this.data

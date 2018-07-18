@@ -5,16 +5,6 @@ import * as papa from 'papaparse';
 
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
-<<<<<<< HEAD
-  _chemicalsMasterList: ChemicalData[] = [];
-  _selectedChemicals = [];
-  _scenario;
-  _regionalLevel;
-  _screeningTyoe;
-  _targetRiskHazard;
-  _exposureRoute;
-=======
->>>>>>> eb9091249eb07d6a6af6f1a9b1eedab1b728f503
 
   _selectedChemicals:string[] = [];
   _scenario:string[] = [];
@@ -35,18 +25,6 @@ export class ChemicalContainer {
 
   }
 
-<<<<<<< HEAD
-  initializeChemicals() {
-    for (let row of this.csvData) {
-      this._chemicalsMasterList[row[0]] = new ChemicalData();
-      this._chemicalsMasterList[row[0]].setChemicalName(row[0]);
-      this._chemicalsMasterList[row[0]].setCasnum(row[1]);
-      this._chemicalsMasterList[row[0]].setResidentSoil(row[2], row[3]);
-      this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
-      this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
-      this._chemicalsMasterList[row[0]].setMCL(row[8]);
-    }
-=======
   initializeOptions() :void  {
     this._screeningTypeOptions = [
       'RSL (Regional Screening Levels)',
@@ -85,7 +63,6 @@ export class ChemicalContainer {
     //console.log(chemical);
     return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
     //return ['1234','1231'];
->>>>>>> eb9091249eb07d6a6af6f1a9b1eedab1b728f503
   }
   public getAllFormattedData(chemical:string) : string[] {
     return this._rslthq10.getAllFormattedData(chemical);
@@ -118,55 +95,6 @@ export class ChemicalContainer {
     return choices;
   }
 
-<<<<<<< HEAD
-  private handleError(err) {
-    console.log('something went wrong: ', err);
-  }
-
-  addChemical(chemical) {
-    this._selectedChemicals.push(chemical);
-  }
-  getSelectedChemicals() {
-    return _selectedChemicals;
-  }
-
-  // List of all chemicals from Masterlist
-  getChemicalNames() : string[] {
-      return this._chemicalNames;
-  }
-  setScenario(scenario) {
-    this._scenario = scenario;
-  }
-  getScenario() {
-    return this._scenario;
-  }
-  setRegionalLevel(regionalLevel) {
-    this._regionalLevel = regionalLevel;
-  }
-  getRegionalLevel() {
-    return this._regionalLevel;
-  }
-  setScreeningType(screeningType) {
-    this._screeningType = screeningType;
-  }
-  getScreeningLevel() {
-    return this._screeningType;
-  }
-  setTargetRiskHazard(targetRiskHazard) {
-    this._targetRiskHazard = targetRiskHazard;
-  }
-  getTargetRiskHazard() {
-    return this._targetRiskHazard;
-  }
-  setExposureRoute(exposureRoute) {
-      this._exposureRoute = exposureRoute;
-  }
-  getExposureRoute() {
-    return this._exposureRoute;
-  }
-  /**********************************************************
-  * Access data from each chemical element in the Masterlist.
-=======
   // get the scenario options after selecting target risk
   public getExposureRouteOptions(): string[]{
   let choices:string[] = [];
@@ -207,7 +135,6 @@ export class ChemicalContainer {
   /*******************************************************************
   * Handle scenario information. Each is an array so that all information
   * can be selected.
->>>>>>> eb9091249eb07d6a6af6f1a9b1eedab1b728f503
   *
   *
   *********************************************************************/
@@ -281,38 +208,4 @@ export class ChemicalContainer {
 
   }
 
-<<<<<<< HEAD
-  /**********************************************************
-  * Display data from each chemical element in the proper data set.
-  *
-  ***********************************************************/
-  displayCasNum(chemical):string {
-    return this.data.getCasnum(chemical);
-  }
-  displayResidentSoilLabel(chemical):string {
-    return "Resident Soil (mg/kg): ";
-  }
-  displayResidentSoil(chemical):string {
-    var result : string;
-    result = String(this.data.getResidentSoil(chemical)[0]);
-    return result;
-  }
-  displayResidentSoilKey(chemical):string {
-    return this.data.getResidentSoil(chemical)[1];
-  }
-  displayIndustrialSoil(chemical):string {
-    var result : string;
-    result = String(this.data.getIndustrialSoil(chemical)[0]);
-    return result;
-  }
-  displayIndustrialSoilKey(chemical):string {
-    return this.data.getIndustrialSoil(chemical)[1];
-  }
-  displayMCL(chemical):string {
-    var result : string;
-    result = String(this.data.getMCL(chemical));
-    return result;
-  }
-=======
->>>>>>> eb9091249eb07d6a6af6f1a9b1eedab1b728f503
 }
