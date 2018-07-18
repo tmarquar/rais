@@ -18,5 +18,7 @@ export class ChemDetailsPage {
   displayHeader() : string {
     return this.chemical;
   }
-
+  getAllFormattedData () : string[] {
+    return this.data.getAllFormattedData(this.chemical);
+  }
 }
