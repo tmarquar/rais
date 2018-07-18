@@ -1,6 +1,9 @@
 import { Http } from '@angular/http';
 import { ChemicalData } from './Chemical_Data';
 import { RSLTHQ10 } from './RSLTHQ10';
+import { RSLTHQ01 } from './RSLTHQ01';
+import { RMLTHQ10 } from './RMLTHQ10';
+import { RMLTHQ30 } from './RMLTHQ30';
 import * as papa from 'papaparse';
 
 export class ChemicalContainer {
@@ -17,10 +20,18 @@ export class ChemicalContainer {
   _scenarioOptions:string[] = [];
 
   _rslthq10 : RSLTHQ10;
+  _rslthq01 : RSLTHQ01;
+  _rmlthq10 : RMLTHQ10;
+  _rmlthq30 : RMLTHQ30;
 
   constructor (private http: Http) {
     this.initializeOptions();
+
     this._rslthq10 = new RSLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);
+    this._rslthq01 = new RSLTHQ01(this.http,this._exposureRouteOptions, this._scenarioOptions);
+    this._rmlthq10 = new RMLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);
+    this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
+
     this._chemicalNames = this._rslthq10.getChemicalList();
 
   }
@@ -42,9 +53,9 @@ export class ChemicalContainer {
       'Soil',
       'Tapwater',
       'Air',
-      'Tap SSL',
-      'Tap MCL',
-      'Tap MCL SSL'
+      'Tapwater SSL',
+      'Tapwater MCL',
+      'Tapwater MCL SSL'
     ];
 
     this._scenarioOptions = [
@@ -59,13 +70,33 @@ export class ChemicalContainer {
 *
 **************************************************************/
   public getFormattedData(chemical:string) : string[] {
-    //let formattedData:string[] = [];
-    //console.log(chemical);
-    return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
+    let output:string[] = [];
+    for (let level of this._targetRiskHazard) {
+      if (level === this._targetRiskHazardOptions[0]){
+        output = output.concat(this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+      if (level === this._targetRiskHazardOptions[1]){
+        output = output.concat(this._rslthq01.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+      if (level === this._targetRiskHazardOptions[2]){
+        output = output.concat(this._rmlthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+      if (level === this._targetRiskHazardOptions[3]){
+        output = output.concat(this._rmlthq30.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+    }
+    return output;
+    //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
     //return ['1234','1231'];
   }
   public getAllFormattedData(chemical:string) : string[] {
-    return this._rslthq10.getAllFormattedData(chemical);
+    let output:string[] = [];
+    output = output.concat(this._rslthq10.getAllFormattedData(chemical));
+    output = output.concat(this._rslthq01.getAllFormattedData(chemical));
+    output = output.concat(this._rmlthq10.getAllFormattedData(chemical));
+    output = output.concat(this._rmlthq30.getAllFormattedData(chemical));
+    return output;
+    //return this._rslthq10.getAllFormattedData(chemical);
 
   }
 
@@ -115,6 +146,7 @@ export class ChemicalContainer {
         if (scenario === this._scenarioOptions[0]){
           choices.push(this._exposureRouteOptions[0]);
           choices.push(this._exposureRouteOptions[1]);
+          choices.push(this._exposureRouteOptions[4]);
         }
         if (scenario === this._scenarioOptions[1]) {
           choices.push(this._exposureRouteOptions[0]);
