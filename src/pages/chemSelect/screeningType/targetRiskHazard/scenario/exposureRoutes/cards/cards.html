@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Chemical Info</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to the results page!</h2>
+
+
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-card *ngFor="let item of items">
+      <ion-card-header ng-model="item.selected">
+        <ion-card-title> {{item}}
+        <button ion-button clear icon-start>
+          <ion-icon name='md-star-outline'></ion-icon>
+          Favorite
+        </button>
+        </ion-card-title>
+      </ion-card-header>
+      <button ion-item (click)="goToNextPage(chemical)">
+        <ion-card-content *ngFor="let info of data.getFormattedData(item)">
+          <span>{{info}}</span>
+      </ion-card-content>
+    </button>
+  </ion-card>
+</ion-content>

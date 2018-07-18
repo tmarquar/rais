@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Exposure Routes</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+      <h1>Select Exposure Routes</h1>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+        <ion-checkbox ng-model="item.selected" (ionChange)="toggleCheckboxes(item)">
+        </ion-checkbox>
+        <ion-label>{{item}}</ion-label>
+    </ion-item>
+</ion-list>
+
+<ion-footer>
+  <div class="btn-wrapper">
+    <button ion-button (click)= "goToOtherPage()">Next</button>
+  </div>
+</ion-footer>
+
+</ion-content>
