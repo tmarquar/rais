@@ -22,6 +22,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HTTP } from '@ionic-native/http';
+import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { HTTP } from '@ionic-native/http';
     StatusBar,
     SplashScreen,
     HTTP,
+    FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -60,9 +60,17 @@ export class RSLTHQ10 {
 
 
 
-  private readCsvData(fileName:string) {
+  private readCsvData(fileName) {
   //console.log("test");
   //let http : Http;
+  var reader = new FileReader();
+  reader.onload = function(evt) {
+    var text = reader.result;
+    console.log("read Success");
+    console.log(evt.target.result);
+  };
+  reader.readAsText(fileName);
+
   this.http.get(fileName,{} ,{})
   .then(
     data => {this.extractData(data.data);
