@@ -24,6 +24,8 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
+  _result:string[] = []; //to put together chemicals so they have the checked attribute
+
   constructor (private http: Http) {
     this.initializeOptions();
 

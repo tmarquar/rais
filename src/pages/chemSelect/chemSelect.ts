@@ -1,3 +1,4 @@
+//ORIGINAL
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
@@ -17,50 +18,68 @@ export class ChemSelectPage {
   constructor(public navCtrl: NavController, private http: Http) {
     this.data = new ChemicalContainer(this.http);
     this.items = this.data.getChemicalNames();
-    this.initializeItems();
+    this.items = this.setUpChemicalNames(this.items);
+
     this.initializeCheckboxes();
   }
 
   initializeCheckboxes() {
-    for (let item of this.items) {
+  /*  for (let item of this.items) {
       this.checkboxes[item] = false;
-    }
+    }*/
   }
 
-  initializeItems() {
-    this.items = [
-      {  text: 'Boron', checked: false},
-      {  text: 'Potassium', checked: true}
-    ];
+  setUpChemicalNames() {
+    var count = 0;
+    var result : string[] = [];
+
+    result[0] = "[";
+    console.log("ughh");
+    console.log(result[0]);
+
+    for(let item of this.items) {
+      console.log("in for");
+    /*  console.log(this.count);
+      //if last chemical
+      if(this.count == this.items.length-1) {
+      console.log("in if");
+        this.result[item] += "{ text:" + item + ", checked: true } ];";
+        return this.result;
+      } else {
+        console.log("in else");
+         this.result[0] += "{ text: " + item + ", checked: true },";
+         console.log(this.result[item]);
+        }
+        this.count++;
+        */
+     }
+
   }
+
   toggleCheckboxes(item) {
-/*    if(!this.checkboxes[item]) {
+    if(!this.checkboxes[item]) {
       this.checkboxes[item] = true;
-      console.log(item, " is now true.");
+      //console.log(item, " is now true.");
       this.checked.push(item);
-      console.log(item, " is now pushed to checked.");
-
-      console.log("Checked looks like this: ");
+      //console.log(item, " is now pushed to checked.");
+      //console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-        console.log(this.checked[i]);
+        //console.log(this.checked[i]);
       }
     } else {
       this.checkboxes[item] = false;
-      console.log(item, " is now false.");
-
+      //console.log(item, " is now false.");
       var index = this.checked.indexOf(item, 0);
       if (index > -1) {
          this.checked.splice(index, 1);
       }
 
-      console.log(item, " is now removed from checked.");
-      console.log("Checked looks like this: ");
+      //console.log(item, " is now removed from checked.");
+      //console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-      console.log(this.checked[i]);
+        //console.log(this.checked[i]);
       }
     }
-    */
-
     //this.checked[item] = !this.checked[item];
   }
 
