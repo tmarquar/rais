@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Http } from '@angular/http';
+import { HTTP } from '@ionic-native/http';
 import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 
@@ -14,7 +14,7 @@ export class ChemSelectPage {
   checked = [];
   data : ChemicalContainer;
 
-  constructor(public navCtrl: NavController, private http: Http) {
+  constructor(public navCtrl: NavController, private http: HTTP) {
     this.data = new ChemicalContainer(this.http);
     this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();

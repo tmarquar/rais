@@ -1,5 +1,5 @@
-import { Http } from '@angular/http';
-import { ChemicalData } from './Chemical_Data';
+import { HTTP } from '@ionic-native/http';
+
 import { RSLTHQ10 } from './RSLTHQ10';
 import { RSLTHQ01 } from './RSLTHQ01';
 import { RMLTHQ10 } from './RMLTHQ10';
@@ -24,7 +24,7 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
-  constructor (private http: Http) {
+  constructor (private http: HTTP) {
     this.initializeOptions();
 
     this._rslthq10 = new RSLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);

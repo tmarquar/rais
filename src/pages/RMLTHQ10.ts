@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { HTTP } from '@ionic-native/http';
 import * as papa from 'papaparse';
 
 export class RMLTHQ10 {
@@ -23,7 +23,7 @@ export class RMLTHQ10 {
   _scenarioOptions:string[] = [];
 
   // initialize all data
-  constructor (private http: Http, routeOptions:string[], scenarioOptions:string[]) {
+  constructor (private http: HTTP, routeOptions:string[], scenarioOptions:string[]) {
     this.readCsvData('../assets/csv/RML_1_0.csv');
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
@@ -52,11 +52,12 @@ export class RMLTHQ10 {
 
   private readCsvData(fileName:string) {
   //let http : Http;
-  this.http.get(fileName)
-  .subscribe(
-    data => this.extractData(data),
-    err => this.handleError(err)
-  );
+  this.http.get(fileName, {},{})
+  .then(
+    data => {this.extractData(data.data);
+    })
+    .catch(error => {this.handleError(error.error)});
+
   }
 
   private extractData(res) : void {
