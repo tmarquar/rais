@@ -21,7 +21,7 @@ export class ChemSelectPage {
   }
 
   initializeCheckboxes() {
-    for (let i of this.items) {
+    for (let item of this.items) {
       this.checkboxes[item] = false;
     }
   }
@@ -29,27 +29,27 @@ export class ChemSelectPage {
   toggleCheckboxes(item) {
     if(!this.checkboxes[item]) {
       this.checkboxes[item] = true;
-      console.log(item, " is now true.");
+      //console.log(item, " is now true.");
       this.checked.push(item);
-      console.log(item, " is now pushed to checked.");
+      //console.log(item, " is now pushed to checked.");
 
-      console.log("Checked looks like this: ");
+      //console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-        console.log(this.checked[i]);
+        //console.log(this.checked[i]);
       }
     } else {
       this.checkboxes[item] = false;
-      console.log(item, " is now false.");
+      //console.log(item, " is now false.");
 
       var index = this.checked.indexOf(item, 0);
       if (index > -1) {
          this.checked.splice(index, 1);
       }
 
-      console.log(item, " is now removed from checked.");
-      console.log("Checked looks like this: ");
+      //console.log(item, " is now removed from checked.");
+      //console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-        console.log(this.checked[i]);
+        //console.log(this.checked[i]);
       }
     }
     //this.checked[item] = !this.checked[item];
