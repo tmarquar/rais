@@ -11,6 +11,7 @@ import { ChemicalContainer} from '../Chemical_Container';
 export class ChemSelectPage {
   items;
   checkboxes = [];
+  checked = [];
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, private http: Http) {
@@ -20,13 +21,38 @@ export class ChemSelectPage {
   }
 
   initializeCheckboxes() {
-    for (let item of this.items) {
+    for (let i of this.items) {
       this.checkboxes[item] = false;
     }
   }
 
   toggleCheckboxes(item) {
-    this.checkboxes[item] = !this.checkboxes[item];
+    if(!this.checkboxes[item]) {
+      this.checkboxes[item] = true;
+      console.log(item, " is now true.");
+      this.checked.push(item);
+      console.log(item, " is now pushed to checked.");
+
+      console.log("Checked looks like this: ");
+      for (var i = 0; i < this.checked.length; i++) {
+        console.log(this.checked[i]);
+      }
+    } else {
+      this.checkboxes[item] = false;
+      console.log(item, " is now false.");
+
+      var index = this.checked.indexOf(item, 0);
+      if (index > -1) {
+         this.checked.splice(index, 1);
+      }
+
+      console.log(item, " is now removed from checked.");
+      console.log("Checked looks like this: ");
+      for (var i = 0; i < this.checked.length; i++) {
+        console.log(this.checked[i]);
+      }
+    }
+    //this.checked[item] = !this.checked[item];
   }
 
   goToOtherPage() {
@@ -54,6 +80,12 @@ export class ChemSelectPage {
   getItems(ev) {
     // Reset items back to all of the items
     this.items = this.data.getChemicalNames();
+    for(let item of this.items) {
+    //  if(this.checked[item] == item) {
+    //    console.log("Hello");
+        //this.checkboxes[item] = true;
+    //  }
+    }
 
     // set val to the value of the ev target
     var val = ev.target.value;
