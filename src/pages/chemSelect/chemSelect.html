@@ -8,10 +8,10 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-checkbox ng-model="item.checked" (ionChange)="toggleCheckboxes(item)">
+   <ion-item *ngFor="let item of items">
+      <ion-checkbox  ng-model="item.checked" ng-checked="item.checked" (ionChange)="toggleCheckboxes(item)">
       </ion-checkbox>
-      <ion-label>{{item}}</ion-label>
+      <ion-label>{{item.text}}</ion-label>
     </ion-item>
   </ion-list>
 

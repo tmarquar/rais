@@ -17,17 +17,24 @@ export class ChemSelectPage {
   constructor(public navCtrl: NavController, private http: Http) {
     this.data = new ChemicalContainer(this.http);
     this.items = this.data.getChemicalNames();
+    this.initializeItems();
     this.initializeCheckboxes();
   }
 
   initializeCheckboxes() {
-    for (let i of this.items) {
+    for (let item of this.items) {
       this.checkboxes[item] = false;
     }
   }
 
+  initializeItems() {
+    this.items = [
+      {  text: 'Boron', checked: false},
+      {  text: 'Potassium', checked: true}
+    ];
+  }
   toggleCheckboxes(item) {
-    if(!this.checkboxes[item]) {
+/*    if(!this.checkboxes[item]) {
       this.checkboxes[item] = true;
       console.log(item, " is now true.");
       this.checked.push(item);
@@ -49,9 +56,11 @@ export class ChemSelectPage {
       console.log(item, " is now removed from checked.");
       console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-        console.log(this.checked[i]);
+      console.log(this.checked[i]);
       }
     }
+    */
+
     //this.checked[item] = !this.checked[item];
   }
 
