@@ -18,14 +18,17 @@ export class ChemSelectPage {
   constructor(public navCtrl: NavController, private http: Http) {
     this.data = new ChemicalContainer(this.http);
     this.items = this.data.getChemicalNames();
-    this.items = this.setUpChemicalNames(this.items);
+    console.log(this.items[0]);
+    this.items = this.setUpChemicalNames();
 
+  //  this.data.setUpChemicalNames();
     this.initializeCheckboxes();
   }
 
   initializeCheckboxes() {
   /*  for (let item of this.items) {
       this.checkboxes[item] = false;
+      console.log(item);
     }*/
   }
 
@@ -35,7 +38,7 @@ export class ChemSelectPage {
 
     result[0] = "[";
     console.log("ughh");
-    console.log(result[0]);
+    console.log(this.items[0]);
 
     for(let item of this.items) {
       console.log("in for");
@@ -53,31 +56,27 @@ export class ChemSelectPage {
         this.count++;
         */
      }
-
   }
 
   toggleCheckboxes(item) {
-    if(!this.checkboxes[item]) {
-      this.checkboxes[item] = true;
-      //console.log(item, " is now true.");
+    if(this.checkboxes[item] == true) {
+      console.log(item, " is now true.");
       this.checked.push(item);
-      //console.log(item, " is now pushed to checked.");
-      //console.log("Checked looks like this: ");
+      console.log(item, " is now pushed to checked.");
+      console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-        //console.log(this.checked[i]);
+        console.log(this.checked[i]);
       }
     } else {
-      this.checkboxes[item] = false;
-      //console.log(item, " is now false.");
+      console.log(item, " is now false.");
       var index = this.checked.indexOf(item, 0);
       if (index > -1) {
          this.checked.splice(index, 1);
       }
-
-      //console.log(item, " is now removed from checked.");
-      //console.log("Checked looks like this: ");
+      console.log(item, " is now removed from checked.");
+      console.log("Checked looks like this: ");
       for (var i = 0; i < this.checked.length; i++) {
-        //console.log(this.checked[i]);
+        console.log(this.checked[i]);
       }
     }
     //this.checked[item] = !this.checked[item];
