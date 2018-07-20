@@ -14,11 +14,13 @@ export class ChemSelectPage {
   checkboxes = [];
   checked = [];
   data : ChemicalContainer;
+  test:string;
 
   constructor(public navCtrl: NavController, private http: HTTP) {
     this.data = new ChemicalContainer(this.http);
     this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();
+    this.test = this.data.getTest();
   }
 
   initializeCheckboxes() {

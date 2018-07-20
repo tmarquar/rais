@@ -24,6 +24,8 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
+  test:string;
+
   constructor (private http: HTTP) {
     this.initializeOptions();
 
@@ -33,6 +35,14 @@ export class ChemicalContainer {
     this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
 
     this._chemicalNames = this._rslthq10.getChemicalList();
+
+    this.test = this._rslthq10.getTest();
+
+  }
+
+  getTest() :string{
+    console.log(this.test);
+    return this.test;
   }
 
   initializeOptions() :void  {

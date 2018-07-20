@@ -5,6 +5,8 @@ import * as papa from 'papaparse';
 export class RSLTHQ10 {
   csvData:any[] = [];
   headerRow:any[] = [];
+  _test:string;
+  parsedData:string[]=[];
 
   _myMap: {[key:string]:number} = {};
   _chemicalNames:string[] = [] ;
@@ -33,7 +35,7 @@ export class RSLTHQ10 {
     this.readCsvData('../assets/csv/RSL_1_0.csv');
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
-
+    this._test = "test";
   }
 
   private initializeChemicals() : void {
@@ -76,7 +78,9 @@ export class RSLTHQ10 {
   this.http.get(fileName,{} ,{})
   .then(
     data => { //console.log(data.data);
+      this.parseCsv(data.data);
       this.extractData(data.data);
+
     })
     .catch(error => {
       this.handleError(error.error)});
@@ -91,7 +95,7 @@ export class RSLTHQ10 {
 */
   }
 
-  private extractData(res) : void {
+  private extractData(res:string) : void {
     //console.log(res);
     //let csvData = res['_body'] || '';
     let parsedData = papa.parse(res).data;
@@ -105,6 +109,21 @@ export class RSLTHQ10 {
 
   private handleError(err) {
     console.log('something went wrong: ', err);
+  }
+
+
+  private parseCsv(data:string) :void {
+    let start:number = 0;
+    let end:number = 0;
+    console.log(data.length);
+    console.log(data.search(","));
+    this._test = data.slice(0,7)
+    console.log(this._test);
+  }
+
+  public getTest () : string {
+    console.log(this._test);
+    return this._test;
   }
 
 /***********************************************************************
