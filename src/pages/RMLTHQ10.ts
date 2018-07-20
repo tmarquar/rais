@@ -52,17 +52,18 @@ export class RMLTHQ10 {
 
   private readCsvData(fileName:string) {
   //let http : Http;
-  this.http.get(fileName, {},{})
+  this.http.get(fileName,{} ,{})
   .then(
-    data => {this.extractData(data.data);
+    data => { //console.log(data.data);
+      this.extractData(data.data);
     })
-    .catch(error => {this.handleError(error.error)});
-
+    .catch(error => {
+      this.handleError(error.error)});
   }
 
   private extractData(res) : void {
-    let csvData = res['_body'] || '';
-    let parsedData = papa.parse(csvData).data;
+    //let csvData = res['_body'] || '';
+    let parsedData = papa.parse(res).data;
 
     this.headerRow = parsedData[0];
     parsedData.splice(0,1);

@@ -5,11 +5,10 @@ import { RSLTHQ10 } from './RSLTHQ10';
 import { RSLTHQ01 } from './RSLTHQ01';
 import { RMLTHQ10 } from './RMLTHQ10';
 import { RMLTHQ30 } from './RMLTHQ30';
-import * as papa from 'papaparse';
+
 
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
-
   _selectedChemicals:string[] = [];
   _scenario:string[] = [];
   _screeningType:string[] = [];
@@ -34,7 +33,6 @@ export class ChemicalContainer {
     this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
 
     this._chemicalNames = this._rslthq10.getChemicalList();
-
   }
 
   initializeOptions() :void  {

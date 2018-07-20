@@ -61,8 +61,8 @@ export class RMLTHQ30 {
   }
 
   private extractData(res) : void {
-    let csvData = res['_body'] || '';
-    let parsedData = papa.parse(csvData).data;
+    //let csvData = res['_body'] || '';
+    let parsedData = papa.parse(res).data;
 
     this.headerRow = parsedData[0];
     parsedData.splice(0,1);
