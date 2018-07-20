@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
 import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
+//import { File } from '@ionic-native/file';
 
 @Component({
   selector: 'page-chemSelect',

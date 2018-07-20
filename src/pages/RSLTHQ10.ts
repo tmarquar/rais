@@ -1,4 +1,5 @@
 import { HTTP } from '@ionic-native/http';
+//import { File } from '@ionic-native/file';
 import * as papa from 'papaparse';
 
 export class RSLTHQ10 {
@@ -63,6 +64,7 @@ export class RSLTHQ10 {
   private readCsvData(fileName) {
   //console.log("test");
   //let http : Http;
+  /*
   var reader = new FileReader();
   reader.onload = function(evt) {
     var text = reader.result;
@@ -70,24 +72,34 @@ export class RSLTHQ10 {
     console.log(evt.target.result);
   };
   reader.readAsText(fileName);
-
+*/
   this.http.get(fileName,{} ,{})
   .then(
-    data => {this.extractData(data.data);
+    data => { //console.log(data.data);
+      this.extractData(data.data);
     })
     .catch(error => {
       this.handleError(error.error)});
 
+/*
+  this.file.readAsText('../assets/csv/','RSL_1_0.csv').then(
+    data => { console.log("Success");
+      //this.extractData(data.data);
+    })
+    .catch(error => {
+      this.handleError(error.error)});
+*/
   }
 
   private extractData(res) : void {
-    let csvData = res['_body'] || '';
-    let parsedData = papa.parse(csvData).data;
+    //console.log(res);
+    //let csvData = res['_body'] || '';
+    let parsedData = papa.parse(res).data;
 
     this.headerRow = parsedData[0];
     parsedData.splice(0,1);
     this.csvData = parsedData;
-
+    //console.log(this.csvData[0]);
     this.initializeChemicals();
   }
 

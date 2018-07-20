@@ -1,4 +1,5 @@
 import { HTTP } from '@ionic-native/http';
+//import { File } from '@ionic-native/file';
 
 import { RSLTHQ10 } from './RSLTHQ10';
 import { RSLTHQ01 } from './RSLTHQ01';
@@ -27,7 +28,7 @@ export class ChemicalContainer {
   constructor (private http: HTTP) {
     this.initializeOptions();
 
-    this._rslthq10 = new RSLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);
+    this._rslthq10 = new RSLTHQ10(this.http, this._exposureRouteOptions, this._scenarioOptions);
     this._rslthq01 = new RSLTHQ01(this.http,this._exposureRouteOptions, this._scenarioOptions);
     this._rmlthq10 = new RMLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);
     this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
