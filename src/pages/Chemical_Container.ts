@@ -34,7 +34,6 @@ export class ChemicalContainer {
     this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
 
     this._chemicalNames = this._rslthq10.getChemicalList();
-
   }
 
   initializeOptions() :void  {
@@ -187,6 +186,34 @@ export class ChemicalContainer {
   getChemicalNames() : string[] {
     return this._chemicalNames;
   }
+    setUpChemicalNames() {
+      var items;
+      var count = 0;
+      var result : string[] = [];
+
+      items = this.getChemicalNames();
+
+      result[0] = "[";
+      console.log("ughh");
+      console.log(items[0]);
+
+      for(let item of items) {
+        console.log("in for");
+      /*  console.log(this.count);
+        //if last chemical
+        if(this.count == this.items.length-1) {
+        console.log("in if");
+          this.result[item] += "{ text:" + item + ", checked: true } ];";
+          return this.result;
+        } else {
+          console.log("in else");
+           this.result[0] += "{ text: " + item + ", checked: true },";
+           console.log(this.result[item]);
+          }
+          this.count++;
+          */
+       }
+    }
 
   addScenario(scenario:string):void{
     this._scenario.push(scenario);
