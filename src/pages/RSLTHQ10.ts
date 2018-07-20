@@ -32,10 +32,16 @@ export class RSLTHQ10 {
 
   // initialize all data
   constructor (private http: HTTP, routeOptions:string[], scenarioOptions:string[]) {
-    this.readCsvData('../assets/csv/RSL_1_0.csv');
+    //this._test = "tesst";
+    //this.readCsvData('/src/pages/RSL_1_0.csv');
+    this.readCsvData('./RSL_1_0.csv')
+    //this.readCsvData('/src/assets/csv/RSL_1_0.csv');
+    //this.readCsvData('/src/assets/csv/RSL_1_0.csv');
+
+    //var prom = wait(1000);
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
-    this._test = "test";
+
   }
 
   private initializeChemicals() : void {
@@ -63,7 +69,7 @@ export class RSLTHQ10 {
 
 
 
-  private readCsvData(fileName) {
+  async readCsvData(fileName) {
   //console.log("test");
   //let http : Http;
   /*
@@ -75,7 +81,9 @@ export class RSLTHQ10 {
   };
   reader.readAsText(fileName);
 */
-  this.http.get(fileName,{} ,{})
+  var thing = this.http.get(fileName,{},{});
+  console.log(thing);
+  await this.http.get(fileName,{} ,{})
   .then(
     data => { //console.log(data.data);
       this.parseCsv(data.data);
@@ -115,8 +123,8 @@ export class RSLTHQ10 {
   private parseCsv(data:string) :void {
     let start:number = 0;
     let end:number = 0;
-    console.log(data.length);
-    console.log(data.search(","));
+    //console.log(data.length);
+    //console.log(data.search(","));
     this._test = data.slice(0,7)
     console.log(this._test);
   }

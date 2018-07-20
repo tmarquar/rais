@@ -33,8 +33,9 @@ export class ChemicalContainer {
     this._rslthq01 = new RSLTHQ01(this.http,this._exposureRouteOptions, this._scenarioOptions);
     this._rmlthq10 = new RMLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);
     this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
-
-    this._chemicalNames = this._rslthq10.getChemicalList();
+    //var prom = wait(2000);
+    this._chemicalNames = ['this', 'adf'];
+    //this._rslthq10.getChemicalList();
 
     this.test = this._rslthq10.getTest();
 
@@ -42,7 +43,8 @@ export class ChemicalContainer {
 
   getTest() :string{
     console.log(this.test);
-    return this.test;
+    return this._rslthq10.getTest();
+    //return this.test;
   }
 
   initializeOptions() :void  {

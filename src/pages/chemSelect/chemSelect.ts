@@ -18,6 +18,7 @@ export class ChemSelectPage {
 
   constructor(public navCtrl: NavController, private http: HTTP) {
     this.data = new ChemicalContainer(this.http);
+    //var prom = wait(3000);
     this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();
     this.test = this.data.getTest();
@@ -30,6 +31,7 @@ export class ChemSelectPage {
   }
 
   toggleCheckboxes(item) {
+    this.test = this.data.getTest();
     if(!this.checkboxes[item]) {
       this.checkboxes[item] = true;
       //console.log(item, " is now true.");
