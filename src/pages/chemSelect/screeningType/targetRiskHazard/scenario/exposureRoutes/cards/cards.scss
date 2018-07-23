@@ -1,9 +1,11 @@
 page-CardsPage {
 
-  ion-card-title {
-    font-size: 8pt;
+  ion-card-title.chemical {
+    font-size: 12pt;
+    padding: 0px;
   }
-  ion-card-content {
+  ion-card-content.chemical {
+    padding: 0px;
     font-size: 6pt;
   }
 

@@ -9,16 +9,16 @@
 <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
   <ion-card *ngFor="let item of items">
-      <ion-card-header ng-model="item.selected">
-        <ion-card-title> {{item}}
-        <button ion-button clear icon-start>
-          <ion-icon name='md-star-outline'></ion-icon>
-          Favorite
-        </button>
+      
+        <ion-card-title class = "chemical">
+          <button ion-button clear icon-start>
+            <ion-icon name='md-star-outline'></ion-icon>
+          </button>
+          {{item}}
         </ion-card-title>
-      </ion-card-header>
+
       <button ion-item (click)="goToNextPage(item)">
-        <ion-card-content *ngFor="let info of data.getFormattedData(item)">
+        <ion-card-content class = "chemical" *ngFor="let info of data.getFormattedData(item)">
           {{info}}
       </ion-card-content>
     </button>
