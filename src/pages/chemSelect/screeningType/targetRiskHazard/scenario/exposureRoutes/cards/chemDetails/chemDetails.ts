@@ -18,30 +18,8 @@ export class ChemDetailsPage {
   displayHeader() : string {
     return this.chemical;
   }
-
-  displayCasNum(chemical):string {
-    return this.data.getCasnum(this.chemical);
-  }
-  displayResidentSoil(chemical):string {
-    var result : string;
-    result = String(this.data.getResidentSoil(this.chemical)[0]);
-    return result;
-  }
-  displayResidentSoilKey(chemical):string {
-    return this.data.getResidentSoil(this.chemical)[1];
-  }
-  displayIndustrialSoil(chemical):string {
-    var result : string;
-    result = String(this.data.getIndustrialSoil(this.chemical)[0]);
-    return result;
-  }
-  displayIndustrialSoilKey(chemical):string {
-    return this.data.getIndustrialSoil(this.chemical)[1];
-  }
-  displayMCL(chemical):string {
-    var result : string;
-    result = String(this.data.getMCL(this.chemical));
-    return result;
-
+  getAllFormattedData () : string[] {
+    //console.log(this.chemical);
+    return this.data.getAllFormattedData(this.chemical);
   }
 }

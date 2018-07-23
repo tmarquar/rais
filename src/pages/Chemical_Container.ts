@@ -1,15 +1,14 @@
-import { Http } from '@angular/http';
-import { ChemicalData } from './Chemical_Data';
-import * as papa from 'papaparse';
+import { HTTP } from '@ionic-native/http';
+import { File } from '@ionic-native/file';
+
+import { RSLTHQ10 } from './RSLTHQ10';
+import { RSLTHQ01 } from './RSLTHQ01';
+import { RMLTHQ10 } from './RMLTHQ10';
+import { RMLTHQ30 } from './RMLTHQ30';
+
 
 export class ChemicalContainer {
-  //_chemicals : ChemicalData[];
-  //_chosenChemicals = string[];
-  csvData:any[] = [];
-  headerRow:any[] = [];
   _chemicalNames:string[] = [];
-  _chemicalsMasterList: ChemicalData[] = [];
-
   _selectedChemicals:string[] = [];
   _scenario:string[] = [];
   _screeningType:string[] = [];
@@ -20,11 +19,30 @@ export class ChemicalContainer {
   _exposureRouteOptions:string[] = [];
   _scenarioOptions:string[] = [];
 
-  constructor (private http: Http, fileName:string) {
-    this.readCsvData(fileName);
-    this.initializeOptions();
-  }
+  _rslthq10 : RSLTHQ10;
+  _rslthq01 : RSLTHQ01;
+  _rmlthq10 : RMLTHQ10;
+  _rmlthq30 : RMLTHQ30;
 
+  constructor (private http: HTTP, private file: File) {
+    this.initializeOptions();
+
+    this._rslthq10 = new RSLTHQ10(this.http, this.file, this._exposureRouteOptions, this._scenarioOptions);
+    this._rslthq01 = new RSLTHQ01(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
+    this._rmlthq10 = new RMLTHQ10(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
+    this._rmlthq30 = new RMLTHQ30(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
+    //var prom = wait(2000);
+    //this._chemicalNames = ['this', 'adf'];
+    this._chemicalNames = this._rslthq10.getChemicalList();
+
+  }
+/*
+  getTest() :string{
+    console.log(this.test);
+    return this._rslthq10.getTest();
+    //return this.test;
+  }
+*/
   initializeOptions() :void  {
     this._screeningTypeOptions = [
       'RSL (Regional Screening Levels)',
@@ -42,60 +60,51 @@ export class ChemicalContainer {
       'Soil',
       'Tapwater',
       'Air',
-      'Tap SSL',
-      'Tap MCL',
-      'Tap MCL SSL'
+      'Tapwater SSL',
+      'Tapwater MCL',
+      'Tapwater MCL SSL'
     ];
 
     this._scenarioOptions = [
       'Resident',
       'Industrial'
     ];
-    
+
   }
 
-  initializeChemicalNames() : void{
-     for (let chemical of this.csvData) {
-       this._chemicalNames.push(chemical[0]);
-     }
-  }
-
-  initializeChemicals() : void {
-    for (let row of this.csvData) {
-      this._chemicalsMasterList[row[0]] = new ChemicalData();
-      this._chemicalsMasterList[row[0]].setChemicalName(row[0]);
-      this._chemicalsMasterList[row[0]].setCasnum(row[1]);
-      this._chemicalsMasterList[row[0]].setResidentSoil(row[2], row[3]);
-      this._chemicalsMasterList[row[0]].setIndustrialSoil(row[4], row[5]);
-      this._chemicalsMasterList[row[0]].setResidentTapwater(row[6],row[7]);
-      this._chemicalsMasterList[row[0]].setMCL(row[8]);
-
+/*************************************************************
+* Functions for output
+*
+**************************************************************/
+  public getFormattedData(chemical:string) : string[] {
+    let output:string[] = [];
+    for (let level of this._targetRiskHazard) {
+      if (level === this._targetRiskHazardOptions[0]){
+        output = output.concat(this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+      if (level === this._targetRiskHazardOptions[1]){
+        output = output.concat(this._rslthq01.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+      if (level === this._targetRiskHazardOptions[2]){
+        output = output.concat(this._rmlthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
+      if (level === this._targetRiskHazardOptions[3]){
+        output = output.concat(this._rmlthq30.getFormattedData(this._scenario,this._exposureRoutes,chemical));
+      }
     }
+    return output;
+    //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
+    //return ['1234','1231'];
   }
+  public getAllFormattedData(chemical:string) : string[] {
+    let output:string[] = [];
+    output = output.concat(this._rslthq10.getAllFormattedData(chemical));
+    output = output.concat(this._rslthq01.getAllFormattedData(chemical));
+    output = output.concat(this._rmlthq10.getAllFormattedData(chemical));
+    output = output.concat(this._rmlthq30.getAllFormattedData(chemical));
+    return output;
+    //return this._rslthq10.getAllFormattedData(chemical);
 
-  private readCsvData(fileName:string) {
-  //let http : Http;
-  this.http.get(fileName)
-  .subscribe(
-    data => this.extractData(data),
-    err => this.handleError(err)
-  );
-}
-
-  private extractData(res) : void {
-    let csvData = res['_body'] || '';
-    let parsedData = papa.parse(csvData).data;
-
-    this.headerRow = parsedData[0];
-    parsedData.splice(0,1);
-    this.csvData = parsedData;
-
-    this.initializeChemicalNames();
-    this.initializeChemicals();
-  }
-
-  private handleError(err) {
-    console.log('something went wrong: ', err);
   }
 
 /***************************************************************
@@ -127,24 +136,34 @@ export class ChemicalContainer {
   // get the scenario options after selecting target risk
   public getExposureRouteOptions(): string[]{
   let choices:string[] = [];
-  for (let route of this._exposureRouteOptions) {
-    if (route === this._targetRiskHazard[0]){
-      choices = this._exposureRouteOptions;
+  for (let type of this._screeningType) {
+    if (type === this._screeningTypeOptions[0]){
+      for (let scenario of this._scenario){
+        if (scenario === this._scenarioOptions[0]){
+          choices = this._exposureRouteOptions;
+        }
+        if (scenario === this._scenarioOptions[1]) {
+          choices.push(this._exposureRouteOptions[0]);
+          choices.push(this._exposureRouteOptions[2]);
+        }
+      }
     }
-    if (route === this._targetRiskHazard[1]){
-      choices.push(this._exposureRouteOptions[0]);
-      choices.push(this._exposureRouteOptions[2]);
-    }
-    if (route === this._targetRiskHazard[2]){
-      choices.push(this._exposureRouteOptions[0]);
-      choices.push(this._exposureRouteOptions[1]);
-    }
-    if (route === this._targetRiskHazard[3]){
-      choices.push(this._exposureRouteOptions[0]);
+    if (type === this._screeningTypeOptions[1]){
+      for (let scenario of this._scenario){
+        if (scenario === this._scenarioOptions[0]){
+          choices.push(this._exposureRouteOptions[0]);
+          choices.push(this._exposureRouteOptions[1]);
+          choices.push(this._exposureRouteOptions[4]);
+        }
+        if (scenario === this._scenarioOptions[1]) {
+          choices.push(this._exposureRouteOptions[0]);
+        }
+      }
+
     }
   }
   let unique = Array.from(new Set(choices));
-  console.log("hello");
+  //console.log("hello");
   return unique;
   }
 
@@ -170,7 +189,7 @@ export class ChemicalContainer {
   setSelectedChemicals(selectedChemicals:string[]) : void {
     this._selectedChemicals = selectedChemicals;
   }
-  // List of all chemicals from Masterlist
+  // List of all chemicals
   getChemicalNames() : string[] {
     return this._chemicalNames;
   }
@@ -227,65 +246,5 @@ export class ChemicalContainer {
     return this._exposureRoutes;
 
   }
-  /**********************************************************
-  * Access data from each chemical element in the Masterlist.
-  *
-  ***********************************************************/
-  // uses integer instead of string
-  // probably not useful
-  getChemicalName(index:number) : string {
-    return this._chemicalsMasterList[index].getChemicalName();
-  }
 
-  getCasnum(chemicalName:string): string {
-    return this._chemicalsMasterList[chemicalName].getCasnum();
-  }
-
-  getIndustrialSoil(chemicalName:string) : [number,string] {
-    return this._chemicalsMasterList[chemicalName].getIndustrialSoil();
-  }
-
-  getResidentSoil(chemicalName:string) : [number,string] {
-    return this._chemicalsMasterList[chemicalName].getResidentSoil();
-  }
-
-  getResidentTapwater(chemicalName:string) : [number,string] {
-    return this._chemicalsMasterList[chemicalName].getResidentTapwater();
-  }
-
-  getMCL(chemicalName:string) : number {
-    return this._chemicalsMasterList[chemicalName].getMCL();
-  }
-
-  /**********************************************************
-  * Display data from each chemical element in the proper data set.
-  *
-  ***********************************************************/
-  displayCasNum(chemical:string):string {
-    return this.getCasnum(chemical);
-  }
-  displayResidentSoilLabel(chemical:string):string {
-    return "Resident Soil (mg/kg): ";
-  }
-  displayResidentSoil(chemical:string):string {
-    var result : string;
-    result = String(this.getResidentSoil(chemical)[0]);
-    return result;
-  }
-  displayResidentSoilKey(chemical:string):string {
-    return this.getResidentSoil(chemical)[1];
-  }
-  displayIndustrialSoil(chemical:string):string {
-    var result : string;
-    result = String(this.getIndustrialSoil(chemical)[0]);
-    return result;
-  }
-  displayIndustrialSoilKey(chemical:string):string {
-    return this.getIndustrialSoil(chemical)[1];
-  }
-  displayMCL(chemical:string):string {
-    var result : string;
-    result = String(this.getMCL(chemical));
-    return result;
-  }
 }
