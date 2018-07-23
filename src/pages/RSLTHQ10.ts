@@ -156,9 +156,10 @@ export class RSLTHQ10 {
   public getFormattedData (scenario:string[], routes:string[], chemicalName:string) : string[] {
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];
+    formattedData.push('************************');
     formattedData.push('RSL: Target Risk: 1E-6');
     formattedData.push('Hazard Quotient: 1.0');
-    formattedData.push('************************************************');
+    formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
     //console.log(chemicalName);
 
@@ -207,9 +208,10 @@ export class RSLTHQ10 {
     //console.log(chemicalName);
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];//["test","test2"];
+    formattedData.push('************************');
     formattedData.push('RSL: Target Risk: 1E-6');
     formattedData.push('Hazard Quotient: 1.0');
-    formattedData.push('************************************************');
+    formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
     formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
     formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
