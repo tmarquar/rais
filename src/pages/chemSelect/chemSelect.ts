@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
 import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
-//import { File } from '@ionic-native/file';
+import { File } from '@ionic-native/file';
 
 @Component({
   selector: 'page-chemSelect',
@@ -14,14 +14,13 @@ export class ChemSelectPage {
   checkboxes = [];
   checked = [];
   data : ChemicalContainer;
-  test:string;
 
-  constructor(public navCtrl: NavController, private http: HTTP) {
-    this.data = new ChemicalContainer(this.http);
+  constructor(public navCtrl: NavController, private http: HTTP, private file:File) {
+    this.data = new ChemicalContainer(this.http, this.file);
     //var prom = wait(3000);
     this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();
-    this.test = this.data.getTest();
+
   }
 
   initializeCheckboxes() {
@@ -31,7 +30,6 @@ export class ChemSelectPage {
   }
 
   toggleCheckboxes(item) {
-    this.test = this.data.getTest();
     if(!this.checkboxes[item]) {
       this.checkboxes[item] = true;
       //console.log(item, " is now true.");

@@ -1,5 +1,5 @@
 import { HTTP } from '@ionic-native/http';
-//import { File } from '@ionic-native/file';
+import { File } from '@ionic-native/file';
 
 import { RSLTHQ10 } from './RSLTHQ10';
 import { RSLTHQ01 } from './RSLTHQ01';
@@ -24,29 +24,25 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
-  test:string;
-
-  constructor (private http: HTTP) {
+  constructor (private http: HTTP, private file: File) {
     this.initializeOptions();
 
-    this._rslthq10 = new RSLTHQ10(this.http, this._exposureRouteOptions, this._scenarioOptions);
-    this._rslthq01 = new RSLTHQ01(this.http,this._exposureRouteOptions, this._scenarioOptions);
-    this._rmlthq10 = new RMLTHQ10(this.http,this._exposureRouteOptions, this._scenarioOptions);
-    this._rmlthq30 = new RMLTHQ30(this.http,this._exposureRouteOptions, this._scenarioOptions);
+    this._rslthq10 = new RSLTHQ10(this.http, this.file, this._exposureRouteOptions, this._scenarioOptions);
+    this._rslthq01 = new RSLTHQ01(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
+    this._rmlthq10 = new RMLTHQ10(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
+    this._rmlthq30 = new RMLTHQ30(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
     //var prom = wait(2000);
-    this._chemicalNames = ['this', 'adf'];
-    //this._rslthq10.getChemicalList();
-
-    this.test = this._rslthq10.getTest();
+    //this._chemicalNames = ['this', 'adf'];
+    this._chemicalNames = this._rslthq10.getChemicalList();
 
   }
-
+/*
   getTest() :string{
     console.log(this.test);
     return this._rslthq10.getTest();
     //return this.test;
   }
-
+*/
   initializeOptions() :void  {
     this._screeningTypeOptions = [
       'RSL (Regional Screening Levels)',

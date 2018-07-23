@@ -1,11 +1,11 @@
 import { HTTP } from '@ionic-native/http';
-//import { File } from '@ionic-native/file';
+import { File } from '@ionic-native/file';
 import * as papa from 'papaparse';
 
 export class RSLTHQ10 {
   csvData:any[] = [];
   headerRow:any[] = [];
-  _test:string;
+  //_test:string;
   parsedData:string[]=[];
 
   _myMap: {[key:string]:number} = {};
@@ -31,10 +31,14 @@ export class RSLTHQ10 {
   _scenarioOptions:string[] = [];
 
   // initialize all data
-  constructor (private http: HTTP, routeOptions:string[], scenarioOptions:string[]) {
+  constructor (private http: HTTP, private file: File, routeOptions:string[], scenarioOptions:string[]) {
     //this._test = "tesst";
     //this.readCsvData('/src/pages/RSL_1_0.csv');
-    this.readCsvData('./RSL_1_0.csv')
+    //this.readCsvData('RSL_1_0.csv');
+    //this.readCsvData('../a')
+    //this.readCsvData('../assets/csv/RSL_1_0.csv');
+    //this.readCsvData('https://www.google.com/');
+    this.readCsvData('www/assets/csv/RSL_1_0.csv');
     //this.readCsvData('/src/assets/csv/RSL_1_0.csv');
     //this.readCsvData('/src/assets/csv/RSL_1_0.csv');
 
@@ -81,26 +85,30 @@ export class RSLTHQ10 {
   };
   reader.readAsText(fileName);
 */
-  var thing = this.http.get(fileName,{},{});
-  console.log(thing);
+  //var thing = this.http.get(fileName,{},{});
+  //console.log(thing);
+/*
   await this.http.get(fileName,{} ,{})
   .then(
-    data => { //console.log(data.data);
+    data => { console.log(data.data);
       this.parseCsv(data.data);
       this.extractData(data.data);
 
     })
     .catch(error => {
       this.handleError(error.error)});
+*/
 
-/*
-  this.file.readAsText('../assets/csv/','RSL_1_0.csv').then(
-    data => { console.log("Success");
-      //this.extractData(data.data);
+  const fs:string = this.file.applicationDirectory;
+  this.file.readAsText(fs,fileName)
+  .then(
+    data => { //console.log("Success");
+      //this.parseCsv(data);
+      this.extractData(data);
     })
     .catch(error => {
-      this.handleError(error.error)});
-*/
+      this.handleError(error)});
+
   }
 
   private extractData(res:string) : void {
@@ -112,28 +120,30 @@ export class RSLTHQ10 {
     parsedData.splice(0,1);
     this.csvData = parsedData;
     //console.log(this.csvData[0]);
+    //this._test = this.csvData[1][0];
     this.initializeChemicals();
   }
 
   private handleError(err) {
+    // /this._test = err;
     console.log('something went wrong: ', err);
   }
 
-
+/*
   private parseCsv(data:string) :void {
     let start:number = 0;
     let end:number = 0;
     //console.log(data.length);
     //console.log(data.search(","));
-    this._test = data.slice(0,7)
-    console.log(this._test);
+    //this._test = data.slice(0,7)
+    //console.log(this._test);
   }
 
   public getTest () : string {
     console.log(this._test);
     return this._test;
   }
-
+*/
 /***********************************************************************
 * This function will return an array of strings that can be directly printed
 * to the card.

@@ -1,5 +1,6 @@
 import { HTTP } from '@ionic-native/http';
 import * as papa from 'papaparse';
+import { File } from '@ionic-native/file';
 
 export class RMLTHQ10 {
   csvData:any[] = [];
@@ -23,8 +24,8 @@ export class RMLTHQ10 {
   _scenarioOptions:string[] = [];
 
   // initialize all data
-  constructor (private http: HTTP, routeOptions:string[], scenarioOptions:string[]) {
-    this.readCsvData('../assets/csv/RML_1_0.csv');
+  constructor (private http: HTTP, private file: File,routeOptions:string[], scenarioOptions:string[]) {
+    this.readCsvData('www/assets/csv/RML_1_0.csv');
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
 
@@ -52,6 +53,8 @@ export class RMLTHQ10 {
 
   private readCsvData(fileName:string) {
   //let http : Http;
+
+  /*
   this.http.get(fileName,{} ,{})
   .then(
     data => { //console.log(data.data);
@@ -59,6 +62,18 @@ export class RMLTHQ10 {
     })
     .catch(error => {
       this.handleError(error.error)});
+    */
+    const fs:string = this.file.applicationDirectory;
+    this.file.readAsText(fs,fileName)
+    .then(
+      data => { //console.log("Success");
+        //this.parseCsv(data);
+        this.extractData(data);
+      })
+      .catch(error => {
+        this.handleError(error)});
+
+
   }
 
   private extractData(res) : void {
