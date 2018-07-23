@@ -5,19 +5,8 @@
 </ion-header>
 
 <ion-content padding >
-    <h2>{{displayHeader()}}</h2>
-    <p> (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧    </p>
-    <h3>CAS No.:
-       <p>{{displayCasNum()}}</p>
-    Resident Soil (mg/kg):
-        <p>{{displayResSoil()}}</p>
-    Key:
-      <p>{{displayResSoil()}}</p>
-    Industrial Soil (mg/kg):
-      <p>{{displayIndSoil()}}</p>
-      Key:
-      <p>{{displayIndSoilKey()}}</p>
-      MCL:
-      <p>{{displayMCL()}}</p>
-    </h3>
+  <h2>{{chemical}}</h2>
+  <h3 *ngFor="let info of getAllFormattedData()">
+    {{info}}
+  </h3>
 </ion-content>

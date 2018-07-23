@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Http } from '@angular/http';
 import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
 
@@ -9,20 +8,27 @@ import { ChemDetailsPage } from './chemDetails/chemDetails';
   templateUrl: 'cards.html'
 })
 export class CardsPage {
-  selectedChemicalsCopy:string[];
+  items;
+
   //just a duplicate to refresh the original when searching
+  selectedChemicalsCopy:string[];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.data = navParams.get('data');
       this.selectedChemicalsCopy = this.data.getSelectedChemicals();
+      this.initializeItems();
   }
 
-  openChemCard(chemical:string) : void {
+  goToNextPage(chemical:string) : void {
     this.navCtrl.push(ChemDetailsPage, {
       'chemical': chemical,
       'data': this.data
     });
+  }
+
+  initializeItems() : void {
+    this.items = this.data.getSelectedChemicals();
   }
 
   getItems(ev) : void {

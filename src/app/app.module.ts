@@ -21,7 +21,9 @@ import { ChemDetailsPage } from '../pages/chemSelect/screeningType/targetRiskHaz
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HttpModule } from '@angular/http';
+import { HTTP } from '@ionic-native/http';
+//import { FilePath } from '@ionic-native/file-path';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -41,9 +43,7 @@ import { HttpModule } from '@angular/http';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpModule
-
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -64,6 +64,8 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
+    HTTP,
+    File,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
