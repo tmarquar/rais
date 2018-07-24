@@ -142,9 +142,10 @@ export class RMLTHQ30 {
     formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
     formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
+    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
     formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
     formattedData.push('Tapwater MCL: ' + this._tapwaterMCL[chemical]);
-    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
+
     formattedData.push(' ');
     return formattedData;
   }

@@ -7,6 +7,9 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { InfoPage } from '../pages/info/info';
+
+import { DetailedInfoPage } from '../pages/info/detailedInfo/detailedInfo';
 
 import { StaffPage } from '../pages/contact/staff/staff';
 
@@ -39,7 +42,9 @@ import { File } from '@ionic-native/file';
     ExposureRoutesPage,
     CardsPage,
     ChemDetailsPage,
-    StaffPage
+    StaffPage,
+    InfoPage,
+    DetailedInfoPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,9 @@ import { File } from '@ionic-native/file';
     ExposureRoutesPage,
     CardsPage,
     ChemDetailsPage,
-    StaffPage
+    StaffPage,
+    InfoPage,
+    DetailedInfoPage
   ],
   providers: [
     StatusBar,

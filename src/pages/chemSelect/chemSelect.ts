@@ -19,6 +19,7 @@ export class ChemSelectPage {
     this.data = new ChemicalContainer(this.http, this.file);
     //var prom = wait(3000);
     this.items = this.data.getChemicalNames();
+    this.items.splice(-1,1);
     this.initializeCheckboxes();
 
   }
