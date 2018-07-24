@@ -10,7 +10,7 @@
     <ion-item *ngFor="let item of items">
         <ion-checkbox ng-model="item.selected" (ionChange)="toggleCheckboxes(item)">
         </ion-checkbox>
-        <ion-label>{{item}}</ion-label>
+        <ion-label class = "fit">{{item}}</ion-label>
     </ion-item>
 </ion-list>
 </ion-content>

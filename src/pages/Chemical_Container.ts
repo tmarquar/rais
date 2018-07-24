@@ -181,6 +181,7 @@ export class ChemicalContainer {
     this._selectedChemicals.push(chemical);
   }
   getSelectedChemicals() :string[]{
+
     return this._selectedChemicals;
   }
   resetSelectedChemicals() : void {
@@ -191,6 +192,9 @@ export class ChemicalContainer {
   }
   // List of all chemicals
   getChemicalNames() : string[] {
+  // was trying to remove the empty last item in the list.
+  //this._chemicalNames.splice(-1,1);
+
     return this._chemicalNames;
   }
 

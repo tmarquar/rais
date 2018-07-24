@@ -45,7 +45,7 @@ export class StaffPage {
     this.staffPhone['Leslie Galloway'] = '865-574-7906';
     this.staffPhone['Debra Stewart'] = '865-576-5450';
     //this.staffPhone['Katie Noto'] = '###-###-####';
-    //this.staffPhone['Karessa Manning'] = '###-###-####';
+    this.staffPhone['Karessa Manning'] = '865-576-7108';
   }
 
   private initializeTitle () : void {

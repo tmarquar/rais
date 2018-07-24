@@ -7,6 +7,7 @@ import { StaffPage } from './staff/staff';
   templateUrl: 'contact.html'
 })
 export class ContactPage {
+  fred = 'Fred Dolislager';
   staff = [
     'Fred Dolislager',
     'Leslie Galloway',
