@@ -15,8 +15,8 @@
   <ion-card *ngFor="let item of items">
       <ion-card-header ng-model="item.selected">
         <ion-card-title class = "chemical">
-        <button ion-button icon-start clear (click)="toggleFavorite(this)">
-          <ion-icon name={{buttonIcon}} size="large"></ion-icon>
+        <button ion-button icon-start clear (click)="toggleFavorite(item)">
+          <ion-icon name={{getButtonIcon(item)}} size="large"></ion-icon>
         </button>
         {{item}}
         </ion-card-title>

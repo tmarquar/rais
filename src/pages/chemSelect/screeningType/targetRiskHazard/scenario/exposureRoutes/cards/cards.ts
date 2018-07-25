@@ -9,8 +9,8 @@ import { ChemDetailsPage } from './chemDetails/chemDetails';
 })
 export class CardsPage {
   items;
-  buttonIcon = "star-outline";
-  
+  buttonIcon:string[] = [];
+
   //just a duplicate to refresh the original when searching
   selectedChemicalsCopy:string[];
   data: ChemicalContainer;
@@ -30,16 +30,24 @@ export class CardsPage {
 
   initializeItems() : void {
     this.items = this.data.getSelectedChemicals();
+    for (let item of this.items) {
+      this.buttonIcon[item] = 'star-outline';
+    }
   }
 
-  toggleFavorite(button) {
-    if (this.buttonIcon === 'star-outline') {
-       this.buttonIcon = "star";
+  toggleFavorite(chemical:string):void {
+    if (this.buttonIcon[chemical] === 'star-outline') {
+       this.buttonIcon[chemical] = "star";
      }
      else {
-       this.buttonIcon = "star-outline";
+       this.buttonIcon[chemical] = "star-outline";
      }
   }
+
+  getButtonIcon(chemical:string):string {
+    return this.buttonIcon[chemical];
+  }
+
   getItems(ev) : void {
     // Reset items back to all of the items
     this.data.setSelectedChemicals(this.selectedChemicalsCopy);
