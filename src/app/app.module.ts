@@ -9,7 +9,9 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { InfoPage } from '../pages/info/info';
 
-import { DetailedInfoPage } from '../pages/info/detailedInfo/detailedInfo';
+import { RSLInfoPage } from '../pages/info/RSLInfo/RSLInfo';
+import { RMLInfoPage } from '../pages/info/RMLInfo/RMLInfo';
+
 
 import { StaffPage } from '../pages/contact/staff/staff';
 
@@ -44,7 +46,8 @@ import { File } from '@ionic-native/file';
     ChemDetailsPage,
     StaffPage,
     InfoPage,
-    DetailedInfoPage
+    RSLInfoPage,
+    RMLInfoPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { File } from '@ionic-native/file';
     ChemDetailsPage,
     StaffPage,
     InfoPage,
-    DetailedInfoPage
+    RSLInfoPage,
+    RMLInfoPage
   ],
   providers: [
     StatusBar,
