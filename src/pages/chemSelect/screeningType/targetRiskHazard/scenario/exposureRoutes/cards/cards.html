@@ -1,6 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Chemical Info</ion-title>
+    <ion-title>
+      <h1>
+        EPA RSL/RML Screening Level Search App
+      </h1>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -10,15 +14,16 @@
 
   <ion-card *ngFor="let item of items">
       <ion-card-header ng-model="item.selected">
-        <ion-card-title> {{item}}
+        <ion-card-title class = "chemical">
         <button ion-button icon-start clear (click)="toggleFavorite(this)">
           <ion-icon name={{buttonIcon}} size="large"></ion-icon>
         </button>
+        {{item}}
         </ion-card-title>
       </ion-card-header>
       <button ion-item (click)="goToNextPage(item)">
-        <ion-card-content *ngFor="let info of data.getFormattedData(item)">
-          <span>{{info}}</span>
+        <ion-card-content class = "chemical" *ngFor="let info of data.getFormattedData(item)">
+          {{info}}
       </ion-card-content>
     </button>
   </ion-card>
