@@ -9,7 +9,8 @@ import { ChemDetailsPage } from './chemDetails/chemDetails';
 })
 export class CardsPage {
   items;
-
+  buttonIcon = "star-outline";
+  
   //just a duplicate to refresh the original when searching
   selectedChemicalsCopy:string[];
   data: ChemicalContainer;
@@ -31,6 +32,14 @@ export class CardsPage {
     this.items = this.data.getSelectedChemicals();
   }
 
+  toggleFavorite(button) {
+    if (this.buttonIcon === 'star-outline') {
+       this.buttonIcon = "star";
+     }
+     else {
+       this.buttonIcon = "star-outline";
+     }
+  }
   getItems(ev) : void {
     // Reset items back to all of the items
     this.data.setSelectedChemicals(this.selectedChemicalsCopy);
