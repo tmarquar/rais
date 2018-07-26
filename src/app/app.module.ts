@@ -22,6 +22,8 @@ import { ScenarioPage } from '../pages/chemSelect/screeningType/targetRiskHazard
 import { ExposureRoutesPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/exposureRoutes';
 import { CardsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/cards/cards';
 import { ChemDetailsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/cards/chemDetails/chemDetails';
+import { FavoritesPage } from '../pages/favorites/favorites';
+import { FavDetailsPage } from '../pages/favorites/favDetails/favDetails';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,6 +31,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HTTP } from '@ionic-native/http';
 //import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
+import { SQLite } from '@ionic-native/sqlite';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,9 @@ import { File } from '@ionic-native/file';
     StaffPage,
     InfoPage,
     RSLInfoPage,
-    RMLInfoPage
+    RMLInfoPage,
+    FavoritesPage,
+    FavDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -70,13 +75,16 @@ import { File } from '@ionic-native/file';
     StaffPage,
     InfoPage,
     RSLInfoPage,
-    RMLInfoPage
+    RMLInfoPage,
+    FavoritesPage,
+    FavDetailsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HTTP,
     File,
+    SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
