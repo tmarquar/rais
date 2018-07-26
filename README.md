@@ -124,6 +124,18 @@ $ ionic cordova plugin add cordova-sqlite-storage
 $ npm install --save @ionic-native/sqlite
 ```
 
+File: 
+```
+$ ionic cordova plugin add cordova-plugin-file
+$ npm install --save @ionic-native/file
+```
+
+Http: 
+```
+$ ionic cordova plugin add cordova-plugin-advanced-http
+$ npm install --save @ionic-native/http
+```
+
 #### Windows Installation
 (yet to be tested)
 Homebrew:
