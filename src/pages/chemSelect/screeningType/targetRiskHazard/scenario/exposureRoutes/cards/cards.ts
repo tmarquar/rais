@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
 
+
 @Component({
   selector: 'page-CardsPage',
   templateUrl: 'cards.html'

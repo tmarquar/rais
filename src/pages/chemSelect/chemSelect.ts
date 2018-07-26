@@ -4,6 +4,7 @@ import { HTTP } from '@ionic-native/http';
 import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Component({
   selector: 'page-chemSelect',
@@ -15,8 +16,8 @@ export class ChemSelectPage {
   checked = [];
   data : ChemicalContainer;
 
-  constructor(public navCtrl: NavController, private http: HTTP, private file:File) {
-    this.data = new ChemicalContainer(this.http, this.file);
+  constructor(public navCtrl: NavController, private http: HTTP, private file:File, private sqlite: SQLite) {
+    this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
     //var prom = wait(3000);
     this.items = this.data.getChemicalNames();
     this.items.splice(-1,1);

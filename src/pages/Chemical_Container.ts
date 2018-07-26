@@ -6,6 +6,7 @@ import { RSLTHQ01 } from './RSLTHQ01';
 import { RMLTHQ10 } from './RMLTHQ10';
 import { RMLTHQ30 } from './RMLTHQ30';
 
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
@@ -24,7 +25,7 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
-  constructor (private http: HTTP, private file: File) {
+  constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
 
     this._rslthq10 = new RSLTHQ10(this.http, this.file, this._exposureRouteOptions, this._scenarioOptions);
@@ -60,9 +61,9 @@ export class ChemicalContainer {
       'Soil',
       'Tapwater',
       'Air',
-      'Tapwater SSL',
-      'Tapwater MCL',
-      'Tapwater MCL SSL'
+      'Soil to Groundwater',
+      'Tapwater (MCL)',
+      'Soil to Groundwater (MCL)'
     ];
 
     this._scenarioOptions = [
@@ -136,11 +137,18 @@ export class ChemicalContainer {
   // get the scenario options after selecting target risk
   public getExposureRouteOptions(): string[]{
   let choices:string[] = [];
-  for (let type of this._screeningType) {
-    if (type === this._screeningTypeOptions[0]){
+  for (let type of this._targetRiskHazard) {
+    if (type === this._targetRiskHazardOptions[0] || type == this._targetRiskHazardOptions[1]){
       for (let scenario of this._scenario){
         if (scenario === this._scenarioOptions[0]){
-          choices = this._exposureRouteOptions;
+          //choices = this._exposureRouteOptions;
+          choices.push(this._exposureRouteOptions[0]);
+          choices.push(this._exposureRouteOptions[1]);
+          choices.push(this._exposureRouteOptions[4]);
+          choices.push(this._exposureRouteOptions[2]);
+          choices.push(this._exposureRouteOptions[3]);
+          choices.push(this._exposureRouteOptions[5]);
+
         }
         if (scenario === this._scenarioOptions[1]) {
           choices.push(this._exposureRouteOptions[0]);
@@ -148,7 +156,7 @@ export class ChemicalContainer {
         }
       }
     }
-    if (type === this._screeningTypeOptions[1]){
+    if (type === this._targetRiskHazardOptions[2] || type === this._targetRiskHazardOptions[3]){
       for (let scenario of this._scenario){
         if (scenario === this._scenarioOptions[0]){
           choices.push(this._exposureRouteOptions[0]);
