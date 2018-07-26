@@ -83,7 +83,7 @@ I don't think the above will work in browser, but might in emulator.
 # Dependencies
 Still under construction :)
 
-Homebrew: $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+Homebrew: `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 Node.js: $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
          $ sudo apt-get install -y nodejs
