@@ -82,14 +82,21 @@ I don't think the above will work in browser, but might in emulator.
 
 # Dependencies
 Still under construction :)
+
 Homebrew: $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 Node.js: $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
          $ sudo apt-get install -y nodejs
+         
 Ionic and Cordova: $ npm install -g cordova ionic
-sqlite: $ ionic cordova plugin add cordova-sqlite-storage
+
+SQLite: $ ionic cordova plugin add cordova-sqlite-storage
         $ npm install --save @ionic-native/sqlite
-papaparse: npm install papaparse
-file: $ ionic cordova plugin add cordova-plugin-file
+
+Papaparse: npm install papaparse
+
+File: $ ionic cordova plugin add cordova-plugin-file
       $ npm install --save @ionic-native/file
-http: $ ionic cordova plugin add cordova-plugin-advanced-http
+
+Http: $ ionic cordova plugin add cordova-plugin-advanced-http
       $ npm install --save @ionic-native/http
