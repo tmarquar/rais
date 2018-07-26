@@ -104,6 +104,11 @@ Ionic and Cordova:
 $ npm install -g cordova ionic
 ```
 
+Ionic app-scripts
+```
+$ npm install @ionic/app-scripts@latest --save-dev
+```
+
 If you already have Cordova and Ionic installed on your computer, make sure you update to the latest version:
 ```
 $ npm update -g cordova ionic
