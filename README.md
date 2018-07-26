@@ -80,9 +80,11 @@ am working to fix that:
 https://ionicframework.com/docs/native/http/
 I don't think the above will work in browser, but might in emulator.
 
+### Xcode
+I have created a Wiki page to test using Xcode and get your app on an Apple Device :)
+
 # Dependencies
 Still under construction :)
-
 
 ### Mac Installation
 Run each command in a Terminal:
@@ -138,6 +140,7 @@ $ sudo apt-get install -y nodejs
 Ionic and Cordova: 
 ```
 $ npm install -g cordova ionic
+$ npm install @ionic/app-scripts@latest --save-dev
 ```
 
 Papaparse:
