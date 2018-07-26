@@ -84,11 +84,9 @@ I don't think the above will work in browser, but might in emulator.
 I have created a Wiki page to test using Xcode and get your app on an Apple Device :)
 
 # Dependencies
-Still under construction :)
 
 ### Mac Installation
-Run each command in a Terminal:
-(testing in progress)
+Run each command in a Terminal, in order :)
 On a Mac, you may have to use sudo depending on your system configuration.
 
 Homebrew:
