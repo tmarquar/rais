@@ -25,6 +25,8 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
+
+
   constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
 
@@ -57,6 +59,11 @@ export class ChemicalContainer {
       'Target Risk: 1E-4 and Hazard Quotient: 3.0'
     ];
 
+    this._scenarioOptions = [
+      'Resident',
+      'Industrial'
+    ];
+
     this._exposureRouteOptions = [
       'Soil',
       'Tapwater',
@@ -64,11 +71,6 @@ export class ChemicalContainer {
       'Soil to Groundwater',
       'Tapwater (MCL)',
       'Soil to Groundwater (MCL)'
-    ];
-
-    this._scenarioOptions = [
-      'Resident',
-      'Industrial'
     ];
 
   }

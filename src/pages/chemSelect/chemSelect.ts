@@ -16,11 +16,10 @@ export class ChemSelectPage {
   checked = [];
   data : ChemicalContainer;
 
-  constructor(public navCtrl: NavController, private http: HTTP, private file:File, private sqlite: SQLite) {
+  constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
-    //var prom = wait(3000);
     this.items = this.data.getChemicalNames();
-    this.items.splice(-1,1);
+    //this.items.splice(-1,1);
     this.initializeCheckboxes();
 
   }
