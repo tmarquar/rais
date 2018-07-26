@@ -84,9 +84,8 @@ I don't think the above will work in browser, but might in emulator.
 Still under construction :)
 
 Homebrew:
-```
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
+
+    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 Node.js:
 ```
