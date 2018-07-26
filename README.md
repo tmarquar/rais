@@ -83,9 +83,51 @@ I don't think the above will work in browser, but might in emulator.
 # Dependencies
 Still under construction :)
 
-Homebrew:
 
-    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+### Mac Installation
+Run each command in a Terminal:
+(testing in progress)
+On a Mac, you may have to use sudo depending on your system configuration.
+
+Homebrew:
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+Node.js:
+```
+$ brew install node
+```
+
+Ionic and Cordova: 
+```
+$ npm install -g cordova ionic
+```
+
+If you already have Cordova and Ionic installed on your computer, make sure you update to the latest version:
+```
+$ npm update -g cordova ionic
+```
+
+Papaparse:
+```
+$ npm install papaparse
+```
+
+Make sure you're in an Ionic directory to install the following:
+
+SQLite: 
+```
+$ ionic cordova plugin add cordova-sqlite-storage
+$ npm install --save @ionic-native/sqlite
+```
+
+#### Windows Installation
+(yet to be tested)
+Homebrew:
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 
 Node.js:
 ```
@@ -98,14 +140,17 @@ Ionic and Cordova:
 $ npm install -g cordova ionic
 ```
 
+Papaparse:
+```
+$ npm install papaparse
+```
+
+Make sure you're in an Ionic directory when you install the following:
+
 SQLite: 
 ```
 $ ionic cordova plugin add cordova-sqlite-storage
 $ npm install --save @ionic-native/sqlite
-```
-Papaparse:
-```
-$ npm install papaparse
 ```
 
 File: 
