@@ -14,12 +14,15 @@ export class SQLiteHandler {
   constructor (private sqlite: SQLite, private _screeningTypeOptions:string[],
     private _targetRiskHazardOptions:string[], private _scenarioOptions:string[], private _exposureRouteOptions:string[]) {
 
+
     this.loadData();
     //this.saveData('Benzene',this._screeningTypeOptions,this._targetRiskHazardOptions,this._scenarioOptions,this._exposureRouteOptions);
     //this.loadData();
 
 
   }
+
+
 
 
   processData() :void {
@@ -81,36 +84,37 @@ export class SQLiteHandler {
         index++;
         exposureRouteInt = exposureRouteInt / 2;
       }
-
     }
-
   }
 
 
-
-
-  loadData():void {
-    this.sqlite.create({
+    loadData() {
+     this.sqlite.create({
       name: 'ionicdb.db',
       location: 'default'
     }).then((db: SQLiteObject) => {
-      db.executeSql("CREATE TABLE IF NOT EXISTS favorites(chemical TEXT PRIMARY KEY, screeningType INT, targetRiskHazard INT, scenario INT, exposureRoute INT)", this.temp)
+       db.executeSql("CREATE TABLE IF NOT EXISTS favorites(chemical TEXT PRIMARY KEY, screeningType INT, targetRiskHazard INT, scenario INT, exposureRoute INT)", this.temp)
         .then(res => console.log('Executed SQL'))
         .catch(e => console.log(e));
-        db.executeSql("SELECT * FROM favorites", this.temp)
+         db.executeSql("SELECT * FROM favorites", this.temp)
         .then(res => {
+          //console.log("I AM ABOUT TO READ IN DATA");
           this._chemicals = [];
           this._dataOptions = [[],[],[],[]];
           for(var i =0; i<res.rows.length; i++) {
             this._chemicals.push(res.rows.item(i).chemical);
+            console.log(res.rows.item(i).chemical);
             this._dataOptions[0].push(res.rows.item(i).screeningType);
             this._dataOptions[1].push(res.rows.item(i).targetRiskHazard);
             this._dataOptions[2].push(res.rows.item(i).scenario);
             this._dataOptions[3].push(res.rows.item(i).exposureRoute);
           }
+          this.processData();
         }).catch(e => console.log(e));
     }).catch(e => console.log(e));
-    this.processData();
+    //console.log("I am at the end of load" + this._chemicals[0]);
+    //this.processData();
+    //return this._chemicals;
   }
 
   public saveData(chemical:string, screeningType:string[], targetRiskHazard:string[],scenario:string[], exposureRoute:string[]):void {
@@ -157,9 +161,10 @@ export class SQLiteHandler {
     }).then((db: SQLiteObject) =>{
       db.executeSql('INSERT INTO favorites VALUES(?,?,?,?,?)',[chemical,screeningTypeInt,targetRiskHazardInt,scenarioInt,exposureRouteInt])
       .then(res => {
+        //console.log('Inserting data');
         console.log(res);
-      }).catch(e => console.log(e));
-    }).catch(e => console.log(e));
+      }).catch(e => console.log('sqlobject error: ' + e));
+    }).catch(e => console.log('sqlite error: ' + e));
 
     this.loadData();
   }
@@ -178,8 +183,13 @@ export class SQLiteHandler {
     this.loadData();
   }
 
-  getChemicals():string[] {
-    //return ['Benasdfzene'];
+  getChemicals() {
+    //console.log("waiting");
+    //while (this._chemicals[0] === undefined){
+      //console.log("waiting");
+    //}
+    //this.waitForData();
+    //console.log("DONE" + this._chemicals[0]);
     return this._chemicals;
   }
   getScenario(chemical:string): string[] {

@@ -21,10 +21,15 @@ export class FavoritesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
+
+
     this.initializeItems();
+
     this.selectedChemicalsCopy = this.data.getFavoriteChemicals();
 
   }
+
+
 
   goToNextPage(chemical:string) : void {
     this.navCtrl.push(FavDetailsPage, {
@@ -33,7 +38,12 @@ export class FavoritesPage {
     });
   }
 
-  initializeItems() : void {
+  async initializeItems()  {
+    let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 1000)
+  });
+    let result = await promise;
+    console.log("endwait");
     this.items = this.data.getFavoriteChemicals();
     for (let item of this.items) {
       this.buttonIcon[item] = 'star';

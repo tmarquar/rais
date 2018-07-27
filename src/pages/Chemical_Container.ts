@@ -41,7 +41,7 @@ export class ChemicalContainer {
     this._chemicalNames = this._rslthq10.getChemicalList();
 
     this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
-
+    this._favoriteData.loadData();
   }
 /*
   getTest() :string{
@@ -84,6 +84,7 @@ export class ChemicalContainer {
 *
 **************************************************************/
 public getFavoriteChemicals() : string[] {
+  //this._favoriteData.loadData();
   return this._favoriteData.getChemicals();
 }
 
@@ -153,8 +154,6 @@ public getFavoriteFormattedData(chemical:string) : string[] {
     //return this._rslthq10.getAllFormattedData(chemical);
 
   }
-
-
 
 
 
