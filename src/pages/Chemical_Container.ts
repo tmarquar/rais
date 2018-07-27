@@ -8,6 +8,8 @@ import { RMLTHQ30 } from './RMLTHQ30';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
+import { SQLiteHandler } from './sqliteHandler';
+
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
   _selectedChemicals:string[] = [];
@@ -25,7 +27,7 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
-
+  _favoriteData : SQLiteHandler;
 
   constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
@@ -37,6 +39,8 @@ export class ChemicalContainer {
     //var prom = wait(2000);
     //this._chemicalNames = ['this', 'adf'];
     this._chemicalNames = this._rslthq10.getChemicalList();
+
+    this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
 
   }
 /*
@@ -75,6 +79,46 @@ export class ChemicalContainer {
 
   }
 
+/**************************************************************
+* favorite handling
+*
+**************************************************************/
+public getFavoriteChemicals() : string[] {
+  return this._favoriteData.getChemicals();
+}
+
+public addFavorite(chemical:string) :void {
+  this._favoriteData.saveData(chemical, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
+}
+
+public deleteFavorite(chemical:string) : void {
+  this._favoriteData.deleteData(chemical);
+}
+
+public getFavoriteFormattedData(chemical:string) : string[] {
+  let targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
+  let output:string[] = [];
+  for (let level of targetRiskHazard) {
+    if (level === this._targetRiskHazardOptions[0]){
+      output = output.concat(this._rslthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[1]){
+      output = output.concat(this._rslthq01.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[2]){
+      output = output.concat(this._rmlthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[3]){
+      output = output.concat(this._rmlthq30.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+  }
+  return output;
+  //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
+  //return ['1234','1231'];
+}
+
+
+
 /*************************************************************
 * Functions for output
 *
@@ -109,6 +153,10 @@ export class ChemicalContainer {
     //return this._rslthq10.getAllFormattedData(chemical);
 
   }
+
+
+
+
 
 /***************************************************************
 * functions so that we get the options that we want

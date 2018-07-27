@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from './favDetails/favDetails';
+import { HTTP } from '@ionic-native/http';
+//import { ChemicalContainer} from '../Chemical_Container';
+import { File } from '@ionic-native/file';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Component({
   selector: 'page-FavoritesPage',
@@ -12,13 +16,14 @@ export class FavoritesPage {
   buttonIcon:string[] = [];
 
   //just a duplicate to refresh the original when searching
-  selectedChemicalsCopy:string[];
+  selectedChemicalsCopy:string[] = [];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-      //this.data = navParams.get('data');
-      //this.selectedChemicalsCopy = this.data.getSelectedChemicals();
-      //this.initializeItems();
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite) {
+    this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
+    this.initializeItems();
+    this.selectedChemicalsCopy = this.data.getFavoriteChemicals();
+
   }
 
   goToNextPage(chemical:string) : void {
@@ -29,9 +34,9 @@ export class FavoritesPage {
   }
 
   initializeItems() : void {
-    this.items = this.data.getSelectedChemicals();
+    this.items = this.data.getFavoriteChemicals();
     for (let item of this.items) {
-      this.buttonIcon[item] = 'star-outline';
+      this.buttonIcon[item] = 'star';
     }
   }
 

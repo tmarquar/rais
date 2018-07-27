@@ -39,9 +39,11 @@ export class CardsPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
+       this.data.addFavorite(chemical);
      }
      else {
        this.buttonIcon[chemical] = "star-outline";
+       this.data.deleteFavorite(chemical);
      }
   }
 
