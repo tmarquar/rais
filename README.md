@@ -188,3 +188,9 @@ Http:
 $ ionic cordova plugin add cordova-plugin-advanced-http
 $ npm install --save @ionic-native/http
 ```
+
+Splash Screen:
+```
+$ ionic cordova plugin add cordova-plugin-splashscreen
+$ npm install --save @ionic-native/splash-screen
+```
