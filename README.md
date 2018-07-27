@@ -119,7 +119,13 @@ Papaparse:
 $ npm install papaparse
 ```
 
-Make sure you're in an Ionic directory to install the following:
+Make sure you're in an Ionic directory to install the following 
+(this will have to be done for every app directory):
+
+Ionic App Scripts (if you want to build in Xcode)
+```
+$ npm install @ionic/app-scripts@latest --save-dev
+```
 
 SQLite: 
 ```
