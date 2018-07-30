@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
       <h1>
         EPA RSL/RML Screening Level Search App
       </h1>
@@ -22,7 +25,7 @@
         </ion-card-title>
       </ion-card-header>
       <button ion-item (click)="goToNextPage(item)">
-        <ion-card-content class = "chemical" *ngFor="let info of data.getFormattedData(item)">
+        <ion-card-content class = "chemical" *ngFor="let info of data.getFavoriteFormattedData(item)">
           {{info}}
       </ion-card-content>
     </button>

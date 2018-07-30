@@ -4,6 +4,7 @@ import { HTTP } from '@ionic-native/http';
 import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Component({
   selector: 'page-chemSelect',
@@ -15,10 +16,10 @@ export class ChemSelectPage {
   checked = [];
   data : ChemicalContainer;
 
-  constructor(public navCtrl: NavController, private http: HTTP, private file:File) {
-    this.data = new ChemicalContainer(this.http, this.file);
-    //var prom = wait(3000);
+  constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
+    this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
     this.items = this.data.getChemicalNames();
+    //this.items.splice(-1,1);
     this.initializeCheckboxes();
 
   }
@@ -37,9 +38,9 @@ export class ChemSelectPage {
       //console.log(item, " is now pushed to checked.");
 
       //console.log("Checked looks like this: ");
-      for (var i = 0; i < this.checked.length; i++) {
+      //for (var i = 0; i < this.checked.length; i++) {
         //console.log(this.checked[i]);
-      }
+      //}
     } else {
       this.checkboxes[item] = false;
       //console.log(item, " is now false.");
@@ -51,9 +52,9 @@ export class ChemSelectPage {
 
       //console.log(item, " is now removed from checked.");
       //console.log("Checked looks like this: ");
-      for (var i = 0; i < this.checked.length; i++) {
+      //for (var i = 0; i < this.checked.length; i++) {
         //console.log(this.checked[i]);
-      }
+      //}
     }
     //this.checked[item] = !this.checked[item];
   }
@@ -83,12 +84,12 @@ export class ChemSelectPage {
   getItems(ev) {
     // Reset items back to all of the items
     this.items = this.data.getChemicalNames();
-    for(let item of this.items) {
+    //for(let item of this.items) {
     //  if(this.checked[item] == item) {
     //    console.log("Hello");
         //this.checkboxes[item] = true;
     //  }
-    }
+    //}
 
     // set val to the value of the ev target
     var val = ev.target.value;

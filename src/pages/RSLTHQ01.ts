@@ -109,8 +109,10 @@ export class RSLTHQ01 {
   public getFormattedData (scenario:string[], routes:string[], chemicalName:string) : string[] {
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];
-    formattedData.push('RSL: Target Risk: 1E-6 and Hazard Quotient: 0.1');
-    formattedData.push('************************************************');
+    formattedData.push('************************');
+    formattedData.push('RSL: Target Risk: 1E-6');
+    formattedData.push('Hazard Quotient: 0.1');
+    formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
 
 
@@ -118,32 +120,33 @@ export class RSLTHQ01 {
       if (scene === this._scenarioOptions[0]) { // Resident
         for (let route of routes) {
           if (route === this._exposureRouteOptions[0]) { // Soil
-            formattedData.push(scene + ' ' + route + ': ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
-          }
-          if (route === this._exposureRouteOptions[1]) { // Tapwater
-            formattedData.push(scene + ' ' + route + ': ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._residentSoil[chemical][0] + ' (mg/kg), ' + this._residentSoil[chemical][1]);
           }
           if (route === this._exposureRouteOptions[2]) { // Air
-            formattedData.push(scene + ' ' + route + ': ' + this._residentAir[chemical][0] + ', ' + this._residentAir[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._residentAir[chemical][0] + ' (ug/m^3), ' + this._residentAir[chemical][1]);
           }
-          if (route === this._exposureRouteOptions[3]) { // Tap SSL
-            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterSSL[chemical] + ', ' + this._sslKey[chemical]);
+          if (route === this._exposureRouteOptions[1]) { // Tapwater
+            formattedData.push(scene + ' ' + route + ': ' + this._residentTapwater[chemical][0] + ' (ug/L), ' + this._residentTapwater[chemical][1]);
           }
           if (route === this._exposureRouteOptions[4]) { // Tap MCL
-            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCL[chemical]);
+            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCL[chemical]) + ' (ug/L)';
           }
+          if (route === this._exposureRouteOptions[3]) { // Tap SSL
+            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterSSL[chemical] + ' (mg/kg), ' + this._sslKey[chemical]);
+          }
+
           if (route === this._exposureRouteOptions[5]) { // Tap MCL SSL
-            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCLSSL[chemical] + ', ' + this._sslKey[chemical]);
+            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCLSSL[chemical] + ' (mg/kg), ' + this._sslKey[chemical]);
           }
         }
       }
       if (scene === this._scenarioOptions[1]) { // Industrial
         for (let route of routes) {
           if (route === this._exposureRouteOptions[0]) { // Soil
-            formattedData.push(scene + ' ' + route + ': ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._industrialSoil[chemical][0] + ' (mg/kg), ' + this._industrialSoil[chemical][1]);
           }
           if (route === this._exposureRouteOptions[2]) { // Air
-            formattedData.push(scene + ' ' + route + ': ' + this._industrialAir[chemical][0] + ', ' + this._industrialAir[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._industrialAir[chemical][0] + ' (ug/m^3), ' + this._industrialAir[chemical][1]);
           }
         }
       }
@@ -156,17 +159,20 @@ export class RSLTHQ01 {
     //console.log(chemicalName);
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];//["test","test2"];
-    formattedData.push('RSL: Target Risk: 1E-6 and Hazard Quotient: 0.1');
-    formattedData.push('************************************************');
+    formattedData.push('************************');
+    formattedData.push('RSL: Target Risk: 1E-6');
+    formattedData.push('Hazard Quotient: 0.1');
+    formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
-    formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
-    formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
-    formattedData.push('Resident Air: ' + this._residentAir[chemical][0] + ', ' + this._residentAir[chemical][1]);
-    formattedData.push('Tapwater SSL: ' + this._tapwaterSSL[chemical] + ', ' + this._sslKey[chemical]);
-    formattedData.push('Tapwater MCL: ' + this._tapwaterMCL[chemical]);
-    formattedData.push('Tapwater MCL SSL: ' + this._tapwaterMCLSSL[chemical] + ', ' + this._sslKey[chemical]);
-    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
-    formattedData.push('Industrial Air: ' + this._industrialAir[chemical][0] + ', ' + this._industrialAir[chemical][1]);
+    formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ' (mg/kg), ' + this._residentSoil[chemical][1]);
+    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ' (mg/kg), ' + this._industrialSoil[chemical][1]);
+    formattedData.push('Resident Air: ' + this._residentAir[chemical][0] + ' (ug/m^3), ' + this._residentAir[chemical][1]);
+    formattedData.push('Industrial Air: ' + this._industrialAir[chemical][0] + ' (ug/m^3), ' + this._industrialAir[chemical][1]);
+    formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ' (ug/L), ' + this._residentTapwater[chemical][1]);
+    formattedData.push('Tapwater MCL: ' + this._tapwaterMCL[chemical]) + ' (ug/L)';
+    formattedData.push('Tapwater SSL: ' + this._tapwaterSSL[chemical] + ' (mg/kg), ' + this._sslKey[chemical]);
+    formattedData.push('Tapwater MCL SSL: ' + this._tapwaterMCLSSL[chemical] + ' (mg/kg), ' + this._sslKey[chemical]);
+
     formattedData.push(' ');
     return formattedData;
   }

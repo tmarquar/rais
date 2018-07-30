@@ -1,11 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Chemical Select</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <h1>
+        EPA RSL/RML Screening Level Search App
+      </h1>
+    </ion-title>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+
   <ion-list>
     <ion-item *ngFor="let item of items">
       <ion-checkbox ng-model="item.checked" (ionChange)="toggleCheckboxes(item)">

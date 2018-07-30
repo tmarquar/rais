@@ -103,8 +103,10 @@ export class RMLTHQ10 {
   public getFormattedData (scenario:string[], routes:string[], chemicalName:string) : string[] {
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];
-    formattedData.push('RML: Target Risk: 1E-4 and Hazard Quotient: 1.0');
-    formattedData.push('************************************************');
+    formattedData.push('************************');
+    formattedData.push('RML: Target Risk: 1E-4');
+    formattedData.push('Hazard Quotient: 1.0');
+    formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
 
 
@@ -112,20 +114,20 @@ export class RMLTHQ10 {
       if (scene === this._scenarioOptions[0]) { // Resident
         for (let route of routes) {
           if (route === this._exposureRouteOptions[0]) { // Soil
-            formattedData.push(scene + ' ' + route + ': ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._residentSoil[chemical][0] + ' (mg/kg), ' + this._residentSoil[chemical][1]);
           }
           if (route === this._exposureRouteOptions[1]) { // Tapwater
-            formattedData.push(scene + ' ' + route + ': ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._residentTapwater[chemical][0] + ' (ug/L), ' + this._residentTapwater[chemical][1]);
           }
           if (route === this._exposureRouteOptions[4]) { // Tap MCL
-            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCL[chemical]);
+            formattedData.push(scene + ' ' + route + ': ' + this._tapwaterMCL[chemical] + ' (ug/L)');
           }
         }
       }
       if (scene === this._scenarioOptions[1]) { // Industrial
         for (let route of routes) {
           if (route === this._exposureRouteOptions[0]) { // Soil
-            formattedData.push(scene + ' ' + route + ': ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
+            formattedData.push(scene + ' ' + route + ': ' + this._industrialSoil[chemical][0] + ' (mg/kg), ' + this._industrialSoil[chemical][1]);
           }
         }
       }
@@ -138,13 +140,16 @@ export class RMLTHQ10 {
     //console.log(chemicalName);
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];//["test","test2"];
-    formattedData.push('RML: Target Risk: 1E-4 and Hazard Quotient: 1.0');
-    formattedData.push('************************************************');
+    formattedData.push('************************');
+    formattedData.push('RML: Target Risk: 1E-4');
+    formattedData.push('Hazard Quotient: 1.0');
+    formattedData.push('************************');
     formattedData.push('CAS No.: ' + this._casnum[chemical]);
-    formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ', ' + this._residentSoil[chemical][1]);
-    formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ', ' + this._residentTapwater[chemical][1]);
-    formattedData.push('Tapwater MCL: ' + this._tapwaterMCL[chemical]);
-    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ', ' + this._industrialSoil[chemical][1]);
+    formattedData.push('Resident Soil: ' + this._residentSoil[chemical][0] + ' (mg/kg), ' + this._residentSoil[chemical][1]);
+    formattedData.push('Industrial Soil: ' + this._industrialSoil[chemical][0] + ' (mg/kg), ' + this._industrialSoil[chemical][1]);
+    formattedData.push('Resident Tapwater: ' + this._residentTapwater[chemical][0] + ' (ug/L), ' + this._residentTapwater[chemical][1]);
+    formattedData.push('Tapwater MCL: ' + this._tapwaterMCL[chemical]) + ' (ug/L)';
+
     formattedData.push(' ');
     return formattedData;
   }

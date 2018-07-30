@@ -6,6 +6,9 @@ import { RSLTHQ01 } from './RSLTHQ01';
 import { RMLTHQ10 } from './RMLTHQ10';
 import { RMLTHQ30 } from './RMLTHQ30';
 
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+
+import { SQLiteHandler } from './sqliteHandler';
 
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
@@ -24,7 +27,9 @@ export class ChemicalContainer {
   _rmlthq10 : RMLTHQ10;
   _rmlthq30 : RMLTHQ30;
 
-  constructor (private http: HTTP, private file: File) {
+  _favoriteData : SQLiteHandler;
+
+  constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
 
     this._rslthq10 = new RSLTHQ10(this.http, this.file, this._exposureRouteOptions, this._scenarioOptions);
@@ -35,6 +40,8 @@ export class ChemicalContainer {
     //this._chemicalNames = ['this', 'adf'];
     this._chemicalNames = this._rslthq10.getChemicalList();
 
+    this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
+    //this._favoriteData.loadData();
   }
 /*
   getTest() :string{
@@ -56,21 +63,76 @@ export class ChemicalContainer {
       'Target Risk: 1E-4 and Hazard Quotient: 3.0'
     ];
 
-    this._exposureRouteOptions = [
-      'Soil',
-      'Tapwater',
-      'Air',
-      'Tapwater SSL',
-      'Tapwater MCL',
-      'Tapwater MCL SSL'
-    ];
-
     this._scenarioOptions = [
       'Resident',
       'Industrial'
     ];
 
+    this._exposureRouteOptions = [
+      'Soil',
+      'Tapwater',
+      'Air',
+      'Soil to Groundwater',
+      'Tapwater (MCL)',
+      'Soil to Groundwater (MCL)'
+    ];
+
   }
+
+/**************************************************************
+* favorite handling
+*
+**************************************************************/
+public loadData() { // I wanted to try and return the promise here.
+
+  return this._favoriteData.loadData();
+}
+
+public loadChemicalData(chemical:string) : void {
+  //this._chemicalNames = this._favoriteData.getChemicals();
+  //this._selectedChemicals = this._favoriteData.getChemicals();
+  this._scenario = this._favoriteData.getScenario(chemical);
+  this._screeningType = this._favoriteData.getScreeningType(chemical);
+  this._targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
+  this._exposureRoutes = this._favoriteData.getExposureRoute(chemical);
+}
+
+public getFavoriteChemicals() : string[] {
+  //this._favoriteData.loadData();
+  return this._favoriteData.getChemicals();
+}
+
+public addFavorite(chemical:string) :void {
+  this._favoriteData.saveData(chemical, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
+}
+
+public deleteFavorite(chemical:string) : void {
+  this._favoriteData.deleteData(chemical);
+}
+
+public getFavoriteFormattedData(chemical:string) : string[] {
+  let targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
+  let output:string[] = [];
+  for (let level of targetRiskHazard) {
+    if (level === this._targetRiskHazardOptions[0]){
+      output = output.concat(this._rslthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[1]){
+      output = output.concat(this._rslthq01.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[2]){
+      output = output.concat(this._rmlthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[3]){
+      output = output.concat(this._rmlthq30.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+    }
+  }
+  return output;
+  //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
+  //return ['1234','1231'];
+}
+
+
 
 /*************************************************************
 * Functions for output
@@ -107,6 +169,8 @@ export class ChemicalContainer {
 
   }
 
+
+
 /***************************************************************
 * functions so that we get the options that we want
 *
@@ -136,11 +200,18 @@ export class ChemicalContainer {
   // get the scenario options after selecting target risk
   public getExposureRouteOptions(): string[]{
   let choices:string[] = [];
-  for (let type of this._screeningType) {
-    if (type === this._screeningTypeOptions[0]){
+  for (let type of this._targetRiskHazard) {
+    if (type === this._targetRiskHazardOptions[0] || type == this._targetRiskHazardOptions[1]){
       for (let scenario of this._scenario){
         if (scenario === this._scenarioOptions[0]){
-          choices = this._exposureRouteOptions;
+          //choices = this._exposureRouteOptions;
+          choices.push(this._exposureRouteOptions[0]);
+          choices.push(this._exposureRouteOptions[1]);
+          choices.push(this._exposureRouteOptions[4]);
+          choices.push(this._exposureRouteOptions[2]);
+          choices.push(this._exposureRouteOptions[3]);
+          choices.push(this._exposureRouteOptions[5]);
+
         }
         if (scenario === this._scenarioOptions[1]) {
           choices.push(this._exposureRouteOptions[0]);
@@ -148,7 +219,7 @@ export class ChemicalContainer {
         }
       }
     }
-    if (type === this._screeningTypeOptions[1]){
+    if (type === this._targetRiskHazardOptions[2] || type === this._targetRiskHazardOptions[3]){
       for (let scenario of this._scenario){
         if (scenario === this._scenarioOptions[0]){
           choices.push(this._exposureRouteOptions[0]);
@@ -181,6 +252,7 @@ export class ChemicalContainer {
     this._selectedChemicals.push(chemical);
   }
   getSelectedChemicals() :string[]{
+
     return this._selectedChemicals;
   }
   resetSelectedChemicals() : void {
@@ -191,6 +263,9 @@ export class ChemicalContainer {
   }
   // List of all chemicals
   getChemicalNames() : string[] {
+  // was trying to remove the empty last item in the list.
+  //this._chemicalNames.splice(-1,1);
+
     return this._chemicalNames;
   }
 

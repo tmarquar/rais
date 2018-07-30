@@ -7,6 +7,11 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { InfoPage } from '../pages/info/info';
+
+import { RSLInfoPage } from '../pages/info/RSLInfo/RSLInfo';
+import { RMLInfoPage } from '../pages/info/RMLInfo/RMLInfo';
+
 
 import { StaffPage } from '../pages/contact/staff/staff';
 
@@ -17,6 +22,8 @@ import { ScenarioPage } from '../pages/chemSelect/screeningType/targetRiskHazard
 import { ExposureRoutesPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/exposureRoutes';
 import { CardsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/cards/cards';
 import { ChemDetailsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/cards/chemDetails/chemDetails';
+import { FavoritesPage } from '../pages/favorites/favorites';
+import { FavDetailsPage } from '../pages/favorites/favDetails/favDetails';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +31,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HTTP } from '@ionic-native/http';
 //import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
+import { SQLite } from '@ionic-native/sqlite';
+import { Toast } from '@ionic-native/toast';
 
 @NgModule({
   declarations: [
@@ -39,7 +48,12 @@ import { File } from '@ionic-native/file';
     ExposureRoutesPage,
     CardsPage,
     ChemDetailsPage,
-    StaffPage
+    StaffPage,
+    InfoPage,
+    RSLInfoPage,
+    RMLInfoPage,
+    FavoritesPage,
+    FavDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -59,13 +73,20 @@ import { File } from '@ionic-native/file';
     ExposureRoutesPage,
     CardsPage,
     ChemDetailsPage,
-    StaffPage
+    StaffPage,
+    InfoPage,
+    RSLInfoPage,
+    RMLInfoPage,
+    FavoritesPage,
+    FavDetailsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HTTP,
     File,
+    SQLite,
+    Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

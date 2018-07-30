@@ -1,53 +1,61 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChemicalContainer } from '../../../../../../Chemical_Container';
-import { ChemDetailsPage } from './chemDetails/chemDetails';
-import { Toast } from '@ionic-native/toast';
+import { ChemicalContainer } from '../Chemical_Container';
+import { FavDetailsPage } from './favDetails/favDetails';
+import { HTTP } from '@ionic-native/http';
+//import { ChemicalContainer} from '../Chemical_Container';
+import { File } from '@ionic-native/file';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Component({
-  selector: 'page-CardsPage',
-  templateUrl: 'cards.html'
+  selector: 'page-FavoritesPage',
+  templateUrl: 'favorites.html'
 })
-export class CardsPage {
+export class FavoritesPage {
   items;
   buttonIcon:string[] = [];
 
   //just a duplicate to refresh the original when searching
-  selectedChemicalsCopy:string[];
+  selectedChemicalsCopy:string[] = [];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast) {
-    //this.toast.showCloseButton(true);
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite) {
+    this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
 
-    this.toast.show(`If you favorite a chemical card of a chemical that is already in your favorites, then that card will
-      be overwritten`, '10000', 'top',).subscribe(
-      toast => {
-        //console.log(toast);
-      }
-    );
-      this.data = navParams.get('data');
-      this.selectedChemicalsCopy = this.data.getSelectedChemicals();
-      this.initializeItems();
+
+    this.initializeItems();
+
+    this.selectedChemicalsCopy = this.data.getFavoriteChemicals();
+
   }
 
+
+
   goToNextPage(chemical:string) : void {
-    this.navCtrl.push(ChemDetailsPage, {
+    this.navCtrl.push(FavDetailsPage, {
       'chemical': chemical,
       'data': this.data
     });
   }
 
-  initializeItems() : void {
-    this.items = this.data.getSelectedChemicals();
+  async initializeItems()  {
+    let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 1000)
+  });
+    let result = await promise;
+
+    //let result = await this.data.loadData();
+    //console.log("endwait");
+    this.items = this.data.getFavoriteChemicals();
     for (let item of this.items) {
-      this.buttonIcon[item] = 'star-outline';
+      this.buttonIcon[item] = 'star';
     }
   }
 
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
-       this.data.deleteFavorite(chemical);
+       this.data.loadChemicalData(chemical);
        this.data.addFavorite(chemical);
      }
      else {

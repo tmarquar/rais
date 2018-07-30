@@ -1,3 +1,4 @@
+// NO longer used!
 
 export class ChemicalData {
   _chemicalName:string;
