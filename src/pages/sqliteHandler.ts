@@ -89,7 +89,7 @@ export class SQLiteHandler {
 
 
     loadData() {
-     this.sqlite.create({
+     return this.sqlite.create({
       name: 'ionicdb.db',
       location: 'default'
     }).then((db: SQLiteObject) => {

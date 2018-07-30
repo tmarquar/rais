@@ -83,6 +83,10 @@ export class ChemicalContainer {
 * favorite handling
 *
 **************************************************************/
+public loadData() {
+  return this._favoriteData.loadData();
+}
+
 public getFavoriteChemicals() : string[] {
   //this._favoriteData.loadData();
   return this._favoriteData.getChemicals();

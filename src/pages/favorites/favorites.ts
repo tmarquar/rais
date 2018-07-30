@@ -43,7 +43,8 @@ export class FavoritesPage {
     setTimeout(() => resolve("done!"), 1000)
   });
     let result = await promise;
-    console.log("endwait");
+    //let result = await this.data.loadData();
+    //console.log("endwait");
     this.items = this.data.getFavoriteChemicals();
     for (let item of this.items) {
       this.buttonIcon[item] = 'star';
