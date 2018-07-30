@@ -43,6 +43,7 @@ export class FavoritesPage {
     setTimeout(() => resolve("done!"), 1000)
   });
     let result = await promise;
+
     //let result = await this.data.loadData();
     //console.log("endwait");
     this.items = this.data.getFavoriteChemicals();
@@ -54,9 +55,12 @@ export class FavoritesPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
+       this.data.loadChemicalData(chemical);
+       this.data.addFavorite(chemical);
      }
      else {
        this.buttonIcon[chemical] = "star-outline";
+       this.data.deleteFavorite(chemical);
      }
   }
 

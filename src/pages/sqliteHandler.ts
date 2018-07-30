@@ -38,9 +38,9 @@ export class SQLiteHandler {
 
     for (let i in this._chemicals) {
       screeningTypeInt = this._dataOptions[0][i];
-      targetRiskHazardInt = this._dataOptions[0][i];
-      scenarioInt = this._dataOptions[0][i];
-      exposureRouteInt = this._dataOptions[0][i];
+      targetRiskHazardInt = this._dataOptions[1][i];
+      scenarioInt = this._dataOptions[2][i];
+      exposureRouteInt = this._dataOptions[3][i];
       this._screeningType.push([]);
       this._targetRiskHazard.push([]);
       this._scenario.push([]);
@@ -48,7 +48,7 @@ export class SQLiteHandler {
       index = 0;
       while (screeningTypeInt > 0){
         if (screeningTypeInt % 2){
-          screeningTypeInt =-1;
+          screeningTypeInt -=1;
           this._screeningType[i].push(this._screeningTypeOptions[index]);
         }
         index++;
@@ -58,7 +58,7 @@ export class SQLiteHandler {
       index = 0;
       while (targetRiskHazardInt > 0){
         if (targetRiskHazardInt % 2){
-          targetRiskHazardInt =-1;
+          targetRiskHazardInt -=1;
           this._targetRiskHazard[i].push(this._targetRiskHazardOptions[index]);
         }
         index++;
@@ -67,24 +67,30 @@ export class SQLiteHandler {
 
       index = 0;
       while (scenarioInt > 0){
+        //console.log("scene: " + scenarioInt);
         if (scenarioInt % 2){
-          scenarioInt =-1;
+          scenarioInt -=1;
           this._scenario[i].push(this._scenarioOptions[index]);
+          //console.log(scenarioInt + this._scenarioOptions[index] + index);
         }
         index++;
         scenarioInt = scenarioInt / 2;
       }
 
       index = 0;
+
       while (exposureRouteInt > 0){
+
         if (exposureRouteInt % 2){
-          exposureRouteInt =-1;
+          exposureRouteInt -= 1;
+
           this._exposureRoute[i].push(this._exposureRouteOptions[index]);
         }
         index++;
         exposureRouteInt = exposureRouteInt / 2;
       }
     }
+    //console.log("endprocess");
   }
 
 
@@ -103,7 +109,7 @@ export class SQLiteHandler {
           this._dataOptions = [[],[],[],[]];
           for(var i =0; i<res.rows.length; i++) {
             this._chemicals.push(res.rows.item(i).chemical);
-            console.log(res.rows.item(i).chemical);
+            //console.log(res.rows.item(i).chemical);
             this._dataOptions[0].push(res.rows.item(i).screeningType);
             this._dataOptions[1].push(res.rows.item(i).targetRiskHazard);
             this._dataOptions[2].push(res.rows.item(i).scenario);
@@ -126,7 +132,8 @@ export class SQLiteHandler {
     let index:number = 0;
 
     for (let screen of screeningType){
-      index = this._screeningTypeOptions.length - this._screeningTypeOptions.indexOf(screen) - 1;
+      //index = this._screeningTypeOptions.length - this._screeningTypeOptions.indexOf(screen) - 1;
+      index = this._screeningTypeOptions.indexOf(screen);
        // indexOf returns -1 if not found. but should always be found
       if (index >= 0 ){
         screeningTypeInt += 2**index;
@@ -134,21 +141,23 @@ export class SQLiteHandler {
     }
     index = -1;
     for (let target of targetRiskHazard) {
-      index = this._targetRiskHazardOptions.length - this._targetRiskHazardOptions.indexOf(target) -1;
+      //index = this._targetRiskHazardOptions.length - this._targetRiskHazardOptions.indexOf(target) -1;
+      index = this._targetRiskHazardOptions.indexOf(target);
       if (index >= 0) {
         targetRiskHazardInt += 2**index;
       }
     }
     index = -1;
     for (let scene of scenario) {
-      index = this._scenarioOptions.length - this._scenarioOptions.indexOf(scene) - 1;
+      //index = this._scenarioOptions.length - this._scenarioOptions.indexOf(scene) - 1;
+      index = this._scenarioOptions.indexOf(scene);
       if (index >= 0) {
         scenarioInt += 2**index;
       }
     }
     index = -1;
     for (let route of exposureRoute) {
-      index = this._exposureRouteOptions.length - this._exposureRouteOptions.indexOf(route) - 1;
+      index = this._exposureRouteOptions.indexOf(route);
       if (index >= 0){
         exposureRouteInt += 2**index;
       }
@@ -166,21 +175,23 @@ export class SQLiteHandler {
       }).catch(e => console.log('sqlobject error: ' + e));
     }).catch(e => console.log('sqlite error: ' + e));
 
-    this.loadData();
+    //this.loadData();
   }
 
   public deleteData(chemicalName:string) : void  {
-    this.sqlite.create({
-      name: 'ionicdb.db',
-      location: 'default'
-    }).then((db: SQLiteObject) => {
-      db.executeSql('DELETE FROM favorites WHERE chemical=?',[chemicalName])
-      .then(res => {
-        console.log(res);
-      }).catch(e => console.log(e));
-    }).catch (e => console.log(e));
+    if (this._chemicals.indexOf(chemicalName) > -1){
+      this.sqlite.create({
+        name: 'ionicdb.db',
+        location: 'default'
+      }).then((db: SQLiteObject) => {
+        db.executeSql('DELETE FROM favorites WHERE chemical=?',[chemicalName])
+        .then(res => {
+          console.log(res);
+        }).catch(e => console.log(e));
+      }).catch (e => console.log(e));
 
-    this.loadData();
+      //this.loadData();
+    }
   }
 
   getChemicals() {
@@ -204,6 +215,8 @@ export class SQLiteHandler {
   getExposureRoute(chemical:string):string[] {
     return this._exposureRoute[this._chemicals.indexOf(chemical)];
   }
+
+
 
 
 }

@@ -41,7 +41,7 @@ export class ChemicalContainer {
     this._chemicalNames = this._rslthq10.getChemicalList();
 
     this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
-    this._favoriteData.loadData();
+    //this._favoriteData.loadData();
   }
 /*
   getTest() :string{
@@ -83,8 +83,18 @@ export class ChemicalContainer {
 * favorite handling
 *
 **************************************************************/
-public loadData() {
+public loadData() { // I wanted to try and return the promise here.
+
   return this._favoriteData.loadData();
+}
+
+public loadChemicalData(chemical:string) : void {
+  //this._chemicalNames = this._favoriteData.getChemicals();
+  //this._selectedChemicals = this._favoriteData.getChemicals();
+  this._scenario = this._favoriteData.getScenario(chemical);
+  this._screeningType = this._favoriteData.getScreeningType(chemical);
+  this._targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
+  this._exposureRoutes = this._favoriteData.getExposureRoute(chemical);
 }
 
 public getFavoriteChemicals() : string[] {

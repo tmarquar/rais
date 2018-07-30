@@ -32,6 +32,7 @@ import { HTTP } from '@ionic-native/http';
 //import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 import { SQLite } from '@ionic-native/sqlite';
+import { Toast } from '@ionic-native/toast';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { SQLite } from '@ionic-native/sqlite';
     HTTP,
     File,
     SQLite,
+    Toast,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

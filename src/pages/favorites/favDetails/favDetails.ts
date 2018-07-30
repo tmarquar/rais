@@ -11,8 +11,8 @@ export class FavDetailsPage {
   data: ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    //this.chemical = navParams.get('chemical');
-    //this.data = navParams.get('data');
+    this.chemical = navParams.get('chemical');
+    this.data = navParams.get('data');
   }
 
   displayHeader() : string {

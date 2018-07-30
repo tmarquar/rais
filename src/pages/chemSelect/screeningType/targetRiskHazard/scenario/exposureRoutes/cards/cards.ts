@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
-
+import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-CardsPage',
@@ -16,7 +16,15 @@ export class CardsPage {
   selectedChemicalsCopy:string[];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast) {
+    //this.toast.showCloseButton(true);
+
+    this.toast.show(`If you favorite a chemical card of a chemical that is already in your favorites, then that card will
+      be overwritten`, '10000', 'top',).subscribe(
+      toast => {
+        //console.log(toast);
+      }
+    );
       this.data = navParams.get('data');
       this.selectedChemicalsCopy = this.data.getSelectedChemicals();
       this.initializeItems();
@@ -39,6 +47,7 @@ export class CardsPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
+       this.data.deleteFavorite(chemical);
        this.data.addFavorite(chemical);
      }
      else {
