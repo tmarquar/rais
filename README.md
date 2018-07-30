@@ -79,3 +79,9 @@ Using the android studio method, I discovered that we were using the wrong http 
 am working to fix that:
 https://ionicframework.com/docs/native/http/
 I don't think the above will work in browser, but might in emulator.
+
+### Xcode
+I have created a Wiki page to test using Xcode and get your app on an Apple Device :)
+
+# Dependencies
+There's also a wiki page for dependencies for Mac and Windows.
