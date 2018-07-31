@@ -13,6 +13,8 @@ import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHaza
 })
 export class RMLSearchPage {
   items;
+  names;
+  casnums;
   checkboxes = [];
 
   data : ChemicalContainer;
@@ -20,11 +22,17 @@ export class RMLSearchPage {
 
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
-    this.items = this.data.getChemicalNames();
+
+    this.initializeItems();
     //this.items.splice(-1,1);
     this.initializeCheckboxes();
     this.data.addScreeningType(this.data.getScreeningTypeOptions()[1]);
 
+  }
+
+  initializeItems () {
+    
+    this.items = this.data.getChemicalNameAndCasnum();
   }
 
   initializeCheckboxes() {
@@ -75,7 +83,8 @@ export class RMLSearchPage {
 
   getItems(ev) {
     // Reset items back to all of the items
-    this.items = this.data.getChemicalNames();
+    //this.items = this.data.getChemicalNames();
+    this.initializeItems();
     //for(let item of this.items){
       //item.checked = this.checkboxes[item];
     //}

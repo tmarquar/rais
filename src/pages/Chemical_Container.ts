@@ -12,6 +12,7 @@ import { SQLiteHandler } from './sqliteHandler';
 
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
+  _chemicalCasnums:string[]=[];
   _selectedChemicals:string[] = [];
   _scenario:string[] = [];
   _screeningType:string[] = [];
@@ -39,7 +40,7 @@ export class ChemicalContainer {
     //var prom = wait(2000);
     //this._chemicalNames = ['this', 'adf'];
     this._chemicalNames = this._rslthq10.getChemicalList();
-
+    this._chemicalCasnums=this._rslthq10.getChemicalCasnum();
     this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
     //this._favoriteData.loadData();
   }
@@ -267,6 +268,14 @@ public getFavoriteFormattedData(chemical:string) : string[] {
   //this._chemicalNames.splice(-1,1);
 
     return this._chemicalNames;
+  }
+
+  getChemicalNameAndCasnum(): string[]{
+    let chemicalNameAndCasnum:string[] =[];
+    for(let i in this._chemicalNames) {
+      chemicalNameAndCasnum.push(this._chemicalNames[i] + ' ' + this._chemicalCasnums[i]);
+    }
+    return chemicalNameAndCasnum;
   }
 
   addScenario(scenario:string):void{

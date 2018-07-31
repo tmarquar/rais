@@ -231,5 +231,7 @@ export class RSLTHQ10 {
     //console.log(this._chemicalsMasterList['Chrysene']);
     return this._chemicalNames;
   }
-
+  public getChemicalCasnum() : string[]{
+    return this._casnum;
+  }
 }
