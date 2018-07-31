@@ -14,8 +14,9 @@ import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHaza
 export class RMLSearchPage {
   items;
   checkboxes = [];
-  checked = [];
+
   data : ChemicalContainer;
+  chemicalList: Array<{name:string, checked: boolean}>;
 
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
@@ -29,22 +30,25 @@ export class RMLSearchPage {
   initializeCheckboxes() {
     for (let item of this.items) {
       this.checkboxes[item] = false;
+
+      //this.chemicalList.push({name:item,checked:true});
+
     }
+    //console.log('test:: ' + this.chemicalList[0].name);
   }
 
   toggleCheckboxes(item) {
-    if(!this.checkboxes[item]) {
-      this.checkboxes[item] = true;
-      this.checked.push(item);
-    } else {
-      this.checkboxes[item] = false;
+    let index = this.items.indexOf(item);
+    this.checkboxes[item] = !this.checkboxes[item];
 
-      var index = this.checked.indexOf(item, 0);
-      if (index > -1) {
-         this.checked.splice(index, 1);
-      }
+  }
+
+  getIcon(item):string{
+    if (this.checkboxes[item]){
+      return "checkbox-outline";
+    }else{
+      return "square-outline";
     }
-    //this.checked[item] = !this.checked[item];
   }
 
   goToOtherPage() {
@@ -72,6 +76,10 @@ export class RMLSearchPage {
   getItems(ev) {
     // Reset items back to all of the items
     this.items = this.data.getChemicalNames();
+    //for(let item of this.items){
+      //item.checked = this.checkboxes[item];
+    //}
+
 
     // set val to the value of the ev target
     var val = ev.target.value;

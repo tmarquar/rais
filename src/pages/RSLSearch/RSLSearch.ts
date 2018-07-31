@@ -14,7 +14,6 @@ import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHaza
 export class RSLSearchPage {
   items;
   checkboxes = [];
-  checked = [];
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
@@ -30,20 +29,18 @@ export class RSLSearchPage {
       this.checkboxes[item] = false;
     }
   }
-
   toggleCheckboxes(item) {
-    if(!this.checkboxes[item]) {
-      this.checkboxes[item] = true;
-      this.checked.push(item);
-    } else {
-      this.checkboxes[item] = false;
+    let index = this.items.indexOf(item);
+    this.checkboxes[item] = !this.checkboxes[item];
 
-      var index = this.checked.indexOf(item, 0);
-      if (index > -1) {
-         this.checked.splice(index, 1);
-      }
+  }
+
+  getIcon(item):string{
+    if (this.checkboxes[item]){
+      return "checkbox-outline";
+    }else{
+      return "square-outline";
     }
-    //this.checked[item] = !this.checked[item];
   }
 
   goToOtherPage() {
@@ -71,6 +68,10 @@ export class RSLSearchPage {
   getItems(ev) {
     // Reset items back to all of the items
     this.items = this.data.getChemicalNames();
+    //for(let item of this.items){
+      //item.checked = this.checkboxes[item];
+    //}
+
 
     // set val to the value of the ev target
     var val = ev.target.value;

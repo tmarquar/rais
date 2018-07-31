@@ -36,7 +36,8 @@ export class MyApp {
       { title: 'About', component: AboutPage},
       { title: 'Info', component: InfoPage},
       { title: 'ContactUs', component: ContactPage},
-      { title: 'Key', component: KeyPage }
+      { title: 'Key', component: KeyPage },
+      { title: 'Start', component: StartPage}
 
     ];
   }
