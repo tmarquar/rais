@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
 import { Toast } from '@ionic-native/toast';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-CardsPage',
@@ -16,18 +17,20 @@ export class CardsPage {
   selectedChemicalsCopy:string[];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast) {
-    //this.toast.showCloseButton(true);
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast, private toastCtrl: ToastController) {
+    this.data = navParams.get('data');
+    this.selectedChemicalsCopy = this.data.getSelectedChemicals();
+    this.initializeItems();
+    //this.showMessage();
+  }
 
-    this.toast.show(`If you favorite a chemical card of a chemical that is already in your favorites, then that card will
-      be overwritten`, '10000', 'top',).subscribe(
-      toast => {
-        //console.log(toast);
-      }
-    );
-      this.data = navParams.get('data');
-      this.selectedChemicalsCopy = this.data.getSelectedChemicals();
-      this.initializeItems();
+  showMessage (): void {
+    let myToast = this.toastCtrl.create({
+      message: 'If you favorite a chemical card of a chemical that is already in your favorites, then the favorite card will be overwritten',
+      showCloseButton: true,
+      closeButtonText: 'Ok'
+    });
+    myToast.present(myToast);
   }
 
   goToNextPage(chemical:string) : void {

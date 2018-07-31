@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, ToastController } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
@@ -15,6 +15,9 @@ import { RMLInfoPage } from '../pages/info/RMLInfo/RMLInfo';
 
 import { StaffPage } from '../pages/contact/staff/staff';
 
+import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
+import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
+
 import { ChemSelectPage } from '../pages/chemSelect/chemSelect';
 import { TargetRiskHazardPage } from '../pages/chemSelect/screeningType/targetRiskHazard/targetRiskHazard';
 import { ScreeningTypePage } from '../pages/chemSelect/screeningType/screeningType';
@@ -24,6 +27,7 @@ import { CardsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/sc
 import { ChemDetailsPage } from '../pages/chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/cards/chemDetails/chemDetails';
 import { FavoritesPage } from '../pages/favorites/favorites';
 import { FavDetailsPage } from '../pages/favorites/favDetails/favDetails';
+import { KeyPage } from '../pages/key/key';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,6 +37,7 @@ import { HTTP } from '@ionic-native/http';
 import { File } from '@ionic-native/file';
 import { SQLite } from '@ionic-native/sqlite';
 import { Toast } from '@ionic-native/toast';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +58,10 @@ import { Toast } from '@ionic-native/toast';
     RSLInfoPage,
     RMLInfoPage,
     FavoritesPage,
-    FavDetailsPage
+    FavDetailsPage,
+    KeyPage,
+    RMLSearchPage,
+    RSLSearchPage
   ],
   imports: [
     BrowserModule,
@@ -78,7 +86,10 @@ import { Toast } from '@ionic-native/toast';
     RSLInfoPage,
     RMLInfoPage,
     FavoritesPage,
-    FavDetailsPage
+    FavDetailsPage,
+    KeyPage,
+    RMLSearchPage,
+    RSLSearchPage
   ],
   providers: [
     StatusBar,

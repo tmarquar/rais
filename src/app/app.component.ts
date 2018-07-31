@@ -7,6 +7,13 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { FavoritesPage } from '../pages/favorites/favorites';
 import { HomePage } from '../pages/home/home';
+import { AboutPage } from '../pages/about/about';
+import { InfoPage } from '../pages/info/info';
+import { ContactPage } from '../pages/contact/contact';
+import { KeyPage } from '../pages/key/key';
+import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
+import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +29,13 @@ export class MyApp {
 
     this.pages = [
       { title: 'Favorites', component: FavoritesPage },
-      { title: 'Home', component: TabsPage }
+      { title: 'Home', component: TabsPage },
+      { title: 'RSL Search', component: RSLSearchPage},
+      { title: 'RML Search', component: RMLSearchPage},
+      { title: 'About', component: AboutPage},
+      { title: 'Info', component: InfoPage},
+      { title: 'ContactUs', component: ContactPage},
+      { title: 'Key', component: KeyPage }
 
     ];
   }
