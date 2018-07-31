@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <h1>
+        EPA RSL/RML Screening Level Search App
+      </h1>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-center>
+  <h2>Welcome</h2>
+  <button ion-button round icon-start (click)= "goToRSLSearch()">
+    RSL Search
+    <ion-icon name ="search"></ion-icon>
+  </button>
+  <button ion-button round icon-start (click)= "goToRMLSearch()">
+    RML Search
+    <ion-icon name ="search"></ion-icon>
+  </button>
+  <br>
+  <button ion-button icon-only (click)= "goHome()">
+    <ion-icon name ="home"></ion-icon>
+  </button>
+</ion-content>

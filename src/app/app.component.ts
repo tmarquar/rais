@@ -13,6 +13,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { KeyPage } from '../pages/key/key';
 import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
 import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
+import { StartPage } from '../pages/start/start';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = TabsPage;
+  rootPage:any = StartPage;
 
   pages: Array<{title: string, component: any}>;
 

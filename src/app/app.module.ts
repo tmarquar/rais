@@ -15,6 +15,7 @@ import { RMLInfoPage } from '../pages/info/RMLInfo/RMLInfo';
 
 import { StaffPage } from '../pages/contact/staff/staff';
 
+import { StartPage } from '../pages/start/start';
 import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
 import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 
@@ -61,7 +62,8 @@ import { Toast } from '@ionic-native/toast';
     FavDetailsPage,
     KeyPage,
     RMLSearchPage,
-    RSLSearchPage
+    RSLSearchPage,
+    StartPage
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,8 @@ import { Toast } from '@ionic-native/toast';
     FavDetailsPage,
     KeyPage,
     RMLSearchPage,
-    RSLSearchPage
+    RSLSearchPage,
+    StartPage
   ],
   providers: [
     StatusBar,
