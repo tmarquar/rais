@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <h1>
+        EPA RSL/RML Screening Level Search App
+      </h1>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding >
+  <h2>{{chemical}}</h2>
+  <h3 *ngFor="let info of getAllFormattedData()">
+    {{info}}
+  </h3>
+</ion-content>

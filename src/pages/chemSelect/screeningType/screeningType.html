@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <h1>
+        EPA RSL/RML Screening Level Search App
+      </h1>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h1> Select Screening Type</h1>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      <ion-checkbox ng-model="item.checked" (ionChange)="toggleCheckboxes(item)">
+      </ion-checkbox>
+      <ion-label>{{item}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <div class="btn-wrapper">
+    <button ion-button (click)= "goToOtherPage()">Next</button>
+  </div>
+</ion-footer>
