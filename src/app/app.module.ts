@@ -29,6 +29,7 @@ import { ChemDetailsPage } from '../pages/chemSelect/screeningType/targetRiskHaz
 import { FavoritesPage } from '../pages/favorites/favorites';
 import { FavDetailsPage } from '../pages/favorites/favDetails/favDetails';
 import { KeyPage } from '../pages/key/key';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -63,7 +64,8 @@ import { Toast } from '@ionic-native/toast';
     KeyPage,
     RMLSearchPage,
     RSLSearchPage,
-    StartPage
+    StartPage,
+    TutorialPage
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,8 @@ import { Toast } from '@ionic-native/toast';
     KeyPage,
     RMLSearchPage,
     RSLSearchPage,
-    StartPage
+    StartPage,
+    TutorialPage
   ],
   providers: [
     StatusBar,

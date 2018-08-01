@@ -14,7 +14,7 @@ import { KeyPage } from '../pages/key/key';
 import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
 import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 import { StartPage } from '../pages/start/start';
-
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,14 +31,14 @@ export class MyApp {
     this.pages = [
       { title: 'Favorites', component: FavoritesPage },
       { title: 'Home', component: TabsPage },
-      { title: 'RSL Search', component: RSLSearchPage},
-      { title: 'RML Search', component: RMLSearchPage},
-      { title: 'About', component: AboutPage},
-      { title: 'Info', component: InfoPage},
-      { title: 'ContactUs', component: ContactPage},
+      { title: 'RSL Search', component: RSLSearchPage },
+      { title: 'RML Search', component: RMLSearchPage },
+      { title: 'About', component: AboutPage },
+      { title: 'Info', component: InfoPage },
+      { title: 'Contact Us', component: ContactPage },
       { title: 'Key', component: KeyPage },
-      { title: 'Start', component: StartPage}
-
+      { title: 'Start', component: StartPage },
+      { title: 'Tutorial', component: TutorialPage }
     ];
   }
 

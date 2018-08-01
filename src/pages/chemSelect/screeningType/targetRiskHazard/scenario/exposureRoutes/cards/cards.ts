@@ -62,19 +62,4 @@ export class CardsPage {
   getButtonIcon(chemical:string):string {
     return this.buttonIcon[chemical];
   }
-
-  getItems(ev) : void {
-    // Reset items back to all of the items
-    this.data.setSelectedChemicals(this.selectedChemicalsCopy);
-
-    // set val to the value of the ev target
-    var val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.data.getSelectedChemicals().filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
 }

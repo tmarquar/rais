@@ -20,7 +20,7 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content class = "chemical" *ngFor="let info of data.getFormattedData(item)">
-        {{info}}
+        <p>{{info}}</p>
     </ion-card-content>
       <button ion-item (click)="goToNextPage(item)">
         <ion-icon name="information-circle" size="large">  More info...</ion-icon>

@@ -26,23 +26,22 @@ export class FavoritesPage {
     this.selectedChemicalsCopy = this.data.getFavoriteChemicals();
   }
 
-  presentToast() {
+  showToast (): void {
     let toast = this.toastCtrl.create({
       message: 'Favorites have been cleared successfully.',
       duration: 3000,
       position: 'bottom'
     });
+    toast.present(toast);
   }
 
   clearFavorites() {
    for(let item of this.items) {
       this.data.deleteFavorite(item);
     }
-    this.presentToast();
+    this.showToast();
     //kick them out of the page
-    this.navCtrl.push(StartPage, {
-      'data': this.data
-    });
+    this.navCtrl.push(StartPage);
   }
 
   goToNextPage(chemical:string) : void {
