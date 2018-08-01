@@ -20,7 +20,7 @@ export class FavoritesPage {
   selectedChemicalsCopy:string[] = [];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite, private toastCtrl: ToastController,private loadingCtrl: LoadingController) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
     this.initializeItems();
     this.selectedChemicalsCopy = this.data.getFavoriteChemicals();
@@ -41,7 +41,7 @@ export class FavoritesPage {
     }
     this.showToast();
     //kick them out of the page
-    this.navCtrl.push(StartPage);
+    this.navCtrl.setRoot(StartPage,{});
   }
 
   goToNextPage(chemical:string) : void {

@@ -36,17 +36,18 @@ export class MyApp {
   constructor(public platform: Platform,public statusBar: StatusBar,public splashScreen: SplashScreen) {
     this.initializeApp();
 
+
     this.pages = [
-      { title: 'Favorites', component: FavoritesPage },
-      { title: 'Home', component: TabsPage },
-      { title: 'RSL Search', component: RSLSearchPage },
-      { title: 'RML Search', component: RMLSearchPage },
-      { title: 'About', component: AboutPage },
-      { title: 'Info', component: InfoPage },
-      { title: 'Contact Us', component: ContactPage },
-      { title: 'Key', component: KeyPage },
-      { title: 'Start', component: StartPage },
-      { title: 'Tutorial', component: TutorialPage }
+      { title: 'Favorites', pageName: FavoritesPage },
+      { title: 'Home', pageName: TabsPage, component: HomePage, index: 0 },
+      { title: 'RSL Search',pageName: TabsPage, component: RSLSearchPage, index: 1 },
+      { title: 'RML Search',pageName: TabsPage, component: RMLSearchPage, index: 2 },
+      { title: 'About', pageName: AboutPage},
+      { title: 'Info', pageName: InfoPage},
+      { title: 'Contact Us', pageName: ContactPage},
+      { title: 'Key', pageName: TabsPage, component: KeyPage, index: 3 },
+      { title: 'Start', pageName: StartPage},
+      { title: 'Tutorial', pageName: TutorialPage}
     ];
   }
 
