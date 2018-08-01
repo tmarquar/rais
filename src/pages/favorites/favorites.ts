@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from './favDetails/favDetails';
 import { HTTP } from '@ionic-native/http';
@@ -19,7 +19,7 @@ export class FavoritesPage {
   selectedChemicalsCopy:string[] = [];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite, private loadingCtrl: LoadingController) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
 
 
@@ -39,10 +39,16 @@ export class FavoritesPage {
   }
 
   async initializeItems()  {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      duration: 500
+    });
+
+    await loading.present();
     let promise = new Promise((resolve, reject) => {
     setTimeout(() => resolve("done!"), 1000)
   });
-    let result = await promise;
+    //let result = await loading;
 
     //let result = await this.data.loadData();
     //console.log("endwait");

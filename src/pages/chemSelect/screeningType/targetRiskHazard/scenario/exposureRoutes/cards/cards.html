@@ -10,8 +10,6 @@
 
 <ion-content padding>
 
-<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-
   <ion-card *ngFor="let item of items">
       <ion-card-header ng-model="item.selected">
         <ion-card-title class = "chemical">

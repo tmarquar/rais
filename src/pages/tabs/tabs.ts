@@ -29,4 +29,5 @@ export class TabsPage {
     // Set the active tab based on the passed index from menu.ts
     this.myIndex = navParams.data.tabIndex || 0;
   }
+
 }

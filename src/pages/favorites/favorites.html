@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
       <h1>
         EPA RSL/RML Screening Level Search App
       </h1>
@@ -12,8 +12,6 @@
 </ion-header>
 
 <ion-content padding>
-
-<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
   <ion-card *ngFor="let item of items">
       <ion-card-header ng-model="item.selected">
