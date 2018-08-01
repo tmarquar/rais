@@ -69,8 +69,8 @@
     },
     "platforms": [
       "ios",
-      "browser",
-      "android"
+      "android",
+      "browser"
     ]
   }
 }
