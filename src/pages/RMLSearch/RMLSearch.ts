@@ -6,6 +6,7 @@ import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHazard/targetRiskHazard';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-RMLSearch',
@@ -23,7 +24,7 @@ export class RMLSearchPage {
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
 
-    this.initializeItems();
+    this.items = this.data.getChemicalNames();
     //this.items.splice(-1,1);
     this.initializeCheckboxes();
     this.data.addScreeningType(this.data.getScreeningTypeOptions()[1]);
@@ -31,7 +32,7 @@ export class RMLSearchPage {
   }
 
   initializeItems () {
-    
+
     this.items = this.data.getChemicalNameAndCasnum();
   }
 

@@ -16,6 +16,13 @@ import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 import { StartPage } from '../pages/start/start';
 
 
+export interface PageInterface {
+  title:string;
+  pageName: any;
+  component?: any;
+  index?:number;
+}
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -23,21 +30,21 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = StartPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: PageInterface[] = []
 
   constructor(public platform: Platform,public statusBar: StatusBar,public splashScreen: SplashScreen) {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Favorites', component: FavoritesPage },
-      { title: 'Home', component: TabsPage },
-      { title: 'RSL Search', component: RSLSearchPage},
-      { title: 'RML Search', component: RMLSearchPage},
-      { title: 'About', component: AboutPage},
-      { title: 'Info', component: InfoPage},
-      { title: 'ContactUs', component: ContactPage},
-      { title: 'Key', component: KeyPage },
-      { title: 'Start', component: StartPage}
+      { title: 'Favorites', pageName: FavoritesPage },
+      { title: 'Home', pageName: TabsPage, component: HomePage, index: 0 },
+      { title: 'RSL Search',pageName: TabsPage, component: RSLSearchPage, index: 1 },
+      { title: 'RML Search',pageName: TabsPage, component: RMLSearchPage, index: 2 },
+      { title: 'About', pageName: AboutPage},
+      { title: 'Info', pageName: InfoPage},
+      { title: 'ContactUs', pageName: ContactPage},
+      { title: 'Key', pageName: TabsPage, component: KeyPage, index: 3 },
+      { title: 'Start', pageName: StartPage}
 
     ];
   }
@@ -52,9 +59,24 @@ export class MyApp {
   }
 
   openPage(page) {
+    let params = {};
+
+    // The index is equal to the order of our tabs inside tabs.ts
+    if (page.index) {
+      params = { tabIndex: page.index };
+    }
+
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    //this.nav.setRoot(page.pageName, params);
+    // The active child nav is our Tabs Navigation
+    if (this.nav.getActiveChildNav() && page.index != undefined) {
+      this.nav.getActiveChildNav().select(page.index);
+    } else {
+      // Tabs are not active, so reset the root page
+      // In this case: moving to or from SpecialPage
+      this.nav.setRoot(page.pageName, params);
+    }
   }
 
 }
