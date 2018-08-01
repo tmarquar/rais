@@ -1,10 +1,9 @@
 import { HTTP } from '@ionic-native/http';
 import { File } from '@ionic-native/file';
 
-import { RSLTHQ10 } from './RSLTHQ10';
-import { RSLTHQ01 } from './RSLTHQ01';
-import { RMLTHQ10 } from './RMLTHQ10';
-import { RMLTHQ30 } from './RMLTHQ30';
+import { RSLData } from './RSLData';
+
+import { RMLData } from './RMLData';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
@@ -12,6 +11,7 @@ import { SQLiteHandler } from './sqliteHandler';
 
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
+  _chemicalCasnums:string[]=[];
   _selectedChemicals:string[] = [];
   _scenario:string[] = [];
   _screeningType:string[] = [];
@@ -22,24 +22,24 @@ export class ChemicalContainer {
   _exposureRouteOptions:string[] = [];
   _scenarioOptions:string[] = [];
 
-  _rslthq10 : RSLTHQ10;
-  _rslthq01 : RSLTHQ01;
-  _rmlthq10 : RMLTHQ10;
-  _rmlthq30 : RMLTHQ30;
+  _rslthq10 : RSLData;
+  _rslthq01 : RSLData;
+  _rmlthq10 : RMLData;
+  _rmlthq30 : RMLData;
 
   _favoriteData : SQLiteHandler;
 
   constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
 
-    this._rslthq10 = new RSLTHQ10(this.http, this.file, this._exposureRouteOptions, this._scenarioOptions);
-    this._rslthq01 = new RSLTHQ01(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
-    this._rmlthq10 = new RMLTHQ10(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
-    this._rmlthq30 = new RMLTHQ30(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions);
+    this._rslthq10 = new RSLData(this.http, this.file, this._exposureRouteOptions, this._scenarioOptions, true);
+    this._rslthq01 = new RSLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, false);
+    this._rmlthq10 = new RMLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, true);
+    this._rmlthq30 = new RMLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, false);
     //var prom = wait(2000);
     //this._chemicalNames = ['this', 'adf'];
     this._chemicalNames = this._rslthq10.getChemicalList();
-
+    this._chemicalCasnums=this._rslthq10.getChemicalCasnum();
     this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
     //this._favoriteData.loadData();
   }
@@ -267,6 +267,14 @@ public getFavoriteFormattedData(chemical:string) : string[] {
   //this._chemicalNames.splice(-1,1);
 
     return this._chemicalNames;
+  }
+
+  getChemicalNameAndCasnum(): string[]{
+    let chemicalNameAndCasnum:string[] =[];
+    for(let i in this._chemicalNames) {
+      chemicalNameAndCasnum.push(this._chemicalNames[i] + ' ' + this._chemicalCasnums[i]);
+    }
+    return chemicalNameAndCasnum;
   }
 
   addScenario(scenario:string):void{

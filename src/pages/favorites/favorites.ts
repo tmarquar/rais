@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from './favDetails/favDetails';
 import { HTTP } from '@ionic-native/http';
@@ -52,10 +52,16 @@ export class FavoritesPage {
   }
 
   async initializeItems()  {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      duration: 500
+    });
+
+    await loading.present();
     let promise = new Promise((resolve, reject) => {
     setTimeout(() => resolve("done!"), 1000)
   });
-    let result = await promise;
+    //let result = await loading;
 
     //let result = await this.data.loadData();
     //console.log("endwait");

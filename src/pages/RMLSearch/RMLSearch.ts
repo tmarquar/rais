@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
 //import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHazard/targetRiskHazard';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-RMLSearch',
@@ -13,18 +14,33 @@ import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHaza
 })
 export class RMLSearchPage {
   items;
+  names;
+  casnums;
   checkboxes = [];
 
   data : ChemicalContainer;
   chemicalList: Array<{name:string, checked: boolean}>;
 
-  constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
+  constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite, private loadingCtrl: LoadingController) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      duration: 100
+    });
+
+    loading.present();
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
+    this.data.addScreeningType(this.data.getScreeningTypeOptions()[1]);
+
     this.items = this.data.getChemicalNames();
     //this.items.splice(-1,1);
     this.initializeCheckboxes();
-    this.data.addScreeningType(this.data.getScreeningTypeOptions()[1]);
 
+
+  }
+
+  initializeItems () {
+
+    this.items = this.data.getChemicalNameAndCasnum();
   }
 
   initializeCheckboxes() {

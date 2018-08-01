@@ -22,10 +22,12 @@ export class StartPage {
     this.navCtrl.setRoot(TabsPage, {});
   }
   goToRMLSearch() {
-    this.navCtrl.setRoot(RMLSearchPage, {});
+    
+    this.navCtrl.setRoot(TabsPage, { tabIndex: 2 });
   }
   goToRSLSearch() {
-    this.navCtrl.setRoot(RSLSearchPage, {});
+
+    this.navCtrl.setRoot(TabsPage, { tabIndex: 1 });
   }
 
 }

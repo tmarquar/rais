@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
 //import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
@@ -16,7 +16,13 @@ export class RSLSearchPage {
   checkboxes = [];
   data : ChemicalContainer;
 
-  constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite) {
+  constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite, private loadingCtrl: LoadingController) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      duration: 100
+    });
+
+    loading.present();
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
     this.items = this.data.getChemicalNames();
     //this.items.splice(-1,1);
@@ -42,7 +48,7 @@ export class RSLSearchPage {
       return "square-outline";
     }
   }
-  
+
   clearAll() {
     this.initializeCheckboxes();
     //change icons

@@ -16,6 +16,14 @@ import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 import { StartPage } from '../pages/start/start';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
+
+export interface PageInterface {
+  title:string;
+  pageName: any;
+  component?: any;
+  index?:number;
+}
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -23,7 +31,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = StartPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: PageInterface[] = []
 
   constructor(public platform: Platform,public statusBar: StatusBar,public splashScreen: SplashScreen) {
     this.initializeApp();
@@ -52,9 +60,24 @@ export class MyApp {
   }
 
   openPage(page) {
+    let params = {};
+
+    // The index is equal to the order of our tabs inside tabs.ts
+    if (page.index) {
+      params = { tabIndex: page.index };
+    }
+
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    //this.nav.setRoot(page.pageName, params);
+    // The active child nav is our Tabs Navigation
+    if (this.nav.getActiveChildNav() && page.index != undefined) {
+      this.nav.getActiveChildNav().select(page.index);
+    } else {
+      // Tabs are not active, so reset the root page
+      // In this case: moving to or from SpecialPage
+      this.nav.setRoot(page.pageName, params);
+    }
   }
 
 }
