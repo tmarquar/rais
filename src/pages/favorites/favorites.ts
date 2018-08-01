@@ -53,7 +53,7 @@ export class FavoritesPage {
   async initializeItems()  {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      duration: 750
+      duration: 500
     });
 
     await loading.present();

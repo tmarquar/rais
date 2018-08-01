@@ -41,7 +41,7 @@ export class ChemicalContainer {
     this._chemicalNames = this._rslthq10.getChemicalList();
     this._chemicalCasnums=this._rslthq10.getChemicalCasnum();
     this._sqlData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
-    
+
   }
 /*
   getTest() :string{
@@ -122,9 +122,6 @@ public deleteFavorite(chemical:string) : void {
   this._sqlData.deleteFavorite(chemical);
 }
 
-public deleteRecent(chemical:string) : void {
-  this._sqlData.deleteRecent(chemical);
-}
 
 public getFavoriteFormattedData(chemical:string) : string[] {
   let targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
