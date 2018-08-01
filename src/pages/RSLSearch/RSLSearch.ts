@@ -50,18 +50,14 @@ export class RSLSearchPage {
   }
 
   clearAll() {
+    this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();
-    //change icons
-    for (let item of this.items) {
-      this.checkboxes[item] = false;
-      this.getIcon(item);
-    }
   }
 
   goToOtherPage() {
     var oneChecked: boolean = false;
     this.data.resetSelectedChemicals();
-
+    this.items = this.data.getChemicalNames();
     //Check if at least one box is checked before moving on
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {

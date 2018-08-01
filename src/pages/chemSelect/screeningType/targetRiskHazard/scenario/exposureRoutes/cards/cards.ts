@@ -21,7 +21,6 @@ export class CardsPage {
     this.data = navParams.get('data');
     this.selectedChemicalsCopy = this.data.getSelectedChemicals();
     this.initializeItems();
-    this.showMessage();
   }
 
   showMessage (): void {
