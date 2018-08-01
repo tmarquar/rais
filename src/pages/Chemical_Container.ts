@@ -27,7 +27,7 @@ export class ChemicalContainer {
   _rmlthq10 : RMLData;
   _rmlthq30 : RMLData;
 
-  _favoriteData : SQLiteHandler;
+  _sqlData : SQLiteHandler;
 
   constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
@@ -40,8 +40,8 @@ export class ChemicalContainer {
     //this._chemicalNames = ['this', 'adf'];
     this._chemicalNames = this._rslthq10.getChemicalList();
     this._chemicalCasnums=this._rslthq10.getChemicalCasnum();
-    this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
-    //this._favoriteData.loadData();
+    this._sqlData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
+    
   }
 /*
   getTest() :string{
@@ -80,56 +80,92 @@ export class ChemicalContainer {
   }
 
 /**************************************************************
-* favorite handling
+* favorite handling and recent handling
 *
 **************************************************************/
-public loadData() { // I wanted to try and return the promise here.
+public loadFavorites() { // I wanted to try and return the promise here.
 
-  return this._favoriteData.loadData();
+  return this._sqlData.loadFavorites();
+}
+
+public loadRecents(){
+  return this._sqlData.loadRecents();
 }
 
 public loadChemicalData(chemical:string) : void {
-  //this._chemicalNames = this._favoriteData.getChemicals();
-  //this._selectedChemicals = this._favoriteData.getChemicals();
-  this._scenario = this._favoriteData.getScenario(chemical);
-  this._screeningType = this._favoriteData.getScreeningType(chemical);
-  this._targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
-  this._exposureRoutes = this._favoriteData.getExposureRoute(chemical);
+  //this._chemicalNames = this._sqlData.getChemicals();
+  //this._selectedChemicals = this._sqlData.getChemicals();
+  this._scenario = this._sqlData.getScenario(chemical);
+  this._screeningType = this._sqlData.getScreeningType(chemical);
+  this._targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
+  this._exposureRoutes = this._sqlData.getExposureRoute(chemical);
 }
 
 public getFavoriteChemicals() : string[] {
-  //this._favoriteData.loadData();
-  return this._favoriteData.getChemicals();
+  //this._sqlData.loadData();
+  return this._sqlData.getChemicals();
+}
+
+public getSavedChemicals() : string[] {
+  return this._sqlData.getChemicals();
 }
 
 public addFavorite(chemical:string) :void {
-  this._favoriteData.saveData(chemical, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
+  this._sqlData.saveFavorite(chemical, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
+}
+
+public addRecents() : void {
+  this._sqlData.saveRecents(this._selectedChemicals, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
 }
 
 public deleteFavorite(chemical:string) : void {
-  this._favoriteData.deleteData(chemical);
+  this._sqlData.deleteFavorite(chemical);
+}
+
+public deleteRecent(chemical:string) : void {
+  this._sqlData.deleteRecent(chemical);
 }
 
 public getFavoriteFormattedData(chemical:string) : string[] {
-  let targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
+  let targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
   let output:string[] = [];
   for (let level of targetRiskHazard) {
     if (level === this._targetRiskHazardOptions[0]){
-      output = output.concat(this._rslthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rslthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
     if (level === this._targetRiskHazardOptions[1]){
-      output = output.concat(this._rslthq01.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rslthq01.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
     if (level === this._targetRiskHazardOptions[2]){
-      output = output.concat(this._rmlthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rmlthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
     if (level === this._targetRiskHazardOptions[3]){
-      output = output.concat(this._rmlthq30.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rmlthq30.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
   }
   return output;
   //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
   //return ['1234','1231'];
+}
+
+public getSQLFormattedData(chemical:string) : string[] {
+  let targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
+  let output:string[] = [];
+  for (let level of targetRiskHazard) {
+    if (level === this._targetRiskHazardOptions[0]){
+      output = output.concat(this._rslthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[1]){
+      output = output.concat(this._rslthq01.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[2]){
+      output = output.concat(this._rmlthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[3]){
+      output = output.concat(this._rmlthq30.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+  }
+  return output;
 }
 
 

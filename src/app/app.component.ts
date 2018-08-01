@@ -15,7 +15,7 @@ import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
 import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 import { StartPage } from '../pages/start/start';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-
+import { RecentPage } from '../pages/recent/recent';
 
 export interface PageInterface {
   title:string;
@@ -47,7 +47,8 @@ export class MyApp {
       { title: 'Contact Us', pageName: ContactPage},
       { title: 'Key', pageName: TabsPage, component: KeyPage, index: 3 },
       { title: 'Start', pageName: StartPage},
-      { title: 'Tutorial', pageName: TutorialPage}
+      { title: 'Tutorial', pageName: TutorialPage},
+      { title: 'Recent Search', pageName: RecentPage }
     ];
   }
 
