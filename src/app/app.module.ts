@@ -30,6 +30,7 @@ import { FavoritesPage } from '../pages/favorites/favorites';
 import { FavDetailsPage } from '../pages/favorites/favDetails/favDetails';
 import { KeyPage } from '../pages/key/key';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { RecentPage } from '../pages/recent/recent';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -65,7 +66,8 @@ import { Toast } from '@ionic-native/toast';
     RMLSearchPage,
     RSLSearchPage,
     StartPage,
-    TutorialPage
+    TutorialPage,
+    RecentPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ import { Toast } from '@ionic-native/toast';
     RMLSearchPage,
     RSLSearchPage,
     StartPage,
-    TutorialPage
+    TutorialPage,
+    RecentPage
   ],
   providers: [
     StatusBar,

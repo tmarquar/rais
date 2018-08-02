@@ -12,16 +12,12 @@ import { ToastController } from 'ionic-angular';
 export class CardsPage {
   items;
   buttonIcon:string[] = [];
-
-  //just a duplicate to refresh the original when searching
-  selectedChemicalsCopy:string[];
   data: ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast, private toastCtrl: ToastController) {
     this.data = navParams.get('data');
-    this.selectedChemicalsCopy = this.data.getSelectedChemicals();
     this.initializeItems();
-    this.showMessage();
+    this.data.addRecents()
   }
 
   showMessage (): void {

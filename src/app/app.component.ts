@@ -15,7 +15,7 @@ import { RSLSearchPage } from '../pages/RSLSearch/RSLSearch';
 import { RMLSearchPage } from '../pages/RMLSearch/RMLSearch';
 import { StartPage } from '../pages/start/start';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-
+import { RecentPage } from '../pages/recent/recent';
 
 export interface PageInterface {
   title:string;
