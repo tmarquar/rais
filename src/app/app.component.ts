@@ -1,3 +1,9 @@
+/**************************************************
+* This is for the side menu. It gives icons, names and
+* links pages
+*
+**************************************************/
+
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -49,7 +55,7 @@ export class MyApp {
       { title: 'Contact Us', pageName: ContactPage, icon: "contact" },
       { title: 'Key', pageName: TabsPage, icon: "key", component: KeyPage, index: 3 },
       { title: 'Tutorial', pageName: TutorialPage, icon: "help" },
-      { title: 'Recent Search', pageName: recentPage, icon: "time" }
+      { title: 'Recent Search', pageName: RecentPage, icon: "time" }
     ];
   }
 
@@ -72,13 +78,11 @@ export class MyApp {
 
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    //this.nav.setRoot(page.pageName, params);
     // The active child nav is our Tabs Navigation
     if (this.nav.getActiveChildNav() && page.index != undefined) {
       this.nav.getActiveChildNav().select(page.index);
     } else {
       // Tabs are not active, so reset the root page
-      // In this case: moving to or from SpecialPage
       this.nav.setRoot(page.pageName, params);
     }
   }

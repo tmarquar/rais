@@ -1,3 +1,8 @@
+/***********************************************************
+* This allows us to select the scenaio again based on previous
+* information that is retrieved from ChemicalContainer.
+***********************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../Chemical_Container';
@@ -15,6 +20,7 @@ export class ScenarioPage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // get ChemicalContainer
     this.data = navParams.get('data');
     this.initializeItems();
     this.initializeCheckboxes();
@@ -44,7 +50,7 @@ export class ScenarioPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data.addScenario(item);
+        this.data.addScenario(item); // push to ChemicalContainer
       }
     }
 

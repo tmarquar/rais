@@ -1,3 +1,7 @@
+/***************************************************************
+* Get exposure routes from ChemicalContainer
+*
+**************************************************************/
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../../Chemical_Container';
@@ -15,7 +19,7 @@ export class ExposureRoutesPage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.data = navParams.get('data');
+    this.data = navParams.get('data'); // get ChemicalContainer
     this.initializeItems();
     this.initializeCheckboxes();
   }
@@ -44,7 +48,7 @@ export class ExposureRoutesPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data.addExposureRoute(item);
+        this.data.addExposureRoute(item); //push to ChemicalContainer
       }
     }
 

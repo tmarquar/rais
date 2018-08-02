@@ -1,3 +1,9 @@
+/*****************************************************
+* Information on where to contact us. I would like
+* to have this have a built in messenger service
+* someday .
+**************************************************/
+
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { StaffPage } from './staff/staff';
@@ -8,20 +14,11 @@ import { StaffPage } from './staff/staff';
 })
 export class ContactPage {
   fred = 'Fred Dolislager';
-  staff = [
-    'Fred Dolislager',
-    'Leslie Galloway',
-    'Debra Stewart',
-    'Katie Noto',
-    'Karessa Manning'
-
-  ];
   constructor(public navCtrl: NavController) {
 
   }
 
   staffSelected(staffMember: string) {
-    //console.log("Selected Item", staffMember);
     this.navCtrl.push(StaffPage, {
       'staffMember': staffMember,
       'staff' : this.staff

@@ -1,9 +1,13 @@
+/***********************************************************************
+* This is the results page for our selections. This layout is duplicated
+* for recent searches and favorites page. First use of the database
+*
+********************************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../../../../Chemical_Container';
 import { ChemDetailsPage } from './chemDetails/chemDetails';
-import { Toast } from '@ionic-native/toast';
-import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-CardsPage',
@@ -15,18 +19,10 @@ export class CardsPage {
   data: ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast, private toastCtrl: ToastController) {
-    this.data = navParams.get('data');
+    this.data = navParams.get('data'); // get data
     this.initializeItems();
-    this.data.addRecents()
-  }
-
-  showMessage (): void {
-    let myToast = this.toastCtrl.create({
-      message: 'If you favorite a chemical card of a chemical that is already in your favorites, then the favorite card will be overwritten',
-      showCloseButton: true,
-      closeButtonText: 'Ok'
-    });
-    myToast.present(myToast);
+    // this will delete and reload the database
+    this.data.addRecents(); // tells ChemicalContainer it has reached the end and should save the info.
   }
 
   goToNextPage(chemical:string) : void {
@@ -46,6 +42,7 @@ export class CardsPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
+       // this is so that it overwrites the previous favorite of the same chemical
        this.data.deleteFavorite(chemical);
        this.data.addFavorite(chemical);
      }
