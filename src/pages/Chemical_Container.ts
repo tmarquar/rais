@@ -15,7 +15,7 @@ import { RSLData } from './RSLData';
 
 import { RMLData } from './RMLData';
 
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { SQLite } from '@ionic-native/sqlite';
 
 import { SQLiteHandler } from './sqliteHandler';
 

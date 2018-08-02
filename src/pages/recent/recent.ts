@@ -4,12 +4,12 @@
 ******************************************************************/
 
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from '../favorites/favDetails/favDetails';
 import { HTTP } from '@ionic-native/http';
 import { File } from '@ionic-native/file';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { SQLite } from '@ionic-native/sqlite';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class RecentPage {
   buttonIcon:string[] = [];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite, private toastCtrl: ToastController,private loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite,private loadingCtrl: LoadingController) {
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
     this.data.loadRecents();
     this.initializeItems();
