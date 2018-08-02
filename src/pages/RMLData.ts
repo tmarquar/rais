@@ -1,3 +1,8 @@
+/******************************************************
+* This loads and parses data and returns that information gathered.
+*
+*
+*****************************************************/
 import { HTTP } from '@ionic-native/http';
 import * as papa from 'papaparse';
 import { File } from '@ionic-native/file';
@@ -6,10 +11,8 @@ export class RMLData {
   csvData:any[] = [];
   headerRow:any[] = [];
 
-  _myMap: {[key:string]:number} = {};
+  _myMap: {[key:string]:number} = {}; // used for finding index of chemical name in list
   _chemicalNames:string[] = [] ;
-  //_chemicalsMasterList: {[name:string] :string;} = {};
-  _chemicalsMasterList: string[] = [];
 
   _casnum : string[] = [];
 
@@ -22,8 +25,8 @@ export class RMLData {
 
   _exposureRouteOptions:string[] = [];
   _scenarioOptions:string[] = [];
-
-  _HQ:string;
+  // Hazard Quotient
+  _HQ:string; // this is a string that fills in the header for the cards
 
   // initialize all data
   constructor (private http: HTTP, private file: File,routeOptions:string[], scenarioOptions:string[], RML10:boolean) {
@@ -40,15 +43,14 @@ export class RMLData {
   }
 
   private initializeChemicals() : void {
+    // build map
     let i:number = 0;
     for (let row of this.csvData){
       this._chemicalNames.push(row[0]);
       this._myMap[row[0]] = i;
       i++;
     }
-  //console.log(this._myMap['Copper Cyanide']);
     for (let row of this.csvData) {
-      //this._chemicalsMasterList[name] =row[0];
       this._casnum.push(row[1]);
       this._residentSoil.push([row[2], row[3]]);
       this._industrialSoil.push([row[4], row[5]]);
@@ -58,11 +60,9 @@ export class RMLData {
   }
 
 
-
+  //read in data
   private readCsvData(fileName:string) {
-  //let http : Http;
-
-  /*
+  /* for use in web app
   this.http.get(fileName,{} ,{})
   .then(
     data => { //console.log(data.data);
@@ -74,8 +74,7 @@ export class RMLData {
     const fs:string = this.file.applicationDirectory;
     this.file.readAsText(fs,fileName)
     .then(
-      data => { //console.log("Success");
-        //this.parseCsv(data);
+      data => {
         this.extractData(data);
       })
       .catch(error => {
@@ -84,12 +83,12 @@ export class RMLData {
 
   }
 
+  // parse data
   private extractData(res) : void {
-    //let csvData = res['_body'] || '';
     let parsedData = papa.parse(res).data;
 
     this.headerRow = parsedData[0];
-    parsedData.splice(0,1);
+    parsedData.splice(0,1); // removes first row of labels
     this.csvData = parsedData;
 
     this.initializeChemicals();
@@ -108,6 +107,7 @@ export class RMLData {
   // Maybe a more dynamic way or getting data.
   // Make it only for loops, without if statements
 
+  // this is for the card
   public getFormattedData (scenario:string[], routes:string[], chemicalName:string) : string[] {
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];
@@ -144,10 +144,10 @@ export class RMLData {
     return formattedData;
   }
 
+  // this is for the more info
   public getAllFormattedData (chemicalName:string) : string[] {
-    //console.log(chemicalName);
     let chemical : number = this._myMap[chemicalName];
-    let formattedData : string[] = [];//["test","test2"];
+    let formattedData : string[] = [];
     formattedData.push('************************');
     formattedData.push('RML: Target Risk: 1E-4');
     formattedData.push('Hazard Quotient: ' + this._HQ);
@@ -163,9 +163,6 @@ export class RMLData {
   }
 
   public getChemicalList () : string[] {
-    //console.log(this._chemicalNames[0]);
-    //return this._chemicalsMasterList;
-    //console.log(this._chemicalsMasterList['Chrysene']);
     return this._chemicalNames;
   }
 

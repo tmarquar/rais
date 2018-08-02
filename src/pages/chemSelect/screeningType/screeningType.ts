@@ -1,3 +1,9 @@
+/********************************************************
+* This was the first iteration, and is no longer used.
+* It is too much work to delete so it remains for now.
+* New version is RML and RSL search.
+*******************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../Chemical_Container';
@@ -37,7 +43,7 @@ export class ScreeningTypePage {
       return "square-outline";
     }
   }
-  
+
   goToOtherPage() {
     //Check if at least one box is checked before moving on
     this.data.clearScreeningType();

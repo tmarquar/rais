@@ -1,3 +1,11 @@
+/********************************************************
+* This was the first iteration, and is no longer used.
+* It is too much work to delete so it remains for now.
+* New version is RML and RSL search. 
+*******************************************************/
+
+
+
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';

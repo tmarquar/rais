@@ -1,7 +1,12 @@
+/****************************************************************
+* This is the newer version of chemSelect. It links to subdirectories
+* in chemSelect for simplicity.
+*
+*
+***************************************************************/
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
-//import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
@@ -17,18 +22,23 @@ export class RSLSearchPage {
   checkboxes = [];
   data : ChemicalContainer;
 
+  // load all the packages we need to pass to ChemicalContainer
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite, private loadingCtrl: LoadingController) {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       duration: 100
     });
-
+    // somehow, here the page knows to wait for things to load, so it shows the spinner until it is
+    // done. Maybe it is something about constructors. I am not sure, but it works, and is easily broken if
+    // some things are changed.
     loading.present();
-    this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
-    this.items = this.data.getChemicalNames();
-    //this.items.splice(-1,1);
-    this.initializeCheckboxes();
+    this.data = new ChemicalContainer(this.http, this.file, this.sqlite); // load
+    // Since we cut out a page and know we want RML screening, we insert that infomation here so that ChemicalContainer
+    // doesn't have to be changed
     this.data.addScreeningType(this.data.getScreeningTypeOptions()[0]);
+
+    this.items = this.data.getChemicalNames();
+    this.initializeCheckboxes();
   }
 
   initializeCheckboxes() {
@@ -50,6 +60,7 @@ export class RSLSearchPage {
     }
   }
 
+  // if they want all infomation available quickly as if they checked all boxes.
   retrieveAll() {
     var oneChecked: boolean = false;
     var screeningTypes = this.data.getScreeningTypeOptions();
@@ -114,22 +125,20 @@ export class RSLSearchPage {
    }
   }
 
-  getItems(ev) {
-    // Reset items back to all of the items
-    this.items = this.data.getChemicalNames();
-    //for(let item of this.items){
-      //item.checked = this.checkboxes[item];
-    //}
+    // this is for the search bar
+    getItems(ev) {
+      // Reset items back to all of the items
+      this.items = this.data.getChemicalNames();
 
 
-    // set val to the value of the ev target
-    var val = ev.target.value;
+      // set val to the value of the ev target
+      var val = ev.target.value;
 
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      // if the value is an empty string don't filter the items
+      if (val && val.trim() != '') {
+        this.items = this.items.filter((item) => {
+          return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      }
     }
   }
-}

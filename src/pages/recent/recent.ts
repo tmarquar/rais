@@ -1,12 +1,16 @@
+/******************************************************************
+* very similar to favorites. It loads the database and displays the
+* information
+******************************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from '../favorites/favDetails/favDetails';
 import { HTTP } from '@ionic-native/http';
-//import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-import { StartPage } from '../start/start';
+
 
 @Component({
   selector: 'page-RecentPage',
@@ -36,12 +40,8 @@ export class RecentPage {
       spinner: 'bubbles',
       duration: 500
     });
-
+    // same issue as in favorites * see favorites
     await loading.present();
-    let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("done!"), 1000)
-  });
-    //let result = await loading;
 
     this.items = this.data.getSavedChemicals();
     for (let item of this.items) {

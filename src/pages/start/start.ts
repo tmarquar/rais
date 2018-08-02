@@ -1,5 +1,9 @@
+/*****************************************************
+* Has buttons that link to pages. YAY
+*
+*******************************************************/
+
 import { Component } from '@angular/core';
-//import { Nav, Platform } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';

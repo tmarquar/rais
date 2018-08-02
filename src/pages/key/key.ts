@@ -1,7 +1,9 @@
+/******************************************
+* simple KeyPage
+****************************************/
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-key',
@@ -10,7 +12,7 @@ import { Toast } from '@ionic-native/toast';
 export class KeyPage {
 
   constructor(public navCtrl: NavController) {
-    
+
   }
 
 

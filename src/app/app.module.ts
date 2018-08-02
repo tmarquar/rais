@@ -1,3 +1,8 @@
+/*******************************************************************
+* If you want something new, be it a page or a package, it must
+* be included here. Independent classes are the exception
+******************************************************************/
+
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler, ToastController } from 'ionic-angular';
@@ -35,15 +40,15 @@ import { RecentPage } from '../pages/recent/recent';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// I think you have to link all these here.
 import { HTTP } from '@ionic-native/http';
-//import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 import { SQLite } from '@ionic-native/sqlite';
 import { Toast } from '@ionic-native/toast';
 
 
 @NgModule({
-  declarations: [
+  declarations: [ // link all pages here
     MyApp,
     AboutPage,
     ContactPage,
@@ -74,7 +79,7 @@ import { Toast } from '@ionic-native/toast';
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
+  entryComponents: [ // and here
     MyApp,
     AboutPage,
     ContactPage,
@@ -100,7 +105,7 @@ import { Toast } from '@ionic-native/toast';
     TutorialPage,
     RecentPage
   ],
-  providers: [
+  providers: [ // list all used packages here
     StatusBar,
     SplashScreen,
     HTTP,

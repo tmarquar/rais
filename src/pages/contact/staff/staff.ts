@@ -1,3 +1,9 @@
+/******************************************************
+* No longer really needed but still exists.
+* Only uses for Fred as the point of contact
+*
+*******************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 

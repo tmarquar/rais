@@ -1,3 +1,9 @@
+/*******************************************************
+* For the tab bar to exist on the page, it must be one of the tabs.
+* This may not be entirely true, but I couldn't get it to work
+* otherwise..
+******************************************************/
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -18,9 +24,6 @@ import { StartPage } from '../start/start';
 export class TabsPage {
 
   tab1Root = StartPage;
-  //tab2Root = AboutPage;
-  //tab3Root = InfoPage;
-  //tab4Root = ContactPage;
   tab2Root = RSLSearchPage;
   tab3Root = RMLSearchPage;
   tab4Root = KeyPage;
