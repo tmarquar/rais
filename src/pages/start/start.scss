@@ -4,9 +4,16 @@ page-start {
     white-space: normal;
   }
   p {
-    font-size: 12pt;
+    font-size: 24pt;
+    color: green;
+    position: relative;
+    right : 70px;
+    top : 100px;
   }
   ion-content{
       background-image: url("https://preview.ibb.co/mx4CrK/zombie.png");
+      background-repeat: no-repeat;
+      background-size: 80% 80%;
+      background-position: right bottom;
   }
 }
