@@ -48,7 +48,8 @@ export class MyApp {
       { title: 'Info', pageName: InfoPage, icon: "information-circle" },
       { title: 'Contact Us', pageName: ContactPage, icon: "contact" },
       { title: 'Key', pageName: TabsPage, icon: "key", component: KeyPage, index: 3 },
-      { title: 'Tutorial', pageName: TutorialPage, icon: "help" }
+      { title: 'Tutorial', pageName: TutorialPage, icon: "help" },
+      { title: 'Recent Search', pageName: recentPage, icon: "time" }
     ];
   }
 
