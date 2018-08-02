@@ -1,5 +1,15 @@
-import { HTTP } from '@ionic-native/http';
-import { File } from '@ionic-native/file';
+/****************************************************************
+* This contains all of the information and controls the entire
+* work flow. It stores the only plain text options, so that they are
+* easily accessible and only need to be changed in one place.
+*
+* It links the pages to the other classes, which makes everything else simple
+* but this rather complicated
+***************************************************************/
+
+
+import { HTTP } from '@ionic-native/http'; // for web app
+import { File } from '@ionic-native/file'; // for phones
 
 import { RSLData } from './RSLData';
 
@@ -12,11 +22,13 @@ import { SQLiteHandler } from './sqliteHandler';
 export class ChemicalContainer {
   _chemicalNames:string[] = [];
   _chemicalCasnums:string[]=[];
-  _selectedChemicals:string[] = [];
+  _selectedChemicals:string[] = []; // these are the ones that are checked in Search
+  // these are the selected (checked) options from pages
   _scenario:string[] = [];
   _screeningType:string[] = [];
   _targetRiskHazard:string[] = [];
   _exposureRoutes:string[] = [];
+  // options means all options that are possible.
   _screeningTypeOptions:string[] = [];
   _targetRiskHazardOptions:string[] = [];
   _exposureRouteOptions:string[] = [];
@@ -27,7 +39,7 @@ export class ChemicalContainer {
   _rmlthq10 : RMLData;
   _rmlthq30 : RMLData;
 
-  _favoriteData : SQLiteHandler;
+  _sqlData : SQLiteHandler;
 
   constructor (private http: HTTP, private file: File, private sqlite: SQLite) {
     this.initializeOptions();
@@ -36,20 +48,15 @@ export class ChemicalContainer {
     this._rslthq01 = new RSLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, false);
     this._rmlthq10 = new RMLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, true);
     this._rmlthq30 = new RMLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, false);
-    //var prom = wait(2000);
-    //this._chemicalNames = ['this', 'adf'];
     this._chemicalNames = this._rslthq10.getChemicalList();
-    this._chemicalCasnums=this._rslthq10.getChemicalCasnum();
-    this._favoriteData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
-    //this._favoriteData.loadData();
+    this._sqlData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
+
   }
-/*
-  getTest() :string{
-    console.log(this.test);
-    return this._rslthq10.getTest();
-    //return this.test;
-  }
-*/
+
+  // here, order matters. Don't change it unless you really need to.
+  // options are filtered and chosen based on array location assuming this order
+  // this is the only place these words exist. everywhere else is a reference to here.
+  // you can change the order of the output in RMLData RSLData.
   initializeOptions() :void  {
     this._screeningTypeOptions = [
       'RSL (Regional Screening Levels)',
@@ -80,56 +87,91 @@ export class ChemicalContainer {
   }
 
 /**************************************************************
-* favorite handling
+* favorite handling and recent handling
 *
 **************************************************************/
-public loadData() { // I wanted to try and return the promise here.
+public loadFavorites() { // I wanted to try and return the promise here.
+  // start up favorite database
+  return this._sqlData.loadFavorites();
+}
 
-  return this._favoriteData.loadData();
+public loadRecents(){
+  // start up recent database
+  return this._sqlData.loadRecents();
 }
 
 public loadChemicalData(chemical:string) : void {
-  //this._chemicalNames = this._favoriteData.getChemicals();
-  //this._selectedChemicals = this._favoriteData.getChemicals();
-  this._scenario = this._favoriteData.getScenario(chemical);
-  this._screeningType = this._favoriteData.getScreeningType(chemical);
-  this._targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
-  this._exposureRoutes = this._favoriteData.getExposureRoute(chemical);
+  // retrieves choices from the database after they load.
+  this._scenario = this._sqlData.getScenario(chemical);
+  this._screeningType = this._sqlData.getScreeningType(chemical);
+  this._targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
+  this._exposureRoutes = this._sqlData.getExposureRoute(chemical);
 }
 
 public getFavoriteChemicals() : string[] {
-  //this._favoriteData.loadData();
-  return this._favoriteData.getChemicals();
+  return this._sqlData.getChemicals();
+}
+
+public getSavedChemicals() : string[] {
+  return this._sqlData.getChemicals();
 }
 
 public addFavorite(chemical:string) :void {
-  this._favoriteData.saveData(chemical, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
+  // puts it in the database
+  this._sqlData.saveFavorite(chemical, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
+}
+
+public addRecents() : void {
+  // clears old database
+  // puts list into database
+  this._sqlData.saveRecents(this._selectedChemicals, this._screeningType, this._targetRiskHazard, this._scenario, this._exposureRoutes);
 }
 
 public deleteFavorite(chemical:string) : void {
-  this._favoriteData.deleteData(chemical);
+  // delete one favorite
+  this._sqlData.deleteFavorite(chemical);
 }
 
+// this is what appears on the card in favorites.
+// do not use. SHould be deleted soon.
 public getFavoriteFormattedData(chemical:string) : string[] {
-  let targetRiskHazard = this._favoriteData.getTargetRiskHazard(chemical);
+  let targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
   let output:string[] = [];
   for (let level of targetRiskHazard) {
     if (level === this._targetRiskHazardOptions[0]){
-      output = output.concat(this._rslthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rslthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
     if (level === this._targetRiskHazardOptions[1]){
-      output = output.concat(this._rslthq01.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rslthq01.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
     if (level === this._targetRiskHazardOptions[2]){
-      output = output.concat(this._rmlthq10.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rmlthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
     if (level === this._targetRiskHazardOptions[3]){
-      output = output.concat(this._rmlthq30.getFormattedData(this._favoriteData.getScenario(chemical),this._favoriteData.getExposureRoute(chemical),chemical));
+      output = output.concat(this._rmlthq30.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
     }
   }
   return output;
-  //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
-  //return ['1234','1231'];
+}
+// this is what is put on the cards for recents and favorites.
+public getSQLFormattedData(chemical:string) : string[] {
+  let targetRiskHazard = this._sqlData.getTargetRiskHazard(chemical);
+  let output:string[] = [];
+  for (let level of targetRiskHazard) {
+    if (level === this._targetRiskHazardOptions[0]){
+      output = output.concat(this._rslthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[1]){
+      output = output.concat(this._rslthq01.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[2]){
+      output = output.concat(this._rmlthq10.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+    if (level === this._targetRiskHazardOptions[3]){
+      output = output.concat(this._rmlthq30.getFormattedData(this._sqlData.getScenario(chemical),this._sqlData.getExposureRoute(chemical),chemical));
+    }
+  }
+  return output;
 }
 
 
@@ -138,6 +180,7 @@ public getFavoriteFormattedData(chemical:string) : string[] {
 * Functions for output
 *
 **************************************************************/
+  // output to cards in cards.ts
   public getFormattedData(chemical:string) : string[] {
     let output:string[] = [];
     for (let level of this._targetRiskHazard) {
@@ -155,9 +198,8 @@ public getFavoriteFormattedData(chemical:string) : string[] {
       }
     }
     return output;
-    //return this._rslthq10.getFormattedData(this._scenario,this._exposureRoutes,chemical);
-    //return ['1234','1231'];
   }
+  // output for when you click on the card/more info button
   public getAllFormattedData(chemical:string) : string[] {
     let output:string[] = [];
     output = output.concat(this._rslthq10.getAllFormattedData(chemical));
@@ -165,15 +207,14 @@ public getFavoriteFormattedData(chemical:string) : string[] {
     output = output.concat(this._rmlthq10.getAllFormattedData(chemical));
     output = output.concat(this._rmlthq30.getAllFormattedData(chemical));
     return output;
-    //return this._rslthq10.getAllFormattedData(chemical);
-
   }
 
 
 
 /***************************************************************
 * functions so that we get the options that we want
-*
+* THis is dependent on the array locations of *options
+* If you want to change the order of things on screen do it here.
 *
 *****************************************************************/
 
@@ -204,7 +245,6 @@ public getFavoriteFormattedData(chemical:string) : string[] {
     if (type === this._targetRiskHazardOptions[0] || type == this._targetRiskHazardOptions[1]){
       for (let scenario of this._scenario){
         if (scenario === this._scenarioOptions[0]){
-          //choices = this._exposureRouteOptions;
           choices.push(this._exposureRouteOptions[0]);
           choices.push(this._exposureRouteOptions[1]);
           choices.push(this._exposureRouteOptions[4]);
@@ -233,8 +273,8 @@ public getFavoriteFormattedData(chemical:string) : string[] {
 
     }
   }
+  // removes duplicates
   let unique = Array.from(new Set(choices));
-  //console.log("hello");
   return unique;
   }
 
@@ -245,14 +285,14 @@ public getFavoriteFormattedData(chemical:string) : string[] {
   /*******************************************************************
   * Handle scenario information. Each is an array so that all information
   * can be selected.
-  *
+  * should be an add, clear, set, and get for each of the selections
   *
   *********************************************************************/
+
   addChemical(chemical:string) : void {
     this._selectedChemicals.push(chemical);
   }
   getSelectedChemicals() :string[]{
-
     return this._selectedChemicals;
   }
   resetSelectedChemicals() : void {
@@ -263,12 +303,10 @@ public getFavoriteFormattedData(chemical:string) : string[] {
   }
   // List of all chemicals
   getChemicalNames() : string[] {
-  // was trying to remove the empty last item in the list.
-  //this._chemicalNames.splice(-1,1);
-
     return this._chemicalNames;
   }
 
+  /* under concideration, but likely to be deleted
   getChemicalNameAndCasnum(): string[]{
     let chemicalNameAndCasnum:string[] =[];
     for(let i in this._chemicalNames) {
@@ -276,7 +314,7 @@ public getFavoriteFormattedData(chemical:string) : string[] {
     }
     return chemicalNameAndCasnum;
   }
-
+*/
   addScenario(scenario:string):void{
     this._scenario.push(scenario);
   }

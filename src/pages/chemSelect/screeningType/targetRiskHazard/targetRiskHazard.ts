@@ -1,3 +1,9 @@
+/*********************************************************
+* This is the first page after RML or RSL search.
+* It uses ChemicalContainer to retrieve the possible options
+* based on previous decisions.
+**********************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChemicalContainer } from '../../../Chemical_Container';
@@ -16,6 +22,7 @@ export class TargetRiskHazardPage {
   data : ChemicalContainer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // navParams gets info from previous pages
     this.data = navParams.get('data');
     this.initializeItems();
     this.initializeCheckboxes();
@@ -30,7 +37,7 @@ export class TargetRiskHazardPage {
   toggleCheckboxes(item) {
     this.checkboxes[item] = !this.checkboxes[item];
   }
-  
+
   getIcon(item):string{
     if (this.checkboxes[item]){
       return "checkbox-outline";
@@ -45,10 +52,10 @@ export class TargetRiskHazardPage {
     for (let item of this.items) {
       if(this.checkboxes[item] == true) {
         this.oneChecked = true;
-        this.data.addTargetRiskHazard(item);
+        this.data.addTargetRiskHazard(item); //ChemicalContainer keeps track of everything
       }
     }
-
+    // pushing to next page using navCtrl
     if(this.oneChecked == true) {
       this.navCtrl.push(ScenarioPage, {
         'data': this.data

@@ -1,7 +1,11 @@
+/******************************************
+* simple
+******************************************/
+
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-import { Toast } from '@ionic-native/toast';
+
 
 @Component({
   selector: 'page-home',
@@ -9,14 +13,8 @@ import { Toast } from '@ionic-native/toast';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private toast: Toast) {
-    /*
-    this.toast.show(`I'm a toast`, '5000', 'top').subscribe(
-      toast => {
-        console.log(toast);
-      }
-    );
-*/
+  constructor(public navCtrl: NavController) {
+
   }
 
 

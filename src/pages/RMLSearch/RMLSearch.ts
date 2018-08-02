@@ -1,7 +1,13 @@
+/****************************************************************
+* This is the newer version of chemSelect. It links to subdirectories
+* in chemSelect for simplicity.
+*
+*
+***************************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
-//import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
@@ -15,25 +21,25 @@ import { CardsPage } from '../chemSelect/screeningType/targetRiskHazard/scenario
 })
 export class RMLSearchPage {
   items;
-  names;
-  casnums;
   checkboxes = [];
 
   data : ChemicalContainer;
-  chemicalList: Array<{name:string, checked: boolean}>;
-
+  // load all the packages we need to pass to ChemicalContainer
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite, private loadingCtrl: LoadingController) {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       duration: 100
     });
-
+    // somehow, here the page knows to wait for things to load, so it shows the spinner until it is
+    // done. Maybe it is something about constructors. I am not sure, but it works, and is easily broken if
+    // some things are changed.
     loading.present();
-    this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
+    this.data = new ChemicalContainer(this.http, this.file, this.sqlite); // load
+    // Since we cut out a page and know we want RML screening, we insert that infomation here so that ChemicalContainer
+    // doesn't have to be changed
     this.data.addScreeningType(this.data.getScreeningTypeOptions()[1]);
 
     this.items = this.data.getChemicalNames();
-    //this.items.splice(-1,1);
     this.initializeCheckboxes();
   }
 
@@ -59,6 +65,7 @@ export class RMLSearchPage {
     }
   }
 
+  // if they want all infomation available quickly as if they checked all boxes.
   retrieveAll() {
     var oneChecked: boolean = false;
     var screeningTypes = this.data.getScreeningTypeOptions();
@@ -123,12 +130,10 @@ export class RMLSearchPage {
    }
   }
 
+  // this is for the search bar
   getItems(ev) {
     // Reset items back to all of the items
     this.items = this.data.getChemicalNames();
-    //for(let item of this.items){
-      //item.checked = this.checkboxes[item];
-    //}
 
 
     // set val to the value of the ev target

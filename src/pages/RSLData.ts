@@ -1,3 +1,8 @@
+/******************************************************
+* This loads and parses data and returns that information gathered.
+*
+*
+*****************************************************/
 import { HTTP } from '@ionic-native/http';
 import { File } from '@ionic-native/file';
 import * as papa from 'papaparse';
@@ -5,13 +10,9 @@ import * as papa from 'papaparse';
 export class RSLData {
   csvData:any[] = [];
   headerRow:any[] = [];
-  //_test:string;
-  parsedData:string[]=[];
 
-  _myMap: {[key:string]:number} = {};
+  _myMap: {[key:string]:number} = {};// used for finding index of chemical name in list
   _chemicalNames:string[] = [] ;
-  //_chemicalsMasterList: {[name:string] :string;} = {};
-  _chemicalsMasterList: string[] = [];
 
   _casnum : string[] = [];
 
@@ -25,12 +26,13 @@ export class RSLData {
   _tapwaterMCL : number[] = [];
   _tapwaterMCLSSL : number[] = [];
   _tapwaterSSL : number[] = [];
-  _sslKey : string[] = [];
+  _sslKey : string[] = []; // is used for two different numbers so it is independent of them
 
   _exposureRouteOptions:string[] = [];
   _scenarioOptions:string[] = [];
 
-  _HQ:string;
+  // Hazard Quotient
+  _HQ:string; // this is a string that fills in the header for the cards
 
   // initialize all data
   constructor (private http: HTTP, private file: File, routeOptions:string[], scenarioOptions:string[], RSL10:boolean) {
@@ -47,15 +49,14 @@ export class RSLData {
   }
 
   private initializeChemicals() : void {
+    // build map
     let i:number = 0;
     for (let row of this.csvData){
       this._chemicalNames.push(row[0]);
       this._myMap[row[0]] = i;
       i++;
     }
-  //console.log(this._myMap['Copper Cyanide']);
     for (let row of this.csvData) {
-      //this._chemicalsMasterList[name] =row[0];
       this._casnum.push(row[1]);
       this._residentSoil.push([row[2], row[3]]);
       this._industrialSoil.push([row[4], row[5]]);
@@ -72,7 +73,7 @@ export class RSLData {
 
 
   async readCsvData(fileName) {
-/*
+/* for web app
   this.http.get(fileName,{} ,{})
   .then(
     data => { console.log(data.data);
@@ -117,6 +118,7 @@ export class RSLData {
   // Maybe a more dynamic way or getting data.
   // Make it only for loops, without if statements
 
+  // this is for the card
   public getFormattedData (scenario:string[], routes:string[], chemicalName:string) : string[] {
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];
@@ -164,8 +166,8 @@ export class RSLData {
     return formattedData;
   }
 
+  // this is for more info
   public getAllFormattedData (chemicalName:string) : string[] {
-    //console.log(chemicalName);
     let chemical : number = this._myMap[chemicalName];
     let formattedData : string[] = [];//["test","test2"];
     formattedData.push('************************');

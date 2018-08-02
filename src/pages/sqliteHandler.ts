@@ -1,30 +1,45 @@
+/*****************************************************************
+* Handles the recent and favorite databases.
+*
+* encoding is used to store the options selected because SQLite doesn't
+* store arrays
+*****************************************************************/
+
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 export class SQLiteHandler {
 
   _chemicals:string[] = [];
+  // this is for retrieving from the database what options where selected for the cards
   _dataOptions:number[][] = [[],[],[],[]];
+  // options by chemical
   _scenario:string[][] = [];
   _screeningType:string[][] = [];
   _targetRiskHazard:string[][] = [];
   _exposureRoute:string[][] = [];
 
+  // empty object.
   temp:any[];
 
   constructor (private sqlite: SQLite, private _screeningTypeOptions:string[],
-    private _targetRiskHazardOptions:string[], private _scenarioOptions:string[], private _exposureRouteOptions:string[]) {
-
-
-    this.loadData();
-    //this.saveData('Benzene',this._screeningTypeOptions,this._targetRiskHazardOptions,this._scenarioOptions,this._exposureRouteOptions);
-    //this.loadData();
+    private _targetRiskHazardOptions:string[], private _scenarioOptions:string[],
+    private _exposureRouteOptions:string[]){
 
 
   }
 
-
-
-
+  // the information for chemical options is saved in a
+  // binary string that is put in decimal. Here we parse the
+  // decimal number back into a binary string. as expected 1 is yes, 0 in no
+  // as in: given scenario: there is the scenario options [[resident],[Industrial]]
+  // resident is index 0 and Industrial is index 1, and they are yes or no,so:
+  // the options are
+  // 00 = 0(10): neither (can't happen)
+  // 01 = 1(10): Industrial
+  // 10 = 2(10): resident
+  // 11 = 3(10): both
+  // each while loop parses the decimal number and determines if the array
+  // index of options was in the selected array.
   processData() :void {
     let screeningTypeInt:number;
     let targetRiskHazardInt:number = 0;
@@ -47,7 +62,7 @@ export class SQLiteHandler {
       this._exposureRoute.push([]);
       index = 0;
       while (screeningTypeInt > 0){
-        if (screeningTypeInt % 2){
+        if (screeningTypeInt % 2){ // if 1 (true) it was in the saved array and is added
           screeningTypeInt -=1;
           this._screeningType[i].push(this._screeningTypeOptions[index]);
         }
@@ -67,11 +82,9 @@ export class SQLiteHandler {
 
       index = 0;
       while (scenarioInt > 0){
-        //console.log("scene: " + scenarioInt);
         if (scenarioInt % 2){
           scenarioInt -=1;
           this._scenario[i].push(this._scenarioOptions[index]);
-          //console.log(scenarioInt + this._scenarioOptions[index] + index);
         }
         index++;
         scenarioInt = scenarioInt / 2;
@@ -90,10 +103,59 @@ export class SQLiteHandler {
         exposureRouteInt = exposureRouteInt / 2;
       }
     }
-    //console.log("endprocess");
   }
 
+  // returns the promise
+  // creates the table if it doesn't exist and if it does it gets the information
+  loadFavorites() {
+   return this.sqlite.create({
+    name: 'favoritedb.db',
+    location: 'default'
+  }).then((db: SQLiteObject) => {
+     db.executeSql("CREATE TABLE IF NOT EXISTS favorites(chemical TEXT PRIMARY KEY, screeningType INT, targetRiskHazard INT, scenario INT, exposureRoute INT)", this.temp)
+      .then(res => console.log('Executed SQL'))
+      .catch(e => console.log(e));
+       db.executeSql("SELECT * FROM favorites", this.temp)
+      .then(res => {
+        this._chemicals = [];
+        this._dataOptions = [[],[],[],[]];
+        for(var i =0; i<res.rows.length; i++) {
+          this._chemicals.push(res.rows.item(i).chemical);
+          this._dataOptions[0].push(res.rows.item(i).screeningType);
+          this._dataOptions[1].push(res.rows.item(i).targetRiskHazard);
+          this._dataOptions[2].push(res.rows.item(i).scenario);
+          this._dataOptions[3].push(res.rows.item(i).exposureRoute);
+        }
+        this.processData();
+      }).catch(e => console.log(e));
+  }).catch(e => console.log(e));
+}
 
+  // same as above but for recents
+  loadRecents() {
+   return this.sqlite.create({
+    name: 'recentdb.db',
+    location: 'default'
+  }).then((db: SQLiteObject) => {
+     db.executeSql("CREATE TABLE IF NOT EXISTS favorites(chemical TEXT PRIMARY KEY, screeningType INT, targetRiskHazard INT, scenario INT, exposureRoute INT)", this.temp)
+      .then(res => console.log('Executed SQL'))
+      .catch(e => console.log(e));
+       db.executeSql("SELECT * FROM favorites", this.temp)
+      .then(res => {
+        this._chemicals = [];
+        this._dataOptions = [[],[],[],[]];
+        for(var i =0; i<res.rows.length; i++) {
+          this._chemicals.push(res.rows.item(i).chemical);
+          this._dataOptions[0].push(res.rows.item(i).screeningType);
+          this._dataOptions[1].push(res.rows.item(i).targetRiskHazard);
+          this._dataOptions[2].push(res.rows.item(i).scenario);
+          this._dataOptions[3].push(res.rows.item(i).exposureRoute);
+        }
+        this.processData();
+      }).catch(e => console.log(e));
+  }).catch(e => console.log(e));
+  }
+    // old version and will be deleted
     loadData() {
      return this.sqlite.create({
       name: 'ionicdb.db',
@@ -123,7 +185,8 @@ export class SQLiteHandler {
     //return this._chemicals;
   }
 
-  public saveData(chemical:string, screeningType:string[], targetRiskHazard:string[],scenario:string[], exposureRoute:string[]):void {
+  // encode the array of options and save into the database
+  public saveFavorite(chemical:string, screeningType:string[], targetRiskHazard:string[],scenario:string[], exposureRoute:string[]):void {
     let screeningTypeInt:number = 0;
     let targetRiskHazardInt:number = 0;
     let scenarioInt:number = 0;
@@ -132,16 +195,13 @@ export class SQLiteHandler {
     let index:number = 0;
 
     for (let screen of screeningType){
-      //index = this._screeningTypeOptions.length - this._screeningTypeOptions.indexOf(screen) - 1;
       index = this._screeningTypeOptions.indexOf(screen);
-       // indexOf returns -1 if not found. but should always be found
       if (index >= 0 ){
         screeningTypeInt += 2**index;
       }
     }
     index = -1;
     for (let target of targetRiskHazard) {
-      //index = this._targetRiskHazardOptions.length - this._targetRiskHazardOptions.indexOf(target) -1;
       index = this._targetRiskHazardOptions.indexOf(target);
       if (index >= 0) {
         targetRiskHazardInt += 2**index;
@@ -149,7 +209,6 @@ export class SQLiteHandler {
     }
     index = -1;
     for (let scene of scenario) {
-      //index = this._scenarioOptions.length - this._scenarioOptions.indexOf(scene) - 1;
       index = this._scenarioOptions.indexOf(scene);
       if (index >= 0) {
         scenarioInt += 2**index;
@@ -165,23 +224,106 @@ export class SQLiteHandler {
 
 
     this.sqlite.create({
-      name: 'ionicdb.db',
+      name: 'favoritedb.db',
       location: 'default'
     }).then((db: SQLiteObject) =>{
       db.executeSql('INSERT INTO favorites VALUES(?,?,?,?,?)',[chemical,screeningTypeInt,targetRiskHazardInt,scenarioInt,exposureRouteInt])
       .then(res => {
-        //console.log('Inserting data');
         console.log(res);
       }).catch(e => console.log('sqlobject error: ' + e));
     }).catch(e => console.log('sqlite error: ' + e));
 
-    //this.loadData();
   }
 
-  public deleteData(chemicalName:string) : void  {
+  // creates the database. then empties the database, then fills the database
+  // requires to be in that order so it is async with awaits
+  async saveRecents(chemicals:string[], screeningType:string[], targetRiskHazard:string[],scenario:string[], exposureRoute:string[])  {
+    await this.sqlite.create({
+     name: 'recentdb.db',
+     location: 'default'
+   }).then((db: SQLiteObject) => {
+      db.executeSql("CREATE TABLE IF NOT EXISTS favorites(chemical TEXT PRIMARY KEY, screeningType INT, targetRiskHazard INT, scenario INT, exposureRoute INT)", this.temp)
+       .then(res => console.log('Executed SQL'))
+       .catch(e => console.log(e));
+        db.executeSql("SELECT * FROM favorites", this.temp)
+       .then(res => {
+         this._chemicals = [];
+         this._dataOptions = [[],[],[],[]];
+         for(var i =0; i<res.rows.length; i++) {
+           this._chemicals.push(res.rows.item(i).chemical);
+           this._dataOptions[0].push(res.rows.item(i).screeningType);
+           this._dataOptions[1].push(res.rows.item(i).targetRiskHazard);
+           this._dataOptions[2].push(res.rows.item(i).scenario);
+           this._dataOptions[3].push(res.rows.item(i).exposureRoute);
+         }
+         this.processData();
+       }).catch(e => console.log(e));
+   }).catch(e => console.log(e));
+
+    await this.sqlite.create({
+      name: 'recentdb.db',
+      location: 'default'
+    }).then((db: SQLiteObject) => {
+      db.executeSql('DELETE FROM favorites',this.temp)
+      .then(res => {
+        console.log(res);
+      }).catch(e => console.log(e));
+    }).catch (e => console.log(e));
+
+
+    let screeningTypeInt:number = 0;
+    let targetRiskHazardInt:number = 0;
+    let scenarioInt:number = 0;
+    let exposureRouteInt:number = 0;
+
+    let index:number = 0;
+
+    for (let screen of screeningType){
+      index = this._screeningTypeOptions.indexOf(screen);
+      if (index >= 0 ){
+        screeningTypeInt += 2**index;
+      }
+    }
+    index = -1;
+    for (let target of targetRiskHazard) {
+      index = this._targetRiskHazardOptions.indexOf(target);
+      if (index >= 0) {
+        targetRiskHazardInt += 2**index;
+      }
+    }
+    index = -1;
+    for (let scene of scenario) {
+      index = this._scenarioOptions.indexOf(scene);
+      if (index >= 0) {
+        scenarioInt += 2**index;
+      }
+    }
+    index = -1;
+    for (let route of exposureRoute) {
+      index = this._exposureRouteOptions.indexOf(route);
+      if (index >= 0){
+        exposureRouteInt += 2**index;
+      }
+    }
+
+    for (let chemical of chemicals) {
+      this.sqlite.create({
+        name: 'recentdb.db',
+        location: 'default'
+      }).then((db: SQLiteObject) =>{
+        db.executeSql('INSERT INTO favorites VALUES(?,?,?,?,?)',[chemical,screeningTypeInt,targetRiskHazardInt,scenarioInt,exposureRouteInt])
+        .then(res => {
+          console.log(res);
+        }).catch(e => console.log('sqlobject error: ' + e));
+      }).catch(e => console.log('sqlite error: ' + e));
+    }
+
+  }
+
+  public deleteFavorite(chemicalName:string) : void  {
     if (this._chemicals.indexOf(chemicalName) > -1){
       this.sqlite.create({
-        name: 'ionicdb.db',
+        name: 'favoritedb.db',
         location: 'default'
       }).then((db: SQLiteObject) => {
         db.executeSql('DELETE FROM favorites WHERE chemical=?',[chemicalName])
@@ -190,17 +332,28 @@ export class SQLiteHandler {
         }).catch(e => console.log(e));
       }).catch (e => console.log(e));
 
-      //this.loadData();
+    }
+  }
+  // not used and to be deleted
+  public deleteRecent(chemicalName:string) : void  {
+    if (this._chemicals.indexOf(chemicalName) > -1){
+      this.sqlite.create({
+        name: 'recentdb.db',
+        location: 'default'
+      }).then((db: SQLiteObject) => {
+        db.executeSql('DELETE FROM favorites WHERE chemical=?',[chemicalName])
+        .then(res => {
+          console.log(res);
+        }).catch(e => console.log(e));
+      }).catch (e => console.log(e));
+
     }
   }
 
+  /**********************************************
+  * returns info to chem container
+  **********************************************/
   getChemicals() {
-    //console.log("waiting");
-    //while (this._chemicals[0] === undefined){
-      //console.log("waiting");
-    //}
-    //this.waitForData();
-    //console.log("DONE" + this._chemicals[0]);
     return this._chemicals;
   }
   getScenario(chemical:string): string[] {

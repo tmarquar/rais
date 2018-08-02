@@ -1,9 +1,16 @@
+/*********************************************************
+* Favorites uses the database in ChemicalContainer to
+* show certain chemicals. It is very similar to the
+* cards page
+*
+*
+***********************************************************/
+
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from './favDetails/favDetails';
 import { HTTP } from '@ionic-native/http';
-//import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { StartPage } from '../start/start';
@@ -15,15 +22,17 @@ import { StartPage } from '../start/start';
 export class FavoritesPage {
   items;
   buttonIcon:string[] = [];
-
-  //just a duplicate to refresh the original when searching
   selectedChemicalsCopy:string[] = [];
   data: ChemicalContainer;
 
+  // The page constructors get package information automatically that then needs to be sent to chemical container so
+  // it can have the same references
   constructor(public navCtrl: NavController, public navParams: NavParams,private http: HTTP, private file:File,private sqlite: SQLite, private toastCtrl: ToastController,private loadingCtrl: LoadingController) {
+    // http is not really used.
     this.data = new ChemicalContainer(this.http, this.file, this.sqlite);
+    this.data.loadFavorites(); // the database takes a moment to load so do it first
     this.initializeItems();
-    this.selectedChemicalsCopy = this.data.getFavoriteChemicals();
+
   }
 
   showToast (): void {
@@ -51,21 +60,26 @@ export class FavoritesPage {
     });
   }
 
+  // async allows code in this function to wait for
+  // other parts to finish before running.
   async initializeItems()  {
+    // this is a promise meaning that is runs asynchronously,
+    // so we need to make the program wait for this to finish
+    // because while this is displaying, data is loading the database
+    // this gives the database a .5 second head start and is a crude
+    // fix to a bigger problem
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       duration: 500
     });
-
+    // await tells the function to stop here until something returns.
+    // it would be better if this waited for the sqldatabase to return that
+    // everything is loaded, but that proves difficult so instead we just wait
+    // until it is likely finished
     await loading.present();
-    let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("done!"), 1000)
-  });
-    //let result = await loading;
 
-    //let result = await this.data.loadData();
-    //console.log("endwait");
-    this.items = this.data.getFavoriteChemicals();
+
+    this.items = this.data.getSavedChemicals();
     for (let item of this.items) {
       this.buttonIcon[item] = 'star';
     }
@@ -74,7 +88,7 @@ export class FavoritesPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
-       this.data.loadChemicalData(chemical);
+       this.data.loadChemicalData(chemical); // what?
        this.data.addFavorite(chemical);
      }
      else {
@@ -87,18 +101,4 @@ export class FavoritesPage {
     return this.buttonIcon[chemical];
   }
 
-  getItems(ev) : void {
-    // Reset items back to all of the items
-    this.data.setSelectedChemicals(this.selectedChemicalsCopy);
-
-    // set val to the value of the ev target
-    var val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.data.getSelectedChemicals().filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
 }
