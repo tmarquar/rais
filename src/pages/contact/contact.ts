@@ -21,7 +21,7 @@ export class ContactPage {
   staffSelected(staffMember: string) {
     this.navCtrl.push(StaffPage, {
       'staffMember': staffMember,
-      'staff' : this.staff
+      'staff' : this.fred
     });
   }
 }

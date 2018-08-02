@@ -14,6 +14,7 @@ import { HTTP } from '@ionic-native/http';
 import { File } from '@ionic-native/file';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { StartPage } from '../start/start';
+import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-FavoritesPage',
