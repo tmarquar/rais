@@ -89,7 +89,7 @@ export class FavoritesPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
-       this.data.loadChemicalData(chemical); // what?
+       //this.data.loadChemicalData(chemical); // what?
        this.data.addFavorite(chemical);
      }
      else {

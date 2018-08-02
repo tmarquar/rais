@@ -47,7 +47,7 @@ export class RSLData {
     }
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
-    this.emptyVal = "N/A";
+    this.emptyVal = "No Value";
   }
 
   private initializeChemicals() : void {

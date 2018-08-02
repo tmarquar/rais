@@ -1,15 +1,15 @@
 page-CardsPage {
-  ion-card {
+//  ion-card {
   //  background-color: #b3ffff !important;
 
     // colors
-    $colors = #3b5999, #55acee, #0077B5, #dd4b39;
+    //$colors = #3b5999, #55acee, #0077B5, #dd4b39;
 
     // loop!
-    @each $color in $colors {
-        background-color: .$color !important;
-    }
-  }
+  //  @each $color in $colors {
+        //background-color: .$color !important;
+    //}
+//  }
 
   ion-card-title.chemical {
     font-size: 12pt;
