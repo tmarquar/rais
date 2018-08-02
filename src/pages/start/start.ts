@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 //import { Nav, Platform } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { RSLSearchPage } from '../RSLSearch/RSLSearch';
 import { RMLSearchPage } from '../RMLSearch/RMLSearch';
+import { TutorialPage } from '../tutorial/tutorial';
 import { Toast } from '@ionic-native/toast';
 
 
@@ -19,15 +21,17 @@ export class StartPage {
   }
 
   goHome() {
-    this.navCtrl.setRoot(TabsPage, {});
+    this.navCtrl.setRoot(HomePage, {});
   }
   goToRMLSearch() {
-    
+
     this.navCtrl.setRoot(TabsPage, { tabIndex: 2 });
   }
   goToRSLSearch() {
 
     this.navCtrl.setRoot(TabsPage, { tabIndex: 1 });
   }
-
+  goToTutorial() {
+    this.navCtrl.setRoot(TutorialPage, { });
+  }
 }
