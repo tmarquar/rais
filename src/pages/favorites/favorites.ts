@@ -12,9 +12,9 @@ import { ChemicalContainer } from '../Chemical_Container';
 import { FavDetailsPage } from './favDetails/favDetails';
 import { HTTP } from '@ionic-native/http';
 import { File } from '@ionic-native/file';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { SQLite } from '@ionic-native/sqlite';
 import { StartPage } from '../start/start';
-import { Toast } from '@ionic-native/toast';
+
 
 @Component({
   selector: 'page-FavoritesPage',
@@ -89,7 +89,7 @@ export class FavoritesPage {
   toggleFavorite(chemical:string):void {
     if (this.buttonIcon[chemical] === 'star-outline') {
        this.buttonIcon[chemical] = "star";
-       this.data.loadChemicalData(chemical); // what?
+       //this.data.loadChemicalData(chemical); // what?
        this.data.addFavorite(chemical);
      }
      else {

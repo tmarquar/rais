@@ -7,10 +7,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
-import { RSLSearchPage } from '../RSLSearch/RSLSearch';
-import { RMLSearchPage } from '../RMLSearch/RMLSearch';
 import { TutorialPage } from '../tutorial/tutorial';
-import { Toast } from '@ionic-native/toast';
 
 
 @Component({
@@ -20,7 +17,7 @@ import { Toast } from '@ionic-native/toast';
 
 export class StartPage {
 
-  constructor(public navCtrl: NavController, private toast: Toast) {
+  constructor(public navCtrl: NavController) {
 
   }
 
