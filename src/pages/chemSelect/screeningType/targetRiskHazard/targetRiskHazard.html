@@ -10,13 +10,13 @@
 
 <ion-content padding>
   <h1> Select Hazard Quotient and Target Risk</h1>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-        <ion-checkbox ng-model="item.selected" (ionChange)="toggleCheckboxes(item)">
-        </ion-checkbox>
-        <ion-label class = "fit">{{item}}</ion-label>
+  <ion-list *ngFor="let item of items">
+    <ion-item (click)="toggleCheckboxes(item)">
+      <ion-label class = "fit">
+        <ion-icon name={{getIcon(item)}}> {{item}}</ion-icon>
+       </ion-label>
     </ion-item>
-</ion-list>
+  </ion-list>
 </ion-content>
 
 <ion-footer>
