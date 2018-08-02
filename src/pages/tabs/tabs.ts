@@ -17,7 +17,7 @@ import { StartPage } from '../start/start';
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
+  tab1Root = StartPage;
   //tab2Root = AboutPage;
   //tab3Root = InfoPage;
   //tab4Root = ContactPage;

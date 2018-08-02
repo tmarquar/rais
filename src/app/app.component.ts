@@ -22,6 +22,7 @@ export interface PageInterface {
   pageName: any;
   component?: any;
   index?:number;
+  icon:string;
 }
 
 @Component({
@@ -38,16 +39,16 @@ export class MyApp {
 
 
     this.pages = [
-      { title: 'Favorites', pageName: FavoritesPage },
-      { title: 'Home', pageName: TabsPage, component: HomePage, index: 0 },
-      { title: 'RSL Search',pageName: TabsPage, component: RSLSearchPage, index: 1 },
-      { title: 'RML Search',pageName: TabsPage, component: RMLSearchPage, index: 2 },
-      { title: 'About', pageName: AboutPage},
-      { title: 'Info', pageName: InfoPage},
-      { title: 'Contact Us', pageName: ContactPage},
-      { title: 'Key', pageName: TabsPage, component: KeyPage, index: 3 },
-      { title: 'Start', pageName: StartPage},
-      { title: 'Tutorial', pageName: TutorialPage}
+      { title: 'Start', pageName: StartPage, icon: "apps" },
+      { title: 'Favorites', pageName: FavoritesPage, icon: "star" },
+      { title: 'Home', pageName: HomePage, icon: "home", component: HomePage, index: 0 },
+      { title: 'RSL Search',pageName: TabsPage, icon: "search" ,component: RSLSearchPage, index: 1 },
+      { title: 'RML Search',pageName: TabsPage, icon: "search", component: RMLSearchPage, index: 2 },
+      { title: 'About', pageName: AboutPage, icon: "cog" },
+      { title: 'Info', pageName: InfoPage, icon: "information-circle" },
+      { title: 'Contact Us', pageName: ContactPage, icon: "contact" },
+      { title: 'Key', pageName: TabsPage, icon: "key", component: KeyPage, index: 3 },
+      { title: 'Tutorial', pageName: TutorialPage, icon: "help" }
     ];
   }
 

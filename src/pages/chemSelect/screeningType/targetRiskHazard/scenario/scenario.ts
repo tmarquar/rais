@@ -30,6 +30,14 @@ export class ScenarioPage {
     this.checkboxes[item] = !this.checkboxes[item];
   }
 
+  getIcon(item):string{
+    if (this.checkboxes[item]){
+      return "checkbox-outline";
+    }else{
+      return "square-outline";
+    }
+  }
+
   goToOtherPage() {
     //Check if at least one box is checked before moving on
     this.data.clearScenario();
