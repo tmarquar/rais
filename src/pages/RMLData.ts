@@ -16,17 +16,19 @@ export class RMLData {
 
   _casnum : string[] = [];
 
-  _industrialSoil : [number,string][] = [];
+  _industrialSoil : [string,string][] = [];
 
-  _residentSoil : [number,string][] = [];
-  _residentTapwater:[number,string][] = [];
+  _residentSoil : [string,string][] = [];
+  _residentTapwater:[string,string][] = [];
 
-  _tapwaterMCL : number[] = [];
+  _tapwaterMCL : string[] = [];
 
   _exposureRouteOptions:string[] = [];
   _scenarioOptions:string[] = [];
   // Hazard Quotient
   _HQ:string; // this is a string that fills in the header for the cards
+
+  emptyVal: string;
 
   // initialize all data
   constructor (private http: HTTP, private file: File,routeOptions:string[], scenarioOptions:string[], RML10:boolean) {
@@ -39,7 +41,7 @@ export class RMLData {
     }
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
-
+    this.emptyVal = "N/A";
   }
 
   private initializeChemicals() : void {
@@ -51,6 +53,12 @@ export class RMLData {
       i++;
     }
     for (let row of this.csvData) {
+      for (let i = 2; i<9; i= i+2)
+      {
+        if (row[i].replace(/\s/g,"") === '' || row[i] == null){
+          row[i] = this.emptyVal;
+        }
+      }
       this._casnum.push(row[1]);
       this._residentSoil.push([row[2], row[3]]);
       this._industrialSoil.push([row[4], row[5]]);
