@@ -1,7 +1,7 @@
 /********************************************************
 * This was the first iteration, and is no longer used.
 * It is too much work to delete so it remains for now.
-* New version is RML and RSL search. 
+* New version is RML and RSL search.
 *******************************************************/
 
 
@@ -12,7 +12,7 @@ import { HTTP } from '@ionic-native/http';
 import { ScreeningTypePage } from './screeningType/screeningType';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { SQLite } from '@ionic-native/sqlite';
 
 @Component({
   selector: 'page-chemSelect',
