@@ -16,16 +16,16 @@ export class RSLData {
 
   _casnum : string[] = [];
 
-  _industrialSoil : [number,string][] = [];
-  _industrialAir : [number,string][] = [];
+  _industrialSoil : [string,string][] = [];
+  _industrialAir : [string,string][] = [];
 
-  _residentSoil : [number,string][] = [];
-  _residentAir : [number,string][] = [];
-  _residentTapwater:[number,string][] = [];
+  _residentSoil : [string,string][] = [];
+  _residentAir : [string,string][] = [];
+  _residentTapwater:[string,string][] = [];
 
-  _tapwaterMCL : number[] = [];
-  _tapwaterMCLSSL : number[] = [];
-  _tapwaterSSL : number[] = [];
+  _tapwaterMCL : string[] = [];
+  _tapwaterMCLSSL : string[] = [];
+  _tapwaterSSL : string[] = [];
   _sslKey : string[] = []; // is used for two different numbers so it is independent of them
 
   _exposureRouteOptions:string[] = [];
@@ -57,6 +57,13 @@ export class RSLData {
       i++;
     }
     for (let row of this.csvData) {
+      for (let i = 2; i<16; i= i+2)
+      {
+        if (i === 14) {i--;}
+        if (row[i].replace(/\s/g,"") === '' || row[i] == null){
+          row[i] = this.emptyVal;
+        }
+      }
       this._casnum.push(row[1]);
       this._residentSoil.push([row[2], row[3]]);
       this._industrialSoil.push([row[4], row[5]]);
