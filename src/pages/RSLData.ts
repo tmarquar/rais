@@ -34,6 +34,8 @@ export class RSLData {
   // Hazard Quotient
   _HQ:string; // this is a string that fills in the header for the cards
 
+  emptyVal:string;
+
   // initialize all data
   constructor (private http: HTTP, private file: File, routeOptions:string[], scenarioOptions:string[], RSL10:boolean) {
     if (RSL10){
@@ -45,7 +47,7 @@ export class RSLData {
     }
     this._exposureRouteOptions = routeOptions;
     this._scenarioOptions = scenarioOptions;
-
+    this.emptyVal = "N/A";
   }
 
   private initializeChemicals() : void {
