@@ -132,6 +132,14 @@ public deleteFavorite(chemical:string) : void {
   this._sqlData.deleteFavorite(chemical);
 }
 
+getChemicalNameAndCasnum(): string[]{
+  let chemicalNameAndCasnum:string[] =[];
+  for(let i in this._chemicalNames) {
+    chemicalNameAndCasnum.push(this._chemicalNames[i] + ' ' + this._chemicalCasnums[i]);
+  }
+  return chemicalNameAndCasnum;
+}
+
 // this is what appears on the card in favorites.
 // do not use. SHould be deleted soon.
 public getFavoriteFormattedData(chemical:string) : string[] {

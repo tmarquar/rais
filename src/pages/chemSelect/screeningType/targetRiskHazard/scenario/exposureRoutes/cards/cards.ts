@@ -18,7 +18,7 @@ export class CardsPage {
   buttonIcon:string[] = [];
   data: ChemicalContainer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: Toast, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.data = navParams.get('data'); // get data
     this.initializeItems();
     // this will delete and reload the database

@@ -6,7 +6,7 @@
 ***************************************************************/
 
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ToastController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
 import { ChemicalContainer} from '../Chemical_Container';
 import { File } from '@ionic-native/file';
@@ -14,7 +14,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { TargetRiskHazardPage } from '../chemSelect/screeningType/targetRiskHazard/targetRiskHazard';
 import { TabsPage } from '../tabs/tabs';
 import { CardsPage } from '../chemSelect/screeningType/targetRiskHazard/scenario/exposureRoutes/cards/cards';
-
+import { Toast } from '@ionic-native/toast';
 @Component({
   selector: 'page-RMLSearch',
   templateUrl: 'RMLSearch.html'
