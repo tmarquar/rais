@@ -68,40 +68,35 @@ export class RMLSearchPage {
   // if they want all infomation available quickly as if they checked all boxes.
   retrieveAll() {
     var oneChecked: boolean = false;
-    var screeningTypes = this.data.getScreeningTypeOptions();
-    var targetRiskHazards = this.data.getTargetRiskHazardOptions();
-    var scenarios = this.data.getScenarioOptions();
-    var exposureRoutes = this.data.getExposureRouteOptions();
 
     this.data.resetSelectedChemicals();
-    this.data.clearScreeningType();
     this.data.clearTargetRiskHazard();
     this.data.clearScenario();
     this.data.clearExposureRoutes();
 
       //Check if at least one box is checked before moving on
     for (let item of this.items) {
-      if(this.checkboxes[item] === true) {
+      if(this.checkboxes[item] == true) {
         oneChecked = true;
         this.data.addChemical(item);
+
+        //populate as if they had selected everything
+        this.data.setTargetRiskHazard(this.data.getTargetRiskHazardOptions());
+        this.data.setScenario(this.data.getScenarioOptions());
+        this.data.setExposureRoutes(this.data.getExposureRouteOptions());
       }
     }
 
-    //populate as if they had selected everything
-    for (let item of screeningTypes) { this.data.addScreeningType(item); }
-    for (let item of targetRiskHazards) { this.data.addTargetRiskHazard(item); }
-    for (let item of scenarios) { this.data.addScenario(item); }
-    for (let item of exposureRoutes) { this.data.addExposureRoute(item); }
+    //If everything's good, move on to the next page
+    if(oneChecked == true) {
 
-      //If everything's good, move on to the next page
-      if(oneChecked == true) {
-       this.navCtrl.push(CardsPage, {
-         'data': this.data
-       });
-     } else {
-        alert("At least one chemical must be checked.");
+     this.navCtrl.push(CardsPage, {
+       'data': this.data
+     });
+    } else {
+      alert("At least one chemical must be checked.");
      }
-  }
+   }
 
   clearAll() {
     this.items = this.data.getChemicalNames();
