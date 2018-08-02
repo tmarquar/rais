@@ -49,7 +49,7 @@ export class MyApp {
       { title: 'Contact Us', pageName: ContactPage, icon: "contact" },
       { title: 'Key', pageName: TabsPage, icon: "key", component: KeyPage, index: 3 },
       { title: 'Tutorial', pageName: TutorialPage, icon: "help" },
-      { title: 'Recent Search', pageName: recentPage, icon: "time" }
+      { title: 'Recent Search', pageName: RecentPage, icon: "time" }
     ];
   }
 
