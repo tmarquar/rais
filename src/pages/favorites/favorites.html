@@ -27,10 +27,11 @@
         {{item}}
         </ion-card-title>
       </ion-card-header>
+      <ion-card-content class = "chemical" *ngFor="let info of data.getFormattedData(item)">
+        <p>{{info}}</p>
+    </ion-card-content>
       <button ion-item (click)="goToNextPage(item)">
-        <ion-card-content class = "chemical" *ngFor="let info of data.getSQLFormattedData(item)">
-          {{info}}
-      </ion-card-content>
+        <ion-icon name="information-circle" size="large">  More info...</ion-icon>
     </button>
   </ion-card>
 </ion-content>
