@@ -4,9 +4,9 @@ page-start {
     white-space: normal;
   }
   h2 {
-    position: fixed;
-    top: 100px;
-    
+    //position: fixed;
+    //top: 100px;
+
   }
   p {
     font-size: 24pt;
@@ -16,9 +16,9 @@ page-start {
     top : 100px;
   }
   ion-content{
-      background-image: url('/android_asset/www/assets/img/zombie.png');
-      background-repeat: no-repeat;
-      background-size: 80% 80%;
-      background-position: right bottom;
+      //background-image: url('/android_asset/www/assets/img/zombie.png');
+      //background-repeat: no-repeat;
+      //background-size: 100% 80%;
+      //background-position: right bottom;
   }
 }

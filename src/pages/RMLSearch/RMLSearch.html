@@ -4,11 +4,14 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      <h1>
-        EPA RML Screening Level Search
-      </h1>
+      <ion-searchbar
+      placeholder="RML Quick Search"
+      (ionInput)="getItems($event)"
+       [showCancelButton]="true">
+    </ion-searchbar>
+
     </ion-title>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
   </ion-navbar>
 </ion-header>
 
@@ -24,8 +27,8 @@
 
 <ion-footer>
   <div class="btn-wrapper">
-    <button ion-button (click)= "retrieveAll()">Retrieve All Info</button>
-    <button ion-button (click)= "clearAll()">Clear All</button>
+    <button ion-button (click)= "retrieveAll()">All Values</button>
+    <button ion-button (click)= "clearAll()">Clear</button>
     <button ion-button (click)= "goToOtherPage()">Next</button>
   </div>
 </ion-footer>

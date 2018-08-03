@@ -49,6 +49,7 @@ export class RMLData {
     let i:number = 0;
     for (let row of this.csvData){
       this._chemicalNames.push(row[0]);
+      //console.log("Chem Name: " + row[0]);
       this._myMap[row[0]] = i;
       i++;
     }

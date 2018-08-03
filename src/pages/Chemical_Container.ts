@@ -48,7 +48,7 @@ export class ChemicalContainer {
     this._rslthq01 = new RSLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, false);
     this._rmlthq10 = new RMLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, true);
     this._rmlthq30 = new RMLData(this.http, this.file,this._exposureRouteOptions, this._scenarioOptions, false);
-    this._chemicalNames = this._rslthq10.getChemicalList();
+    this._chemicalNames = this._rmlthq10.getChemicalList();
     this._sqlData = new SQLiteHandler(this.sqlite, this._screeningTypeOptions,this._targetRiskHazardOptions, this._scenarioOptions, this._exposureRouteOptions);
 
   }

@@ -21,7 +21,9 @@ import { CardsPage } from '../chemSelect/screeningType/targetRiskHazard/scenario
 export class RSLSearchPage {
   items;
   checkboxes = [];
+  searchTerm: string = '';
   data : ChemicalContainer;
+  searchToggled: boolean = false;
 
   // load all the packages we need to pass to ChemicalContainer
   constructor(public navCtrl: NavController, private http: HTTP, private file:File,private sqlite: SQLite, private loadingCtrl: LoadingController) {
@@ -40,6 +42,7 @@ export class RSLSearchPage {
 
     this.items = this.data.getChemicalNames();
     this.initializeCheckboxes();
+    this.searchToggled = false;
   }
 
   initializeCheckboxes() {
@@ -50,6 +53,10 @@ export class RSLSearchPage {
   toggleCheckboxes(item) {
     this.checkboxes[item] = !this.checkboxes[item];
 
+  }
+
+  public searchToggle():void {
+    this.searchToggled = !this.searchToggled;
   }
 
   getIcon(item):string{
@@ -135,5 +142,9 @@ export class RSLSearchPage {
           return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
         })
       }
+    }
+    cancelSearch(ev) {
+      this.items = this.data.getChemicalNames();
+      this.searchToggled = false;
     }
   }
